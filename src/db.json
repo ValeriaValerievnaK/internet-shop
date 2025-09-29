@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "001",
+      "login": "Lera",
+      "password": "qwerty123",
+      "role_id": 0,
+	  "cart": [{
+       	"product_id": "001",
+       	"count": "1"
+	  }]
+    },
+    {
+      "id": "2310",
+      "login": "kolya",
+      "password": "qwerty123",
+      "role_id": 0,
+	  "cart": []
+    }
+  ],
+
+  "roles": [
+    {
+      "id": "0",
+      "name": "Администратор"
+    },
+    {
+      "id": "1",
+      "name": "Покупатель"
+    },
+    {
+      "id": "2",
+      "name": "Гость"
+    }
+  ],
+  "products": [
+    {
+      "id": "001",
+      "title": "Телефон",
+      "image_url": "https://picsum.photos/280/150",
+      "class": "Техника",
+      "price": "90999",
+      "count": "24",
+	  "comments": [{
+		"id": "111",
+       	"author_id": "001",
+       	"author_login": "Lera",
+		"published_at": "2050-09-22",
+      	"content": "Хорошая помада"
+	  }]
+    },
+    {
+      "id": "002",
+      "title": "Помада",
+      "image_url": "https://picsum.photos/280/150",
+      "class": "Косметика",
+      "price": "2500",
+      "sum": "11",
+	  "comments": []
+    }
+  ]
+}
