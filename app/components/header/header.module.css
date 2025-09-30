@@ -1,0 +1,15 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	height: 120px;
+	width: 1000px;
+	padding: 20px 40px;
+	box-shadow: 0px 0px 15px #3f1d1d;
+	background-color: #fff;
+}
+
+.discription {
+	font-style: italic;
+}

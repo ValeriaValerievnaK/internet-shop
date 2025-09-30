@@ -1,0 +1,10 @@
+.rightAligned {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.userName {
+	font-size: 18px;
+	font-weight: bold;
+}
