@@ -8,6 +8,5 @@ export const transformUser = (dbUser) => {
 		login: dbUser.login,
 		password: dbUser.password,
 		roleId: dbUser.role_id,
-		cart: dbUser.cart,
 	};
 };

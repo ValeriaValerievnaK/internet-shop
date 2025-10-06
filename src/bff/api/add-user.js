@@ -8,6 +8,5 @@ export const addUser = (login, password) =>
 			login,
 			password,
 			role_id: 1,
-			cart: [],
 		}),
 	}).then((createdUser) => createdUser.json());

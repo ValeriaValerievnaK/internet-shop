@@ -19,7 +19,6 @@ export const register = async (regLogin, regPassword) => {
 			id: user.id,
 			login: user.login,
 			roleId: user.role_id,
-			cart: user.cart,
 			session: sessions.create(user),
 		},
 	};

@@ -5,8 +5,8 @@ const initialUserState = {
 	id: null,
 	login: null,
 	roleId: ROLE.GUEST,
-	cart: null,
 	session: null,
+	cart: null,
 };
 
 export const userReducer = (state = initialUserState, action) => {

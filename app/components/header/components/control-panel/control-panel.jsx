@@ -17,6 +17,11 @@ export const ControlPanel = ({ className }) => {
 	const dispatch = useDispatch();
 	const session = useSelector(selectUserSession);
 
+	const onLogout = () => {
+		dispatch(logout(session));
+		sessionStorage.removeItem('userData');
+	};
+
 	return (
 		<div className={className}>
 			<div className={styles.rightAligned}>
@@ -26,12 +31,8 @@ export const ControlPanel = ({ className }) => {
 					</Button>
 				) : (
 					<>
-						<div className={styles.userName}>{login}</div>
-						<Icon
-							id="fa-sign-out"
-							margin="0 0 0 10px"
-							onClick={() => dispatch(logout(session))}
-						/>
+						<div className={styles.userName}>Привет, {login}!</div>
+						<Icon id="fa-sign-out" margin="0 0 0 10px" onClick={onLogout} />
 					</>
 				)}
 			</div>
