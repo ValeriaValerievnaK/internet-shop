@@ -13,7 +13,7 @@ body {
 		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: #c492a9;
+	background: linear-gradient(to bottom right, #ffdbb6, #ff9fb1);
 }
 
 code {
@@ -31,6 +31,6 @@ body,
 }
 
 a {
-	color: #000;
+	color: #5c3b1fff;
 	text-decoration: none;
 }

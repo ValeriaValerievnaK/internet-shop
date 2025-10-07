@@ -11,6 +11,18 @@
       "login": "kolya",
       "password": "qwerty123",
       "role_id": 0
+    },
+    {
+      "id": "44c7",
+      "login": "Vika",
+      "password": "qwerty123",
+      "role_id": 1
+    },
+    {
+      "id": "f07d",
+      "login": "SEREJA",
+      "password": "qwe123",
+      "role_id": 1
     }
   ],
   "roles": [
@@ -75,6 +87,16 @@
         "password": "qwerty123",
         "roleId": 0
       }
+    },
+    {
+      "id": "cf9e",
+      "hash": "0.46638311621089600933487417933065444231033325195313",
+      "user": {
+        "id": "2310",
+        "login": "kolya",
+        "password": "qwerty123",
+        "roleId": 0
+      }
     }
   ],
   "comments": [
@@ -91,7 +113,8 @@
     {
       "product_id": "001",
       "user_id": "001",
-      "count": "1"
+      "count": "1",
+      "id": "4fdb"
     }
   ]
 }

@@ -3,13 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Header, Footer } from './components';
 import { setUser } from '../src/actions';
-import { Authorization } from './pages';
+import { Authorization, Registration } from './pages';
 import '../index.css';
 import styles from './shop.module.css';
 
 export const Shop = () => {
 	const dispatch = useDispatch();
-	
+
 	useLayoutEffect(() => {
 		const currentUserDataJSON = sessionStorage.getItem('userData');
 
@@ -37,7 +37,7 @@ export const Shop = () => {
 						element={<div>Страница отдельного товара </div>}
 					/>
 					<Route path="/login" element={<Authorization />} />
-					<Route path="/register" element={<div>Регистрация</div>} />
+					<Route path="/register" element={<Registration />} />
 					<Route path="/count" element={<div>Корзина</div>} />
 					<Route
 						path="/products/edit"
