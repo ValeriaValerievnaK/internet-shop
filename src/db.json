@@ -39,21 +39,91 @@
       "name": "Гость"
     }
   ],
+  "categories": [
+    {
+      "categoriesName": "Техника",
+      "subCategories": [
+		{
+		"id": "001",
+      	"name": "Электроника"
+		},
+		{
+		"id": "002",
+      	"name": "Бытовая техника"
+		},
+		{
+		"id": "003",
+      	"name": "Для ремонта"
+		}
+		]
+    },
+    {
+      "categoriesName": "Мебель",
+      "subCategories": [
+		{
+		"id": "004",
+      	"name": "Садовая мебель"
+		},
+		{
+		"id": "005",
+      	"name": "Для кухни"
+		},
+		{
+		"id": "006",
+      	"name": "В спальню"
+		}
+		]
+    },
+    {
+      "categoriesName": "Одежда",
+      "subCategories": [
+		{
+		"id": "007",
+      	"name": "Мужчинам"
+		},
+		{
+		"id": "008",
+      	"name": "Женщинам"
+		},
+		{
+		"id": "009",
+      	"name": "Аксессуары"
+		}
+		]
+    },
+    {
+      "categoriesName": "Детям",
+      "subCategories": [
+		{
+		"id": "010",
+      	"name": "Для новорожденных"
+		},
+		{
+		"id": "002",
+      	"name": "Игрушки "
+		},
+		{
+		"id": "003",
+      	"name": "Детское питание"
+		}
+		]
+    }
+  ],
   "products": [
     {
       "id": "001",
       "title": "Телефон",
-      "image_url": "https://picsum.photos/280/150",
-      "class": "Техника",
-      "price": "90999",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Электроника",
+      "price": "90 999",
       "count": "24"
     },
     {
       "id": "002",
-      "title": "Помада",
-      "image_url": "https://picsum.photos/280/150",
-      "class": "Косметика",
-      "price": "2500",
+      "title": "Ремень",
+      "image_url": "https://placecats.com/280/160",
+      "category": "Аксессуары",
+      "price": "2 500",
       "count": "11"
     }
   ],

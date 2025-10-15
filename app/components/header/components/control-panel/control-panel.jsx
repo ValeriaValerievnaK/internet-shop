@@ -45,7 +45,7 @@ export const ControlPanel = ({ className }) => {
 				<Link to="/count">
 					<Icon id="fa-shopping-basket" margin="10px 0 0 16px" />
 				</Link>
-				<Link to="/products/edit">
+				<Link to="/products-edit">
 					<Icon id="fa-cogs" margin="10px 0 0 16px" />
 				</Link>
 			</div>

@@ -5,3 +5,6 @@ export * from './get-roles';
 export * from './get-session';
 export * from './get-user';
 export * from './get-users';
+export * from './get-products';
+export * from './get-categories';
+export * from './delete-product';
