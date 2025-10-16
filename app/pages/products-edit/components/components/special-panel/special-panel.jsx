@@ -1,8 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../../src/actions';
-import { useServerRequest } from '../../../../../src/hooks';
-import { Icon } from '../../../../components';
+import { useServerRequest } from '../../../../../../src/hooks';
+import {
+	CLOSE_MODAL,
+	openModal,
+	removeProductAsync,
+} from '../../../../../../src/actions';
+import { Icon } from '../../../../../components';
 
 export const SpecialPanel = ({ id, editButton }) => {
 	const dispatch = useDispatch();
@@ -14,7 +18,7 @@ export const SpecialPanel = ({ id, editButton }) => {
 			openModal({
 				text: 'Вы действительно хотите удалить этот товар?',
 				onConfirm: () => {
-					dispatch(removePostAsync(id, requestServer)).then(() =>
+					dispatch(removeProductAsync(id, requestServer)).then(() =>
 						navigate('/'),
 					);
 					dispatch(CLOSE_MODAL);

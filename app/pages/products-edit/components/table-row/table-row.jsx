@@ -12,44 +12,46 @@ export const TableRow = styled(TableRowContainer)`
 	margin-bottom: 8px;
 	border-radius: 4px;
 	background: ${({ border }) => (border ? '#f9f9f9' : 'transparent')};
-
-	& > div {
+	min-height: 60px & > div {
 		padding: 0 10px;
 		display: flex;
 		align-items: center;
 	}
 
+	& input,
+	& select {
+		height: 40px;
+		margin: 0;
+		box-sizing: border-box;
+	}
+
 	& .title-column {
-		width: 200px;
-		flex-shrink: 0;
+		padding: 10px;
+		flex: 2 1 200px;
+		min-width: 200px;
 		font-weight: 500;
 	}
 
 	& .category-column {
-		width: 150px;
-		flex-shrink: 0;
+		flex: 1 1 150px;
+		min-width: 150px;
 	}
 
 	& .price-column {
-		width: 120px;
-		flex-shrink: 0;
+		flex: 1 1 120px;
+		min-width: 120px;
 		font-weight: 500;
 		color: #248124ff;
 	}
 
 	& .count-column {
-		width: 100px;
-		flex-shrink: 0;
+		flex: 1 1 100px;
+		min-width: 100px;
 	}
 
 	& .imageUrl-column {
-		width: 120px;
-		flex-shrink: 0;
-		justify-content: center;
-	}
-
-	& .actions-column {
-		width: 100px;
-		flex-shrink: 0;
+		flex: 1 1 120px;
+		min-width: 120px;
+		text-align: center;
 	}
 `;

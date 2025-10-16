@@ -7,15 +7,12 @@
 	height: 100%;
 }
 
+.productsList {
+	width: 700px;
+}
 
 .content {
 	display: flex;
 	justify-content: center;
 }
 
-.createNewProducts {
-	border: 1px solid #000;
-	width: 250px;
-	height: 500px;
-	margin: auto 10px;
-}

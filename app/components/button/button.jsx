@@ -17,7 +17,7 @@ export const Button = styled(ButtonContainer)`
 	width: ${({ width = '100%' }) => width};
 	border: 1px solid #d4a574;
 	border-radius: 10px;
-	background-color: #f5e6d3;
+	background-color: #f5e6d3ff;
 	color: #8b4716ff;
 
 	&:hover {

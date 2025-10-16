@@ -8,3 +8,5 @@ export * from './get-users';
 export * from './get-products';
 export * from './get-categories';
 export * from './delete-product';
+export * from './add-product';
+export * from './update-product';
