@@ -1,1 +1,2 @@
-export * from './select-with-grop/select-with-grop';
+export * from './select-with-group/select-with-group';
+export * from './validation.schema/validation.schema';

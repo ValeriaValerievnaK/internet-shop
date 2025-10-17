@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { TableRow } from '../table-row/table-row';
 import { useServerRequest } from '../../../../../src/hooks';
-import { SelectWithGrop } from '../utils';
+import { SelectWithGroup, validationSchema } from '../utils';
 import { SpecialPanel } from '../components';
 import { Icon, Input } from '../../../../components';
 import { saveProductAsync } from '../../../../../src/actions';
@@ -19,92 +21,118 @@ export const ProductRow = ({
 	setShouldUpdateProductList,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [titleValue, setTitleValue] = useState(title);
-	const [categoryValue, setCategoryValue] = useState(productCategory);
-	const [priceValue, setPriceValue] = useState(price);
-	const [countValue, setCountValue] = useState(count);
-	const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
 
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
 
-	const onTitleChange = ({ target }) => setTitleValue(target.value);
-	const onCategoryChange = ({ target }) => setCategoryValue(target.value);
-	const onPriceChange = ({ target }) => setPriceValue(target.value);
-	const onCountChange = ({ target }) => setCountValue(target.value);
-	const onImageChange = ({ target }) => setImageUrlValue(target.value);
+	const {
+		register,
+		reset,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: {
+			title: title,
+			category: productCategory,
+			price: price,
+			count: count,
+			imageUrl: imageUrl,
+		},
+		resolver: yupResolver(validationSchema),
+	});
 
 	const onHandelEdit = () => {
 		setIsEditing((prev) => !prev);
 	};
 
-	const onSave = () => {
+	const onSubmit = ({ title, category, price, count, imageUrl }) => {
 		dispatch(
 			saveProductAsync(requestServer, {
 				id,
-				title: titleValue,
-				imageUrl: imageUrlValue,
-				category: categoryValue,
-				price: priceValue,
-				count: countValue,
+				title,
+				imageUrl,
+				category,
+				price,
+				count,
 			}),
 		).then(() => {
-			setIsEditing(false);
 			setShouldUpdateProductList((prev) => !prev);
+			reset();
+			setIsEditing(false);
 		});
 	};
+
+	const titleError = errors?.title?.message;
+	const categoryError = errors?.category?.message;
+	const priceError = errors?.price?.message;
+	const countError = errors?.count?.message;
+	const imageUrlError = errors?.imageUrl?.message;
+
+	const formError =
+		errors?.title?.message ||
+		errors?.category?.message ||
+		errors?.price?.message ||
+		errors?.count?.message ||
+		errors?.imageUrl?.message;
 
 	const renderContent = () => {
 		if (isEditing) {
 			return (
-				<>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<TableRow border={true}>
 						<Input
 							className="title-column"
-							min="2"
-							max="20"
-							value={titleValue}
+							type="text"
 							placeholder="Наименование..."
-							onChange={onTitleChange}
+							error={titleError}
+							{...register('title')}
 						/>
-						<SelectWithGrop
+						<SelectWithGroup
 							allCategories={allCategories}
-							value={categoryValue}
-							onChange={onCategoryChange}
+							error={categoryError}
+							{...register('category')}
 						/>
 						<Input
 							className="price-column"
-							value={priceValue}
+							type="number"
 							placeholder="Стоимость..."
-							onChange={onPriceChange}
+							error={priceError}
+							{...register('price')}
 						/>
 						<Input
 							className="count-column"
 							type="number"
-							min="0"
-							value={countValue}
 							placeholder="Остаток..."
-							onChange={onCountChange}
+							error={countError}
+							{...register('count')}
 						/>
 						<Input
 							className="imageUrl-column"
-							value={imageUrlValue}
+							type="text"
 							placeholder="Фото..."
-							onChange={onImageChange}
+							error={imageUrlError}
+							{...register('imageUrl')}
 						/>
 					</TableRow>
 					<SpecialPanel
 						id={id}
 						editButton={
-							<Icon
-								id="fa-floppy-o"
-								size="21px"
-								margin="0 0 0 10px"
-								onClick={onSave}
-							/>
+							<button
+								className={styles.saveButton}
+								type="submit"
+								disabled={!!formError}
+							>
+								<Icon
+									id="fa-floppy-o"
+									size="21px"
+									margin="0 0 0 10px"
+									disabled={!!formError}
+								/>
+							</button>
 						}
+						setShouldUpdateProductList={setShouldUpdateProductList}
 					/>
-				</>
+				</form>
 			);
 		}
 
@@ -129,6 +157,7 @@ export const ProductRow = ({
 							onClick={onHandelEdit}
 						/>
 					}
+					setShouldUpdateProductList={setShouldUpdateProductList}
 				/>
 			</>
 		);

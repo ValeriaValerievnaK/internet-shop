@@ -1,9 +1,9 @@
-import styles from './select-with-grop.module.css';
+import styles from './select-with-group.module.css';
 
-export const SelectWithGrop = ({ allCategories, ...props }) => {
+export const SelectWithGroup = ({ allCategories, ...props }) => {
 	return (
 		<select className={styles.container} {...props}>
-			<option value="" disabled selected hidden>
+			<option value="" disabled hidden>
 				Категория
 			</option>
 			{allCategories.map(({ id, categoriesName, subCategories }) => (
@@ -16,5 +16,3 @@ export const SelectWithGrop = ({ allCategories, ...props }) => {
 		</select>
 	);
 };
-
-// в консоль приходит ошибка про value="", подумать что делать

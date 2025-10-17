@@ -116,27 +116,11 @@
   "products": [
     {
       "id": "001",
-      "title": "Телефон",
+      "title": "Мотя",
       "image_url": "https://placecats.com/281/160",
       "category": "В спальню",
-      "price": "90 999",
-      "count": "32"
-    },
-    {
-      "id": "002",
-      "title": "Ремень",
-      "image_url": "https://placecats.com/280/160",
-      "category": "Аксессуары",
-      "price": "2 500",
-      "count": "11"
-    },
-    {
-      "title": "ыы",
-      "image_url": "https://placecats.com/281/160",
-      "category": "Бытовая техника",
-      "price": "11",
-      "count": "11",
-      "id": "dDbNwAO"
+      "price": 999,
+      "count": 32
     }
   ],
   "sessions": [
@@ -181,14 +165,14 @@
       }
     },
     {
-      "hash": "0.58397850673604190241405831329757347702980041503906",
+      "hash": "0.52910590470856744271799243506393395364284515380859",
       "user": {
         "id": "001",
         "login": "Lera",
         "password": "qwerty123",
         "roleId": 0
       },
-      "id": "ElGnBvm"
+      "id": "QdBZ3Aw"
     }
   ],
   "comments": [

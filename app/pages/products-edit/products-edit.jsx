@@ -9,9 +9,12 @@ import styles from './products-edit.module.css';
 export const ProductsEdit = () => {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
+	// TODO: перенести shouldUpdateProductList в redax
 	const [shouldUpdateProductList, setShouldUpdateProductList] = useState(false);
 	const userRole = useSelector(selectUserRole);
 	const requestServer = useServerRequest();
+
+	
 
 	useEffect(() => {
 		Promise.all([

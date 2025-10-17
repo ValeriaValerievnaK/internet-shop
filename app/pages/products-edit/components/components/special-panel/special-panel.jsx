@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useServerRequest } from '../../../../../../src/hooks';
 import {
 	CLOSE_MODAL,
@@ -8,10 +7,9 @@ import {
 } from '../../../../../../src/actions';
 import { Icon } from '../../../../../components';
 
-export const SpecialPanel = ({ id, editButton }) => {
+export const SpecialPanel = ({ id, editButton, setShouldUpdateProductList }) => {
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
-	const navigate = useNavigate();
 
 	const onProductRemove = (requestServer, id) => {
 		dispatch(
@@ -19,7 +17,7 @@ export const SpecialPanel = ({ id, editButton }) => {
 				text: 'Вы действительно хотите удалить этот товар?',
 				onConfirm: () => {
 					dispatch(removeProductAsync(id, requestServer)).then(() =>
-						navigate('/'),
+						setShouldUpdateProductList((prev) => !prev),
 					);
 					dispatch(CLOSE_MODAL);
 				},

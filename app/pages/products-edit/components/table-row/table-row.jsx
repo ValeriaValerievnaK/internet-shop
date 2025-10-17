@@ -12,7 +12,9 @@ export const TableRow = styled(TableRowContainer)`
 	margin-bottom: 8px;
 	border-radius: 4px;
 	background: ${({ border }) => (border ? '#f9f9f9' : 'transparent')};
-	min-height: 60px & > div {
+	min-height: 60px;
+
+	& > div {
 		padding: 0 10px;
 		display: flex;
 		align-items: center;
@@ -28,30 +30,30 @@ export const TableRow = styled(TableRowContainer)`
 	& .title-column {
 		padding: 10px;
 		flex: 2 1 200px;
-		min-width: 200px;
+		width: 200px;
 		font-weight: 500;
 	}
 
 	& .category-column {
 		flex: 1 1 150px;
-		min-width: 150px;
+		width: 150px;
 	}
 
 	& .price-column {
 		flex: 1 1 120px;
-		min-width: 120px;
+		width: 120px;
 		font-weight: 500;
 		color: #248124ff;
 	}
 
 	& .count-column {
 		flex: 1 1 100px;
-		min-width: 100px;
+		width: 100px;
 	}
 
 	& .imageUrl-column {
 		flex: 1 1 120px;
-		min-width: 120px;
+		width: 120px;
 		text-align: center;
 	}
 `;

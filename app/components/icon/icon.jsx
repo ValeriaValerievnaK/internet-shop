@@ -15,6 +15,5 @@ export const Icon = styled(IconContainer)`
 
 	&:hover {
 		cursor: pointer;
-		transform: rotate(360deg);
 	}
 `;

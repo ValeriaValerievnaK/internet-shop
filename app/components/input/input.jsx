@@ -6,8 +6,8 @@ const InputContainer = forwardRef(({ className, ...props }, ref) => (
 ));
 
 export const Input = styled(InputContainer)`
-	border: 1px solid #ddd;
-	background: #f5eadd4b;
+	border: 1px solid ${({ error }) => (error ? '#f19c9cff' : '#ddd')};
+	background: ${({ error }) => (error ? '#ff444415' : '#f5eadd4b')};
 	height: 40px;
 	margin: ${({ margin = '0 0 10px' }) => margin};
 	padding: 10px;
@@ -17,7 +17,8 @@ export const Input = styled(InputContainer)`
 
 	&:focus {
 		outline: none;
-		border-color: #aaa;
-		box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+		border-color: ${({ error }) => (error ? '#f19c9cff' : '#aaa')};
+		box-shadow: 0 0 0 2px
+			${({ error }) => (error ? '#f7b8b862' : 'rgba(0, 0, 0, 0.1)')};
 	}
 `;
