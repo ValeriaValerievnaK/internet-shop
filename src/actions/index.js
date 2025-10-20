@@ -4,5 +4,8 @@ export * from './logout';
 export * from './open-modal';
 export * from './close-modal';
 export * from './remove-product-async';
+export * from './remove-comment-async';
 export * from './save-product-async';
 export * from './set-product-data';
+export * from './load-product-async';
+export * from './add-comment-async';

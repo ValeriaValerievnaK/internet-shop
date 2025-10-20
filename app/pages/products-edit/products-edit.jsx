@@ -14,8 +14,6 @@ export const ProductsEdit = () => {
 	const userRole = useSelector(selectUserRole);
 	const requestServer = useServerRequest();
 
-	
-
 	useEffect(() => {
 		Promise.all([
 			requestServer('fetchProducts'),

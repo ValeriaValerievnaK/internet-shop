@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-const IconContainer = ({ className, id, ...props }) => (
+// eslint-disable-next-line no-unused-vars
+const IconContainer = ({ className, id, inactive, ...props }) => (
 	<div className={className} {...props}>
 		<i className={`fa ${id}`} aria-hidden="true"></i>
 	</div>
@@ -14,6 +15,6 @@ export const Icon = styled(IconContainer)`
 	transition: transform 3s ease;
 
 	&:hover {
-		cursor: pointer;
+		cursor: ${({ inactive }) => (inactive ? 'default' : 'pointer')};
 	}
 `;
