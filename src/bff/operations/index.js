@@ -1,5 +1,6 @@
 export * from './authorize';
 export * from './add-product-comment';
+export * from './add-product-to-cart';
 export * from './logout';
 export * from './register';
 export * from './fetch-categories';

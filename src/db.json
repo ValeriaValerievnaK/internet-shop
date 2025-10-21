@@ -191,16 +191,6 @@
       "id": "QdBZ3Aw"
     },
     {
-      "hash": "0.05767656318640601575964410585584118962287902832031",
-      "user": {
-        "id": "001",
-        "login": "Lera",
-        "password": "qwerty123",
-        "roleId": 0
-      },
-      "id": "7fg0c0Q"
-    },
-    {
       "hash": "0.28978080468197131569496605152380652725696563720703",
       "user": {
         "id": "001",
@@ -209,6 +199,16 @@
         "roleId": 0
       },
       "id": "Z0z9Zab"
+    },
+    {
+      "hash": "0.76553042061720499855681509870919398963451385498047",
+      "user": {
+        "id": "2310",
+        "login": "kolya",
+        "password": "qwerty123",
+        "roleId": 0
+      },
+      "id": "qoQAti0"
     }
   ],
   "comments": [
@@ -218,13 +218,6 @@
       "author_id": "001",
       "published_at": "2050-09-22",
       "content": "Хорошая помада"
-    },
-    {
-      "id": "112",
-      "product_id": "001",
-      "author_id": "001",
-      "published_at": "2050-09-22",
-      "content": "Хорошая мотя"
     },
     {
       "id": "113",
@@ -239,6 +232,48 @@
       "published_at": "2025-10-20",
       "content": "Все хорошо",
       "id": "-YGSipn"
+    },
+    {
+      "product_id": "001",
+      "author_id": "2310",
+      "published_at": "2025-10-21",
+      "content": "Мотя любит паштеты",
+      "id": "LGcSEvQ"
+    },
+    {
+      "product_id": "001",
+      "author_id": "2310",
+      "published_at": "2025-10-21",
+      "content": "мотя выкинула паштет и попросила новый корм",
+      "id": "wuZEqIr"
+    },
+    {
+      "product_id": "001",
+      "author_id": "2310",
+      "published_at": "2025-10-21",
+      "content": "я корзиночка с товарами",
+      "id": "Kgbvgzu"
+    },
+    {
+      "product_id": "001",
+      "author_id": "2310",
+      "published_at": "2025-10-21",
+      "content": "крутая страница с контентом о моте",
+      "id": "b53rTYT"
+    },
+    {
+      "product_id": "001",
+      "author_id": "2310",
+      "published_at": "2025-10-21",
+      "content": "мотя больше не любит паштеты",
+      "id": "cyOAj10"
+    },
+    {
+      "product_id": "001",
+      "author_id": "2310",
+      "published_at": "2025-10-21",
+      "content": "мотя любит суп из семи креветок",
+      "id": "-HONse4"
     }
   ],
   "cart": [
@@ -247,6 +282,48 @@
       "user_id": "001",
       "count": "1",
       "id": "4fdb"
+    },
+    {
+      "product_id": "001",
+      "user_id": "001",
+      "count": "1",
+      "id": "126RMM4"
+    },
+    {
+      "product_id": "001",
+      "user_id": "001",
+      "count": "1",
+      "id": "Yt-SnNM"
+    },
+    {
+      "product_id": "001",
+      "user_id": "001",
+      "count": "1",
+      "id": "5r8Q5Lf"
+    },
+    {
+      "product_id": "001",
+      "user_id": "001",
+      "count": "1",
+      "id": "S09jLzX"
+    },
+    {
+      "product_id": "001",
+      "user_id": "001",
+      "count": "1",
+      "id": "yrU83pN"
+    },
+    {
+      "product_id": "2310",
+      "user_id": "001",
+      "count": "1",
+      "id": "cHOYgKf"
+    },
+    {
+      "product_id": "2310",
+      "user_id": "001",
+      "count": "1",
+      "id": "HlxXyvD"
     }
   ]
 }

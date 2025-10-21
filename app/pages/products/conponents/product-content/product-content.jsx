@@ -1,11 +1,30 @@
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button, H2 } from '../../../../components';
 import styles from './product-content.module.css';
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../../../../../src/selectore';
+import { useServerRequest } from '../../../../../src/hooks';
 
 export const ProductContent = ({
 	product: { id, title, imageUrl, category, price, count },
 }) => {
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
+	const requestServer = useServerRequest();
+	const userId = useSelector(selectUserId);
+
+	const onBuyProductNow = (requestServer, productId, userId) => {
+		requestServer('addProductToCart', productId, userId).then((res) => {
+			if (res.res) {
+				navigate('/count');
+			}
+		});
+	};
+
+	const onBuyProduct = (requestServer, productId, userId) => {
+		requestServer('addProductToCart', productId, userId);
+	};
+
+	// TODO реализовать путь к товару ссылками с navigate('/') и фильту по категории
 
 	return (
 		<div className={styles.conteiner}>
@@ -17,8 +36,12 @@ export const ProductContent = ({
 				<div className={styles.count}>Осталось {count} шт</div>
 			</div>
 			<div className={styles.actions}>
-				<Button>Купить сейчас</Button>
-				<Button>Добавить в корзину</Button>
+				<Button onClick={() => onBuyProductNow(requestServer, id, userId)}>
+					Купить сейчас
+				</Button>
+				<Button onClick={() => onBuyProduct(requestServer, id, userId)}>
+					Добавить в корзину
+				</Button>
 			</div>
 		</div>
 	);

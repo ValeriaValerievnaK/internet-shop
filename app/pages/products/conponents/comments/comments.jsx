@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserId } from '../../../../../src/selectore';
 import { useServerRequest } from '../../../../../src/hooks';
 import { addCommentAsync } from '../../../../../src/actions';
-import { H2, Icon } from '../../../../components';
+import { Icon } from '../../../../components';
 import { Comment } from './components';
 import styles from './comments.module.css';
 

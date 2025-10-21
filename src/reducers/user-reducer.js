@@ -6,7 +6,6 @@ const initialUserState = {
 	login: null,
 	roleId: ROLE.GUEST,
 	session: null,
-	cart: null,
 };
 
 export const userReducer = (state = initialUserState, action) => {
