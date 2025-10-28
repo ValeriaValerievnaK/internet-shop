@@ -42,7 +42,7 @@ export const ControlPanel = ({ className }) => {
 					margin="10px 0 0 0"
 					onClick={() => navigate(-1)}
 				/>
-				<Link to="/count">
+				<Link to="/cart">
 					<Icon id="fa-shopping-basket" margin="10px 0 0 16px" />
 				</Link>
 				<Link to="/products-edit">

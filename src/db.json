@@ -191,16 +191,6 @@
       "id": "QdBZ3Aw"
     },
     {
-      "hash": "0.28978080468197131569496605152380652725696563720703",
-      "user": {
-        "id": "001",
-        "login": "Lera",
-        "password": "qwerty123",
-        "roleId": 0
-      },
-      "id": "Z0z9Zab"
-    },
-    {
       "hash": "0.76553042061720499855681509870919398963451385498047",
       "user": {
         "id": "2310",
@@ -209,6 +199,26 @@
         "roleId": 0
       },
       "id": "qoQAti0"
+    },
+    {
+      "hash": "0.70043006531977469730776419964968226850032806396484",
+      "user": {
+        "id": "001",
+        "login": "Lera",
+        "password": "qwerty123",
+        "roleId": 0
+      },
+      "id": "CsKfd0S"
+    },
+    {
+      "hash": "0.31565548860940795261598168508498929440975189208984",
+      "user": {
+        "id": "001",
+        "login": "Lera",
+        "password": "qwerty123",
+        "roleId": 0
+      },
+      "id": "9UE34Kq"
     }
   ],
   "comments": [
@@ -274,56 +284,33 @@
       "published_at": "2025-10-21",
       "content": "мотя любит суп из семи креветок",
       "id": "-HONse4"
+    },
+    {
+      "product_id": "0nhvtdN",
+      "author_id": "001",
+      "published_at": "2025-10-28",
+      "content": "sdfsd",
+      "id": "TX7pciW"
     }
   ],
   "cart": [
     {
       "product_id": "001",
       "user_id": "001",
-      "count": "1",
-      "id": "4fdb"
+      "image_url": "https://placecats.com/281/160",
+      "title": "Мотя",
+      "price": "5994",
+      "count": "6",
+      "id": 1
     },
     {
-      "product_id": "001",
+      "product_id": "0nhvtdN",
       "user_id": "001",
-      "count": "1",
-      "id": "126RMM4"
-    },
-    {
-      "product_id": "001",
-      "user_id": "001",
-      "count": "1",
-      "id": "Yt-SnNM"
-    },
-    {
-      "product_id": "001",
-      "user_id": "001",
-      "count": "1",
-      "id": "5r8Q5Lf"
-    },
-    {
-      "product_id": "001",
-      "user_id": "001",
-      "count": "1",
-      "id": "S09jLzX"
-    },
-    {
-      "product_id": "001",
-      "user_id": "001",
-      "count": "1",
-      "id": "yrU83pN"
-    },
-    {
-      "product_id": "2310",
-      "user_id": "001",
-      "count": "1",
-      "id": "cHOYgKf"
-    },
-    {
-      "product_id": "2310",
-      "user_id": "001",
-      "count": "1",
-      "id": "HlxXyvD"
+      "image_url": "https://placecats.com/281/160",
+      "title": "освеживатель воздуха",
+      "price": "11500",
+      "count": "5",
+      "id": 2
     }
   ]
 }

@@ -13,5 +13,7 @@ export * from './get-users';
 export * from './get-products';
 export * from './get-product';
 export * from './get-categories';
+export * from './get-cart';
 export * from './get-comments';
 export * from './update-product';
+export * from './update-product-to-user-cart';

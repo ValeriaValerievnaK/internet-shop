@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Header, Footer, Modal } from './components';
 import { setUser } from '../src/actions';
-import { Authorization, Registration, ProductsEdit, Products } from './pages';
+import { Authorization, Registration, ProductsEdit, Products, Cart } from './pages';
 import '../index.css';
 import styles from './shop.module.css';
 
@@ -35,7 +35,7 @@ export const Shop = () => {
 					<Route path="/products/:productId" element={<Products />} />
 					<Route path="/login" element={<Authorization />} />
 					<Route path="/register" element={<Registration />} />
-					<Route path="/count" element={<div>Корзина</div>} />
+					<Route path="/cart" element={<Cart />} />
 					<Route path="/products-edit" element={<ProductsEdit />} />
 					<Route path="*" element={<div>Ошибка</div>} />
 				</Routes>

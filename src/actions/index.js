@@ -7,5 +7,7 @@ export * from './remove-product-async';
 export * from './remove-comment-async';
 export * from './save-product-async';
 export * from './set-product-data';
+export * from './set-cart-data';
 export * from './load-product-async';
+export * from './load-cart-async';
 export * from './add-comment-async';

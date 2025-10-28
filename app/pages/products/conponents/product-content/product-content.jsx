@@ -13,7 +13,15 @@ export const ProductContent = ({
 	const userId = useSelector(selectUserId);
 
 	const onBuyProductNow = (requestServer, productId, userId) => {
-		requestServer('addProductToCart', productId, userId).then((res) => {
+		requestServer(
+			'addProductToCart',
+			productId,
+			userId,
+			imageUrl,
+			title,
+			price,
+			count,
+		).then((res) => {
 			if (res.res) {
 				navigate('/count');
 			}
@@ -21,7 +29,15 @@ export const ProductContent = ({
 	};
 
 	const onBuyProduct = (requestServer, productId, userId) => {
-		requestServer('addProductToCart', productId, userId);
+		requestServer(
+			'addProductToCart',
+			productId,
+			userId,
+			imageUrl,
+			title,
+			price,
+			count,
+		);
 	};
 
 	// TODO реализовать путь к товару ссылками с navigate('/') и фильту по категории

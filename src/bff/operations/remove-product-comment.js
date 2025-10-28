@@ -10,7 +10,7 @@ export const removeProductComment = async (hash, id, productId) => {
 
 	if (!access) {
 		return {
-			error: 'Недостаточно прав',
+			error: 'Усп... Недостаточно прав. Обратитесь к разработчику.',
 			res: null,
 		};
 	}
