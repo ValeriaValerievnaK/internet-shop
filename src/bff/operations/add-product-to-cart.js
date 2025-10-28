@@ -1,6 +1,7 @@
 import { addProductToUserCart, getCart, updateProductToUserCart } from '../api';
 import { sessions } from '../sessions';
 import { ROLE } from '../constans';
+import { updateCountData } from '../../utils';
 
 export const addProductToCart = async (
 	hash,
@@ -35,16 +36,14 @@ export const addProductToCart = async (
 		({ productId: productIdAtCart }) => productIdAtCart == String(productId),
 	);
 
-	// console.log('fcf', currentProduct);
-
 	if (!currentProduct) {
 		await addProductToUserCart(productId, userId, imageUrl, title, price);
 	} else {
-		const initialPrice = price;
-		const newCount = Number(currentProduct.count) + 1;
-		const newPrice = newCount * Number(initialPrice);
-
-		// console.log('currentProduct', currentProduct.count, currentProduct.price);
+		const { newCount, newPrice } = updateCountData(
+			price,
+			currentProduct.count,
+			'increase',
+		);
 
 		await updateProductToUserCart(
 			currentProduct.id,
@@ -52,6 +51,8 @@ export const addProductToCart = async (
 			String(newPrice),
 		);
 	}
+
+	// console.log(cart);
 
 	return {
 		error: null,

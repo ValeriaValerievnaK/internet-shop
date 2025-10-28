@@ -299,8 +299,8 @@
       "user_id": "001",
       "image_url": "https://placecats.com/281/160",
       "title": "Мотя",
-      "price": "5994",
-      "count": "6",
+      "price": 0,
+      "count": 3,
       "id": 1
     },
     {
@@ -308,8 +308,8 @@
       "user_id": "001",
       "image_url": "https://placecats.com/281/160",
       "title": "освеживатель воздуха",
-      "price": "11500",
-      "count": "5",
+      "price": 43700,
+      "count": 19,
       "id": 2
     }
   ]

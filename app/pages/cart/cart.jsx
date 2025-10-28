@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../../src/hooks';
 import { selectCart, selectUserId } from '../../../src/selectore';
@@ -9,32 +9,21 @@ import { loadCartAsync } from '../../../src/actions';
 export const Cart = () => {
 	const dispatch = useDispatch();
 	const cart = useSelector(selectCart);
-
-	// const [inCart, setInCart] = useState([]);
 	const userId = useSelector(selectUserId);
 	const requestServer = useServerRequest();
-
-	// useEffect(() => {
-	// 	requestServer('fetchProductCart', userId).then((res) => {
-	// 		if (res.res) {
-	// 			setInCart(res.res);
-	// 			// console.log(res.res);
-	// 		}
-	// 	});
-	// }, [requestServer, userId]);
 
 	useEffect(() => {
 		dispatch(loadCartAsync(requestServer, userId));
 	}, [dispatch, requestServer, userId]);
 
-	console.log(cart);
+	// console.log('cart', cart);
 
 	return (
 		<>
 			<h2 className={styles.title}>Корзина</h2>
 			<div className={styles.container}>
 				<div className={styles.allCart}>
-					{cart.map(
+					{cart.cartData.map(
 						({
 							productId,
 							productImageUrl,
@@ -43,18 +32,20 @@ export const Cart = () => {
 							userId,
 							count,
 							id,
-						}) => (
-							<CartRow
-								key={id}
-								productId={productId}
-								userId={userId}
-								productImageUrl={productImageUrl}
-								productTitle={productTitle}
-								price={price}
-								count={count}
-								id={id}
-							/>
-						),
+						}) => {
+							return (
+								<CartRow
+									key={id}
+									productId={productId}
+									userId={userId}
+									productImageUrl={productImageUrl}
+									productTitle={productTitle}
+									price={price}
+									count={count}
+									id={id}
+								/>
+							);
+						},
 					)}
 				</div>
 				<div className={styles.action}>

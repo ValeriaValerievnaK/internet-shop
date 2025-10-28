@@ -10,3 +10,4 @@ export * from './remove-product-comment';
 export * from './save-product';
 export * from './fetch-product';
 export * from './fetch-product-cart';
+export * from './update-cart';

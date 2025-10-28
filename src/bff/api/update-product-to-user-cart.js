@@ -1,3 +1,5 @@
+import { transformCart } from '../transformers';
+
 export const updateProductToUserCart = (id, newCount, newPrice) =>
 	fetch(`http://localhost:3008/cart/${id}`, {
 		method: 'PATCH',
@@ -8,4 +10,6 @@ export const updateProductToUserCart = (id, newCount, newPrice) =>
 			count: newCount,
 			price: newPrice,
 		}),
-	});
+	})
+		.then((loadedCart) => loadedCart.json())
+		.then((loadedCart) => transformCart(loadedCart));
