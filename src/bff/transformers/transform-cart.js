@@ -2,7 +2,6 @@ export const transformCart = (dbCart) => {
 	if (!dbCart) {
 		return null;
 	}
-	// console.log('db', dbCart);
 
 	return {
 		productId: dbCart.product_id,
