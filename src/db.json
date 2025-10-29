@@ -225,21 +225,12 @@
   ],
   "cart": [
     {
-      "product_id": "001",
-      "user_id": "001",
-      "image_url": "https://placecats.com/281/160",
-      "title": "Мотя",
-      "price": 5994,
-      "count": 6,
-      "id": 1
-    },
-    {
       "product_id": "0nhvtdN",
       "user_id": "001",
       "image_url": "https://placecats.com/281/160",
       "title": "освеживатель воздуха",
-      "price": 4600,
-      "count": 2,
+      "price": 9200,
+      "count": 4,
       "id": 2
     }
   ]
