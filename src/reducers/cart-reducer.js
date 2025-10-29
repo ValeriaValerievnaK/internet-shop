@@ -1,17 +1,33 @@
 import { ACTION_TYPE } from '../actions';
-const initialCartState = { cartData: [] };
+const initialCartState = { cartData: [], totalPrice: 0 };
+
+const calculateTotalPrice = (cartItems) => {
+	return cartItems.reduce((total, item) => {
+		return total + (item.price || 0);
+	}, 0);
+};
 
 export const cartReducer = (state = initialCartState, action) => {
 	switch (action.type) {
 		case ACTION_TYPE.SET_CART_DATA:
-			return { ...state, cartData: action.payload };
-		case ACTION_TYPE.UPDATE_CART:
 			return {
 				...state,
-				cartData: state.cartData.map((item) =>
-					item.id === action.payload.id ? action.payload : item,
-				),
+				cartData: action.payload,
+				totalPrice: calculateTotalPrice(action.payload),
 			};
+
+		case ACTION_TYPE.UPDATE_CART: {
+			const updatedCartData = state.cartData.map((item) =>
+				item.id === action.payload.id ? action.payload : item,
+			);
+
+			return {
+				...state,
+				cartData: updatedCartData,
+				totalPrice: calculateTotalPrice(updatedCartData),
+			};
+		}
+
 		default:
 			return state;
 	}

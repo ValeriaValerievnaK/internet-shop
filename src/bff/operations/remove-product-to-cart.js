@@ -1,20 +1,20 @@
-import { getCart } from '../api';
+import { deleteProductToCart, getCart } from '../api';
 import { sessions } from '../sessions';
 import { ROLE } from '../constans';
 
-export const fetchProductCart = async (hash, userId) => {
+export const removeProductToCart = async (hash, id, userId) => {
 	const accessRoles = [ROLE.ADMIN, ROLE.BUYER];
-
-	console.log('hash', hash);
 
 	const access = await sessions.access(hash, accessRoles);
 
 	if (!access) {
 		return {
-			error: 'Авторизуйтесь, что бы посмотреть корзину',
+			error: 'Необходимо авторизоваться!',
 			res: null,
 		};
 	}
+
+	await deleteProductToCart(id);
 
 	const productsInCart = await getCart(userId);
 

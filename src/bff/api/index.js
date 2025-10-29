@@ -5,6 +5,7 @@ export * from './add-product-to-user-cart';
 export * from './add-post-comment';
 export * from './delete-session';
 export * from './delete-product';
+export * from './delete-product-ro-cart';
 export * from './delete-comment';
 export * from './get-roles';
 export * from './get-session';

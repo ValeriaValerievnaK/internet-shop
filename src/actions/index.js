@@ -7,6 +7,7 @@ export * from './logout';
 export * from './open-modal';
 export * from './remove-comment-async';
 export * from './remove-product-async';
+export * from './remove-product-to-cart-async';
 export * from './save-product-async';
 export * from './set-cart-data';
 export * from './set-product-data';

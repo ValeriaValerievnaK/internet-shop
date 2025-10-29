@@ -9,7 +9,7 @@ export const updateCart = async (hash, id, newCount, newPrice) => {
 
 	if (!access) {
 		return {
-			error: 'Авторизуйтесь',
+			error: 'Пожалуйста, авторизуйтесь!',
 			res: null,
 		};
 	}

@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ActionBox, CartRow } from './components';
 import { useServerRequest } from '../../../src/hooks';
-import { selectCart, selectUserId } from '../../../src/selectore';
-import styles from './cart.module.css';
-import { CartRow } from './components';
+import { selectCartData, selectUserId } from '../../../src/selectore';
 import { loadCartAsync } from '../../../src/actions';
+import styles from './cart.module.css';
 
 export const Cart = () => {
 	const dispatch = useDispatch();
-	const cart = useSelector(selectCart);
+	const cart = useSelector(selectCartData);
 	const userId = useSelector(selectUserId);
 	const requestServer = useServerRequest();
 
@@ -16,14 +16,12 @@ export const Cart = () => {
 		dispatch(loadCartAsync(requestServer, userId));
 	}, [dispatch, requestServer, userId]);
 
-	// console.log('cart', cart);
-
 	return (
 		<>
 			<h2 className={styles.title}>Корзина</h2>
 			<div className={styles.container}>
 				<div className={styles.allCart}>
-					{cart.cartData.map(
+					{cart.map(
 						({
 							productId,
 							productImageUrl,
@@ -49,8 +47,7 @@ export const Cart = () => {
 					)}
 				</div>
 				<div className={styles.action}>
-					<p>Блок действий</p>
-					{/* Контент блока действий будет добавлен позже */}
+					<ActionBox />
 				</div>
 			</div>
 		</>

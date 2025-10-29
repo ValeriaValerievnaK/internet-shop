@@ -11,3 +11,4 @@ export * from './save-product';
 export * from './fetch-product';
 export * from './fetch-product-cart';
 export * from './update-cart';
+export * from './remove-product-to-cart';

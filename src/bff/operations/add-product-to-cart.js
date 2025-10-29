@@ -1,7 +1,7 @@
 import { addProductToUserCart, getCart, updateProductToUserCart } from '../api';
 import { sessions } from '../sessions';
 import { ROLE } from '../constans';
-import { updateCountData } from '../../utils';
+import { updateCountData } from '../utils';
 
 export const addProductToCart = async (
 	hash,
@@ -51,8 +51,6 @@ export const addProductToCart = async (
 			String(newPrice),
 		);
 	}
-
-	// console.log(cart);
 
 	return {
 		error: null,
