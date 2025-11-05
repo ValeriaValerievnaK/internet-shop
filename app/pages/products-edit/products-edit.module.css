@@ -1,4 +1,4 @@
-.container {
+.appСontainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -15,4 +15,3 @@
 	display: flex;
 	justify-content: center;
 }
-

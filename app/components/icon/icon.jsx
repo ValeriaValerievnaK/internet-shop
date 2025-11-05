@@ -12,8 +12,6 @@ export const Icon = styled(IconContainer)`
 	margin: ${({ margin = '0' }) => margin};
 	color: ${({ disabled }) => (disabled ? '#836953ff' : '#57361aff')};
 
-	transition: transform 3s ease;
-
 	&:hover {
 		cursor: ${({ inactive }) => (inactive ? 'default' : 'pointer')};
 	}

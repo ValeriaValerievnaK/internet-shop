@@ -53,7 +53,7 @@ export const CreatingNewProduct = ({
 		errors?.imageUrl?.message;
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.sidebar}>
 			<h3>Создайте новый товар</h3>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input type="text" placeholder="Наименование..." {...register('title')} />

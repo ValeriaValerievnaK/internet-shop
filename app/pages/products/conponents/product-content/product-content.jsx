@@ -23,7 +23,7 @@ export const ProductContent = ({
 			count,
 		).then((res) => {
 			if (res.res) {
-				navigate('/count');
+				navigate('/cart');
 			}
 		});
 	};

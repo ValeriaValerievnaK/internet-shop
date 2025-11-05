@@ -23,13 +23,13 @@ export const ProductsEdit = () => {
 				// setErrorMessage(productsRes.error || categoriesRes.error);
 				return;
 			}
-			setProducts(productsRes.res);
+			setProducts(productsRes.res.products);
 			setCategories(categoriesRes.res);
 		});
 	}, [requestServer, shouldUpdateProductList, userRole]);
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.appСontainer}>
 			<H2>Панель управления товарами</H2>
 			<div className={styles.content}>
 				<CreatingNewProduct

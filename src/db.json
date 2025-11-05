@@ -104,7 +104,7 @@
         },
         {
           "id": "002",
-          "name": "Игрушки "
+          "name": "Игрушки"
         },
         {
           "id": "003",
@@ -116,7 +116,7 @@
   "products": [
     {
       "id": "001",
-      "title": "Мотя",
+      "title": "Мотяjhgjhg",
       "image_url": "https://placecats.com/281/160",
       "category": "В спальню",
       "price": 999,
@@ -137,11 +137,75 @@
       "price": 2,
       "count": 3,
       "id": "I6dsxt8"
+    },
+    {
+      "title": "Андрей",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Женщинам",
+      "price": 22,
+      "count": 4,
+      "id": "va7ht9t"
+    },
+    {
+      "title": "Серега",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Садовая мебель",
+      "price": 23,
+      "count": 3,
+      "id": "a7g0xC2"
+    },
+    {
+      "title": "Коля",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Игрушки",
+      "price": 999,
+      "count": 5,
+      "id": "ycLX4VL"
+    },
+    {
+      "title": "Лера",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Аксессуары",
+      "price": 123,
+      "count": 6,
+      "id": "AHYRkgZ"
+    },
+    {
+      "title": "Максим",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Для кухни",
+      "price": 32,
+      "count": 1,
+      "id": "LELTi8d"
+    },
+    {
+      "title": "ексидик",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Женщинам",
+      "price": 4600000,
+      "count": 1,
+      "id": "oBLP8CR"
+    },
+    {
+      "title": "Опель",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Мужчинам",
+      "price": 23434234,
+      "count": 33,
+      "id": "cLbp1Nh"
+    },
+    {
+      "title": "щука",
+      "image_url": "https://placecats.com/281/160",
+      "category": "Мужчинам",
+      "price": 12,
+      "count": 1,
+      "id": "2By0yEl"
     }
   ],
   "sessions": [
     {
-      "hash": "0.91664723688286953162673853512387722730636596679688",
+      "hash": "0.01740577986777103181026404854492284357547760009766",
       "user": {
         "id": "001",
         "login": "Lera",
@@ -149,6 +213,16 @@
         "roleId": 0
       },
       "id": 1
+    },
+    {
+      "hash": "0.82733286526039429009671266612713225185871124267578",
+      "user": {
+        "id": "001",
+        "login": "Lera",
+        "password": "qwerty123",
+        "roleId": 0
+      },
+      "id": 2
     }
   ],
   "comments": [
@@ -160,25 +234,11 @@
       "content": "Хорошая помада"
     },
     {
-      "id": "113",
-      "product_id": "001",
-      "author_id": "001",
-      "published_at": "2050-09-22",
-      "content": "Комментарий"
-    },
-    {
       "product_id": "001",
       "author_id": "001",
       "published_at": "2025-10-20",
       "content": "Все хорошо",
       "id": "-YGSipn"
-    },
-    {
-      "product_id": "001",
-      "author_id": "2310",
-      "published_at": "2025-10-21",
-      "content": "Мотя любит паштеты",
-      "id": "LGcSEvQ"
     },
     {
       "product_id": "001",
@@ -205,13 +265,6 @@
       "product_id": "001",
       "author_id": "2310",
       "published_at": "2025-10-21",
-      "content": "мотя больше не любит паштеты",
-      "id": "cyOAj10"
-    },
-    {
-      "product_id": "001",
-      "author_id": "2310",
-      "published_at": "2025-10-21",
       "content": "мотя любит суп из семи креветок",
       "id": "-HONse4"
     },
@@ -221,6 +274,13 @@
       "published_at": "2025-10-28",
       "content": "sdfsd",
       "id": "TX7pciW"
+    },
+    {
+      "product_id": "oBLP8CR",
+      "author_id": "001",
+      "published_at": "2025-11-05",
+      "content": "ехает",
+      "id": "Mm2_Gg9"
     }
   ],
   "cart": [
@@ -229,9 +289,27 @@
       "user_id": "001",
       "image_url": "https://placecats.com/281/160",
       "title": "освеживатель воздуха",
-      "price": 9200,
-      "count": 4,
+      "price": 13800,
+      "count": 6,
       "id": 2
+    },
+    {
+      "product_id": "001",
+      "user_id": "001",
+      "image_url": "https://placecats.com/281/160",
+      "title": "Мотя",
+      "price": 7992,
+      "count": 8,
+      "id": 3
+    },
+    {
+      "product_id": "cLbp1Nh",
+      "user_id": "001",
+      "image_url": "https://placecats.com/281/160",
+      "title": "Опель",
+      "price": 23434234,
+      "count": "1",
+      "id": 4
     }
   ]
 }

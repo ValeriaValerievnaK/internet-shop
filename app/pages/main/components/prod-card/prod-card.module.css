@@ -1,0 +1,31 @@
+.allContainer {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	transition: transform 0.2s;
+}
+
+.allContainer:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.219);
+}
+
+.allContainer img {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+}
+
+.prodCardFooter {
+	padding: 10px;
+}
+
+.prodCardFooter h4 {
+	margin: 0 0 8px 0;
+	font-size: 14px;
+}
+
+.prodCardPrice {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+}

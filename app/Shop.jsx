@@ -10,6 +10,7 @@ import {
 	Products,
 	Cart,
 	Order,
+	Main,
 } from './pages';
 import '../index.css';
 import styles from './shop.module.css';
@@ -38,7 +39,7 @@ export const Shop = () => {
 			<Header />
 			<div className={styles.page}>
 				<Routes>
-					<Route path="/" element={<div>Главная</div>} />
+					<Route path="/" element={<Main />} />
 					<Route path="/products/:productId" element={<Products />} />
 					<Route path="/login" element={<Authorization />} />
 					<Route path="/register" element={<Registration />} />
