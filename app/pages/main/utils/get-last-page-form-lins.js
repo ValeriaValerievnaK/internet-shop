@@ -1,5 +1,26 @@
 export const getLastPageFormLins = (links) => {
-	const result = links.match(/_page=(\d{1,4})&_limit=\d{1,3}>; rel="last"/);
+	if (!links) return 1;
 
-	return result ? Number(result[1]) : 1;
+	try {
+		const linksArray = links.split(',');
+		const lastLink = linksArray.find((link) => link.includes('rel="last"'));
+		if (!lastLink) {
+			return 1;
+		}
+
+		const urlMatch = lastLink.match(/<([^>]+)>/);
+		if (!urlMatch) {
+			return 1;
+		}
+
+		const url = urlMatch[1];
+
+		const urlParams = new URLSearchParams(url.split('?')[1]);
+		const page = urlParams.get('_page');
+
+		return page ? Number(page) : 1;
+	} catch (error) {
+		console.error('Error parsing links:', error);
+		return 1;
+	}
 };

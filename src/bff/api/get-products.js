@@ -15,9 +15,9 @@ export const getProducts = (searchPhrase, page, limit, category) => {
 	if (limit !== undefined) {
 		params.push(`_limit=${limit}`);
 	}
-	// if (limit !== category) {
-	// 	params.push(`title_like=${category}`);
-	// }
+	if (category !== undefined) {
+		params.push(`category_like=${category}`);
+	}
 
 	if (params.length > 0) {
 		url += params.join('&');

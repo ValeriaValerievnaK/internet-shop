@@ -18,11 +18,8 @@ export const CategoryMenu = ({ searchPhrase, onChange, categorys }) => {
 								<input
 									type="radio"
 									name="category"
-									value={`${mainCategory.categoriesName},${subCategory.name}`}
-									checked={
-										searchPhrase ===
-										`${mainCategory.categoriesName},${subCategory.name}`
-									}
+									value={subCategory.name}
+									checked={searchPhrase === subCategory.name}
 									onChange={onChange}
 									className={styles.radioInput}
 								/>

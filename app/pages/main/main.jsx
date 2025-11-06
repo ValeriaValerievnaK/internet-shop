@@ -30,6 +30,7 @@ export const Main = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [requestServer, page, shoudlSearch]);
 
+
 	useEffect(() => {
 		requestServer('fetchCategories').then((categoriesRes) => {
 			setCategorys(categoriesRes.res);
@@ -40,13 +41,14 @@ export const Main = () => {
 
 	const onSearch = ({ target }) => {
 		setSearchPhrase(target.value);
+		setPage(1);
 		startDelayedSearch(!shoudlSearch);
 	};
 
 	const onCategory = ({ target }) => {
 		setCategorySearch(target.value);
+		setPage(1);
 		setShoudlSearch(!shoudlSearch);
-		console.log('searchPhrase', target.value);
 	};
 
 	const onSort = () => {
