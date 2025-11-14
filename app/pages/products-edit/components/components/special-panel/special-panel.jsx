@@ -4,10 +4,11 @@ import {
 	CLOSE_MODAL,
 	openModal,
 	removeProductAsync,
+	updateProductList,
 } from '../../../../../../src/actions';
 import { Icon } from '../../../../../components';
 
-export const SpecialPanel = ({ id, editButton, setShouldUpdateProductList }) => {
+export const SpecialPanel = ({ id, editButton }) => {
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
 
@@ -17,7 +18,7 @@ export const SpecialPanel = ({ id, editButton, setShouldUpdateProductList }) => 
 				text: 'Вы действительно хотите удалить этот товар?',
 				onConfirm: () => {
 					dispatch(removeProductAsync(id, requestServer)).then(() =>
-						setShouldUpdateProductList((prev) => !prev),
+						dispatch(updateProductList()),
 					);
 					dispatch(CLOSE_MODAL);
 				},

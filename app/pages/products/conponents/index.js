@@ -1,2 +1,2 @@
-export * from './product-content/product-content';
 export * from './comments/comments';
+export * from './product-content/product-content';

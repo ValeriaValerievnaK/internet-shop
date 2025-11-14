@@ -11,5 +11,6 @@ export const transformCart = (dbCart) => {
 		userId: dbCart.user_id,
 		count: dbCart.count,
 		id: dbCart.id,
+		totalCount: dbCart.total_count,
 	};
 };

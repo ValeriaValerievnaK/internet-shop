@@ -8,6 +8,8 @@ const initialAppState = {
 		onConfirm: () => {},
 		onCancel: () => {},
 	},
+	shouldUpdateProductList: false,
+	isLoading: false,
 };
 
 export const appReducer = (state = initialAppState, action) => {
@@ -17,6 +19,7 @@ export const appReducer = (state = initialAppState, action) => {
 				...state,
 				wasLogout: !state.wasLogout,
 			};
+
 		case ACTION_TYPE.OPEN_MODAL:
 			return {
 				...state,
@@ -26,8 +29,22 @@ export const appReducer = (state = initialAppState, action) => {
 					isOpen: true,
 				},
 			};
+
 		case ACTION_TYPE.CLOSE_MODAL:
 			return initialAppState;
+
+		case ACTION_TYPE.UPDATE_PRODUCT_LIST:
+			return {
+				...state,
+				shouldUpdateProductList: !state.shouldUpdateProductList,
+			};
+
+		case ACTION_TYPE.UPDATE_IS_LOADING:
+			return {
+				...state,
+				isLoading: !state.isLoading,
+			};
+
 		default:
 			return state;
 	}

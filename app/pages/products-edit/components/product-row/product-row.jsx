@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TableRow } from '../table-row/table-row';
-import { useServerRequest } from '../../../../../src/hooks';
-import { SelectWithGroup, validationSchema } from '../utils';
 import { SpecialPanel } from '../components';
 import { Icon, Input } from '../../../../components';
-import { saveProductAsync } from '../../../../../src/actions';
+import { saveProductAsync, updateProductList } from '../../../../../src/actions';
+import { useServerRequest } from '../../../../../src/hooks';
+import { SelectWithGroup, validationSchema } from '../utils';
 import styles from './product-row.module.css';
 
 export const ProductRow = ({
@@ -18,7 +18,6 @@ export const ProductRow = ({
 	price,
 	count,
 	categories: allCategories,
-	setShouldUpdateProductList,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -56,7 +55,7 @@ export const ProductRow = ({
 				count,
 			}),
 		).then(() => {
-			setShouldUpdateProductList((prev) => !prev);
+			dispatch(updateProductList());
 			reset();
 			setIsEditing(false);
 		});
@@ -130,7 +129,6 @@ export const ProductRow = ({
 								/>
 							</button>
 						}
-						setShouldUpdateProductList={setShouldUpdateProductList}
 					/>
 				</form>
 			);
@@ -157,7 +155,6 @@ export const ProductRow = ({
 							onClick={onHandelEdit}
 						/>
 					}
-					setShouldUpdateProductList={setShouldUpdateProductList}
 				/>
 			</>
 		);

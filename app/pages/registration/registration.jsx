@@ -6,10 +6,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { server } from '../../../src/bff';
 import { Input, Button, H2, ErrorMessage } from '../../components';
-import { useResetForm } from '../../../src/hooks';
 import { setUser } from '../../../src/actions';
 import { selectUserRole } from '../../../src/selectore';
 import { ROLE } from '../../../src/constans';
+import { useResetForm } from '../../../src/hooks';
 import styles from './registration.module.css';
 
 const regFormSchema = yup.object().shape({

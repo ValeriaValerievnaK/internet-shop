@@ -1,16 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { SelectWithGroup, validationSchema } from '../utils';
 import { Button, Input, ErrorMessage } from '../../../../components';
-import { saveProductAsync } from '../../../../../src/actions';
+import { saveProductAsync, updateProductList } from '../../../../../src/actions';
 import { useServerRequest } from '../../../../../src/hooks';
+import { SelectWithGroup, validationSchema } from '../utils';
 import styles from './creating-new-product.module.css';
 
-export const CreatingNewProduct = ({
-	categories: allCategories,
-	setShouldUpdateProductList,
-}) => {
+export const CreatingNewProduct = ({ categories: allCategories }) => {
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
 
@@ -40,7 +37,7 @@ export const CreatingNewProduct = ({
 				count,
 			}),
 		).then(() => {
-			setShouldUpdateProductList((prev) => !prev);
+			dispatch(updateProductList());
 			reset();
 		});
 	};

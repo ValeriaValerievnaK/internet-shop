@@ -2,6 +2,9 @@ import { ACTION_TYPE } from '../actions';
 const initialCartState = { cartData: [], totalPrice: 0 };
 
 const calculateTotalPrice = (cartItems) => {
+	if (!cartItems) {
+		return 0;
+	}
 	return cartItems.reduce((total, item) => {
 		return total + (item.price || 0);
 	}, 0);
@@ -27,6 +30,9 @@ export const cartReducer = (state = initialCartState, action) => {
 				totalPrice: calculateTotalPrice(updatedCartData),
 			};
 		}
+
+		case ACTION_TYPE.RESET_DATA:
+			return initialCartState;
 
 		default:
 			return state;

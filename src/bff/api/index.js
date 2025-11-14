@@ -3,6 +3,7 @@ export * from './add-session';
 export * from './add-product';
 export * from './add-product-to-user-cart';
 export * from './add-post-comment';
+export * from './delete-cart';
 export * from './delete-session';
 export * from './delete-product';
 export * from './delete-product-ro-cart';

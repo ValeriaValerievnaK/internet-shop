@@ -1,14 +1,20 @@
-import { useSelector } from 'react-redux';
-import { selectCartTotalPrice } from '../../../../../src/selectore';
-import styles from './action-box.module.css';
-import { Button } from '../../../../components';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../../../../components';
+import { selectCartTotalPrice, selectUserId } from '../../../../../src/selectore';
+import { removeCartAsync } from '../../../../../src/actions';
+import { useServerRequest } from '../../../../../src/hooks';
+import styles from './action-box.module.css';
 
 export const ActionBox = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const requestServer = useServerRequest();
+	const userId = useSelector(selectUserId);
 	const totalPrise = useSelector(selectCartTotalPrice);
+
 	const onToBuy = () => {
-		// TODO удалять все из корзины
+		dispatch(removeCartAsync(requestServer, userId));
 		navigate('/order');
 	};
 

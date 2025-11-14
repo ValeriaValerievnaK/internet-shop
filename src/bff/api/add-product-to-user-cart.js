@@ -1,4 +1,4 @@
-export const addProductToUserCart = (productId, userId, imageUrl, title, price) =>
+export const addProductToUserCart = (productId, userId, imageUrl, title, price, count) =>
 	fetch('http://localhost:3008/cart', {
 		method: 'POST',
 		headers: {
@@ -11,5 +11,6 @@ export const addProductToUserCart = (productId, userId, imageUrl, title, price) 
 			title,
 			price,
 			count: '1',
+			total_count: count,
 		}),
 	});

@@ -37,7 +37,7 @@ export const addProductToCart = async (
 	);
 
 	if (!currentProduct) {
-		await addProductToUserCart(productId, userId, imageUrl, title, price);
+		await addProductToUserCart(productId, userId, imageUrl, title, price, count);
 	} else {
 		const { newCount, newPrice } = updateCountData(
 			price,

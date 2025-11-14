@@ -1,12 +1,13 @@
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Icon } from '../../../../components';
-import styles from './cart-row.module.css';
 import {
 	removeProductToCartAsync,
 	updateProductCartAsync,
 } from '../../../../../src/actions';
 import { useServerRequest } from '../../../../../src/hooks';
 import { updateCountData } from '../../../../../src/bff/utils';
+import styles from './cart-row.module.css';
 
 export const CartRow = ({
 	productId,
@@ -16,14 +17,17 @@ export const CartRow = ({
 	userId,
 	count,
 	id,
+	totalCount,
 }) => {
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
+	const navigate = useNavigate();
 
 	const onIncrease = async () => {
 		const { newCount, newPrice } = updateCountData(price, count, 'increase');
-		// TODO проверять что товар есть на складе
-		dispatch(updateProductCartAsync(requestServer, id, newCount, newPrice));
+		if (newCount <= totalCount) {
+			dispatch(updateProductCartAsync(requestServer, id, newCount, newPrice));
+		}
 	};
 
 	const onDecrease = async () => {
@@ -38,10 +42,14 @@ export const CartRow = ({
 		dispatch(removeProductToCartAsync(requestServer, id, userId));
 	};
 
+	const onProduct = () => navigate(`/products/${productId}`);
+
 	return (
 		<div className={styles.productItem}>
-			<img src={productImageUrl} alt={productTitle} />
-			<div className={styles.title}>{productTitle}</div>
+			<div className={styles.imageTitleContainer} onClick={onProduct}>
+				<img src={productImageUrl} alt={productTitle} />
+				<div className={styles.title}>{productTitle}</div>
+			</div>
 			<div className={styles.countControl}>
 				<Icon
 					id="fa fa-minus"

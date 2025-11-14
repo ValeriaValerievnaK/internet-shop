@@ -5,6 +5,7 @@ export * from './logout';
 export * from './register';
 export * from './fetch-categories';
 export * from './fetch-products';
+export * from './remove-cart';
 export * from './remove-product';
 export * from './remove-product-comment';
 export * from './save-product';

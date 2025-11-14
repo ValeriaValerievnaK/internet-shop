@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserId } from '../../../../../src/selectore';
-import { useServerRequest } from '../../../../../src/hooks';
 import { addCommentAsync } from '../../../../../src/actions';
 import { Icon } from '../../../../components';
 import { Comment } from './components';
+import { useServerRequest } from '../../../../../src/hooks';
 import styles from './comments.module.css';
 
 export const Comments = ({ comments, productId }) => {

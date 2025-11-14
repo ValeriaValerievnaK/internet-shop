@@ -4,8 +4,8 @@ import {
 	openModal,
 	removeCommentAsync,
 } from '../../../../../../../src/actions';
-import { useServerRequest } from '../../../../../../../src/hooks';
 import { Icon } from '../../../../../../components';
+import { useServerRequest } from '../../../../../../../src/hooks';
 import styles from './comment.module.css';
 
 export const Comment = ({ productId, id, author, content, publishedAt }) => {
