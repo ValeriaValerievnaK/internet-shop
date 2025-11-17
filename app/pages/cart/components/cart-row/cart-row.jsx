@@ -25,6 +25,7 @@ export const CartRow = ({
 
 	const onIncrease = async () => {
 		const { newCount, newPrice } = updateCountData(price, count, 'increase');
+
 		if (newCount <= totalCount) {
 			dispatch(updateProductCartAsync(requestServer, id, newCount, newPrice));
 		}
@@ -70,3 +71,4 @@ export const CartRow = ({
 		</div>
 	);
 };
+

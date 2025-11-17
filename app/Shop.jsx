@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Header, Footer, Modal } from './components';
+import { Header, Footer, Modal, Error } from './components';
 import { setUser } from '../src/actions';
 import {
 	Authorization,
@@ -14,6 +14,7 @@ import {
 } from './pages';
 import '../index.css';
 import styles from './shop.module.css';
+import { ERROR } from '../src/constans';
 
 export const Shop = () => {
 	const dispatch = useDispatch();
@@ -46,7 +47,7 @@ export const Shop = () => {
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/order" element={<Order />} />
 					<Route path="/products-edit" element={<ProductsEdit />} />
-					<Route path="*" element={<div>Ошибка</div>} />
+					<Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} />
 				</Routes>
 			</div>
 			<Footer />

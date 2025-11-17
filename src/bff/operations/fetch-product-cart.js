@@ -4,7 +4,6 @@ import { ROLE } from '../constans';
 
 export const fetchProductCart = async (hash, userId) => {
 	const accessRoles = [ROLE.ADMIN, ROLE.BUYER];
-
 	const access = await sessions.access(hash, accessRoles);
 
 	if (!access) {

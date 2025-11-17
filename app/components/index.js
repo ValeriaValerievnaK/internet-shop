@@ -1,4 +1,5 @@
 export * from './button/button';
+export * from './error/error';
 export * from './error-message/error-message';
 export * from './footer/footer';
 export * from './h2/h2';
@@ -7,3 +8,4 @@ export * from './icon/icon';
 export * from './input/input';
 export * from './loader/loader';
 export * from './modal/modal';
+export * from './private-content/private-content';

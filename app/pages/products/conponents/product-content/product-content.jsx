@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUserId } from '../../../../../src/selectore';
+import { selectUserId, selectUserRole } from '../../../../../src/selectore';
 import { Button, H2 } from '../../../../components';
 import { useServerRequest } from '../../../../../src/hooks';
 import { getCategoryPath } from './utils/get-category-path';
 import styles from './product-content.module.css';
+import { checkAccess } from '../../../../../src/utils';
+import { ROLE } from '../../../../../src/constans';
 
 export const ProductContent = ({
 	product: { id, title, imageUrl, category, price, count },
@@ -15,6 +17,7 @@ export const ProductContent = ({
 	const navigate = useNavigate();
 	const requestServer = useServerRequest();
 	const userId = useSelector(selectUserId);
+	const roleId = useSelector(selectUserRole);
 
 	useEffect(() => {
 		requestServer('fetchCategories').then((categoriesRes) => {
@@ -59,6 +62,8 @@ export const ProductContent = ({
 
 	const onClickPath = () => navigate('/');
 
+	const isBuyerOrAdmin = checkAccess([ROLE.ADMIN, ROLE.BUYER], roleId);
+
 	return (
 		<div className={styles.conteiner}>
 			<div className={styles.category} onClick={onClickPath}>
@@ -71,12 +76,18 @@ export const ProductContent = ({
 				<div className={styles.count}>Осталось {count} шт</div>
 			</div>
 			<div className={styles.actions}>
-				<Button onClick={() => onBuyProductNow(requestServer, id, userId)}>
-					Купить сейчас
-				</Button>
-				<Button onClick={() => onBuyProduct(requestServer, id, userId)}>
-					Добавить в корзину
-				</Button>
+				{isBuyerOrAdmin && (
+					<>
+						<Button
+							onClick={() => onBuyProductNow(requestServer, id, userId)}
+						>
+							Купить сейчас
+						</Button>
+						<Button onClick={() => onBuyProduct(requestServer, id, userId)}>
+							Добавить в корзину
+						</Button>
+					</>
+				)}
 			</div>
 		</div>
 	);

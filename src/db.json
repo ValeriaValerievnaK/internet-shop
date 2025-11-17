@@ -23,6 +23,12 @@
       "login": "SEREJA",
       "password": "qwe123",
       "role_id": 1
+    },
+    {
+      "login": "dima",
+      "password": "qwe123",
+      "role_id": 1,
+      "id": "ahyOz7Y"
     }
   ],
   "roles": [
@@ -243,7 +249,7 @@
       "id": 3
     },
     {
-      "hash": "0.62681166793698339656515372553258202970027923583984",
+      "hash": "0.15159150712943858518855222428101114928722381591797",
       "user": {
         "id": "001",
         "login": "Lera",
@@ -320,24 +326,14 @@
   ],
   "cart": [
     {
-      "product_id": "va7ht9t",
+      "product_id": "I6dsxt8",
       "user_id": "001",
-      "image_url": "https://placecats.com/281/160",
-      "title": "Андрей",
-      "price": 88,
-      "count": 4,
-      "total_count": 4,
+      "image_url": "http://placecats.com/280/160",
+      "title": "tyj",
+      "price": 2,
+      "count": 1,
+      "total_count": 6,
       "id": 1
-    },
-    {
-      "product_id": "ycLX4VL",
-      "user_id": "001",
-      "image_url": "https://placecats.com/281/160",
-      "title": "Коля",
-      "price": 4995,
-      "count": 5,
-      "total_count": 5,
-      "id": 3
     }
   ]
 }

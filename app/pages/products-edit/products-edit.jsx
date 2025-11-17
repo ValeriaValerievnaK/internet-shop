@@ -7,13 +7,16 @@ import {
 } from '../../../src/selectore';
 import { updateIsLoading } from '../../../src/actions';
 import { TableRow, ProductRow, CreatingNewProduct } from './components';
-import { H2, Loader } from '../../components';
+import { H2, Loader, PrivateContent } from '../../components';
 import { useServerRequest } from '../../../src/hooks';
 import styles from './products-edit.module.css';
+import { ROLE } from '../../../src/constans';
+import { checkAccess } from '../../../src/utils';
 
 export const ProductsEdit = () => {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const [errorMessage, setErrorMessage] = useState(null);
 	const shouldUpdateProductList = useSelector(selectShouldUpdateProductList);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
@@ -22,10 +25,15 @@ export const ProductsEdit = () => {
 
 	useEffect(() => {
 		dispatch(updateIsLoading());
+
+		if (!checkAccess([ROLE.ADMIN], userRole)) {
+			return;
+		}
+
 		Promise.all([requestServer('fetchProducts'), requestServer('fetchCategories')])
 			.then(([productsRes, categoriesRes]) => {
 				if (productsRes.error || categoriesRes.error) {
-					// setErrorMessage(productsRes.error || categoriesRes.error);
+					setErrorMessage(productsRes.error || categoriesRes.error);
 					return;
 				}
 				setProducts(productsRes.res.products);
@@ -37,40 +45,42 @@ export const ProductsEdit = () => {
 	}, [requestServer, shouldUpdateProductList, userRole, dispatch]);
 
 	return (
-		<div className={styles.appСontainer}>
-			<H2>Панель управления товарами</H2>
-			<div className={styles.content}>
-				<CreatingNewProduct categories={categories} />
-				<div className={styles.productsList}>
-					{isLoading && <Loader />}
+		<PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
+			<div className={styles.appСontainer}>
+				<H2>Панель управления товарами</H2>
+				<div className={styles.content}>
+					<CreatingNewProduct categories={categories} />
+					<div className={styles.productsList}>
+						{isLoading && <Loader />}
 
-					{!isLoading && (
-						<>
-							<TableRow>
-								<div className="title-column">Наименование</div>
-								<div className="category-column">Категория</div>
-								<div className="price-column">Стоимость</div>
-								<div className="count-column">Остаток</div>
-								<div className="imageUrl-column">Фото</div>
-							</TableRow>
-							{products.map(
-								({ id, title, imageUrl, category, price, count }) => (
-									<ProductRow
-										key={id}
-										id={id}
-										title={title}
-										imageUrl={imageUrl}
-										category={category}
-										price={price}
-										count={count}
-										categories={categories}
-									/>
-								),
-							)}
-						</>
-					)}
+						{!isLoading && (
+							<>
+								<TableRow>
+									<div className="title-column">Наименование</div>
+									<div className="category-column">Категория</div>
+									<div className="price-column">Стоимость</div>
+									<div className="count-column">Остаток</div>
+									<div className="imageUrl-column">Фото</div>
+								</TableRow>
+								{products.map(
+									({ id, title, imageUrl, category, price, count }) => (
+										<ProductRow
+											key={id}
+											id={id}
+											title={title}
+											imageUrl={imageUrl}
+											category={category}
+											price={price}
+											count={count}
+											categories={categories}
+										/>
+									),
+								)}
+							</>
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
+		</PrivateContent>
 	);
 };

@@ -1,34 +1,55 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ActionBox, CartRow } from './components';
-import { selectCartData, selectIsLoading, selectUserId } from '../../../src/selectore';
+import {
+	selectCartData,
+	selectIsLoading,
+	selectUserId,
+	selectUserRole,
+} from '../../../src/selectore';
 import { loadCartAsync, updateIsLoading } from '../../../src/actions';
-import { Loader } from '../../components';
+import { Loader, PrivateContent } from '../../components';
 import { useServerRequest } from '../../../src/hooks';
 import styles from './cart.module.css';
+import { ROLE } from '../../../src/constans';
+import { checkAccess } from '../../../src/utils';
 
 export const Cart = () => {
+	const [errorMessage, setErrorMessage] = useState(null);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const cart = useSelector(selectCartData);
 	const userId = useSelector(selectUserId);
+	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
 	const requestServer = useServerRequest();
 
 	useEffect(() => {
 		dispatch(updateIsLoading());
-		dispatch(loadCartAsync(requestServer, userId)).finally(() => {
-			dispatch(updateIsLoading());
-		});
-	}, [dispatch, requestServer, userId]);
+
+		if (!checkAccess([ROLE.ADMIN, ROLE.BUYER], userRole)) {
+			return;
+		}
+
+		dispatch(loadCartAsync(requestServer, userId))
+			.then((res) => {
+				if (res.error) {
+					setErrorMessage(res.error);
+					return;
+				}
+			})
+			.finally(() => {
+				dispatch(updateIsLoading());
+			});
+	}, [dispatch, requestServer, userId, userRole]);
 
 	const onShoping = () => {
 		navigate('/');
 	};
 
 	return (
-		<>
+		<PrivateContent access={[ROLE.ADMIN, ROLE.BUYER]} serverError={errorMessage}>
 			{isLoading && <Loader />}
 
 			{!isLoading &&
@@ -75,6 +96,6 @@ export const Cart = () => {
 						<p>Перейти к покупкам!</p>
 					</div>
 				))}
-		</>
+		</PrivateContent>
 	);
 };

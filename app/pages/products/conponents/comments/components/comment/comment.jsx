@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	CLOSE_MODAL,
 	openModal,
@@ -7,10 +7,14 @@ import {
 import { Icon } from '../../../../../../components';
 import { useServerRequest } from '../../../../../../../src/hooks';
 import styles from './comment.module.css';
+import { checkAccess } from '../../../../../../../src/utils';
+import { ROLE } from '../../../../../../../src/constans';
+import { selectUserRole } from '../../../../../../../src/selectore';
 
 export const Comment = ({ productId, id, author, content, publishedAt }) => {
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
+	const roleId = useSelector(selectUserRole);
 
 	const onCommentRemove = (requestServer, id, productId) => {
 		dispatch(
@@ -24,6 +28,8 @@ export const Comment = ({ productId, id, author, content, publishedAt }) => {
 			}),
 		);
 	};
+
+	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
 
 	return (
 		<div className={styles.conteiner}>
@@ -52,12 +58,14 @@ export const Comment = ({ productId, id, author, content, publishedAt }) => {
 				</div>
 				<div className={styles.commentText}>{content}</div>
 			</div>
-			<Icon
-				id="fa-times"
-				size="21px"
-				margin="0 0 0 10px"
-				onClick={() => onCommentRemove(requestServer, id, productId)}
-			/>
+			{isAdmin && (
+				<Icon
+					id="fa-times"
+					size="21px"
+					margin="0 0 0 10px"
+					onClick={() => onCommentRemove(requestServer, id, productId)}
+				/>
+			)}
 		</div>
 	);
 };

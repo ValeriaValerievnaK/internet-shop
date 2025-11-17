@@ -1,7 +1,7 @@
 import { addProductToUserCart, getCart, updateProductToUserCart } from '../api';
 import { sessions } from '../sessions';
 import { ROLE } from '../constans';
-import { updateCountData } from '../utils';
+import { updateCountDataInCart } from '../utils';
 
 export const addProductToCart = async (
 	hash,
@@ -39,17 +39,15 @@ export const addProductToCart = async (
 	if (!currentProduct) {
 		await addProductToUserCart(productId, userId, imageUrl, title, price, count);
 	} else {
-		const { newCount, newPrice } = updateCountData(
+		const { newCount, newPrice } = updateCountDataInCart(
 			price,
 			currentProduct.count,
 			'increase',
 		);
 
-		await updateProductToUserCart(
-			currentProduct.id,
-			String(newCount),
-			String(newPrice),
-		);
+		if (newCount <= count) {
+			await updateProductToUserCart(currentProduct.id, newCount, newPrice);
+		}
 	}
 
 	return {

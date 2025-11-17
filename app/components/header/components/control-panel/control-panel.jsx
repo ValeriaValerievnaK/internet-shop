@@ -9,6 +9,7 @@ import {
 } from '../../../../../src/selectore';
 import { logout } from '../../../../../src/actions';
 import styles from './control-panel.module.css';
+import { checkAccess } from '../../../../../src/utils';
 
 export const ControlPanel = ({ className }) => {
 	const navigate = useNavigate();
@@ -21,6 +22,9 @@ export const ControlPanel = ({ className }) => {
 		dispatch(logout(session));
 		sessionStorage.removeItem('userData');
 	};
+
+	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
+	const isBuyerOrAdmin = checkAccess([ROLE.ADMIN, ROLE.BUYER], roleId);
 
 	return (
 		<div className={className}>
@@ -42,12 +46,16 @@ export const ControlPanel = ({ className }) => {
 					margin="10px 0 0 0"
 					onClick={() => navigate(-1)}
 				/>
-				<Link to="/cart">
-					<Icon id="fa-shopping-basket" margin="10px 0 0 16px" />
-				</Link>
-				<Link to="/products-edit">
-					<Icon id="fa-cogs" margin="10px 0 0 16px" />
-				</Link>
+				{isBuyerOrAdmin && (
+					<Link to="/cart">
+						<Icon id="fa-shopping-basket" margin="10px 0 0 16px" />
+					</Link>
+				)}
+				{isAdmin && (
+					<Link to="/products-edit">
+						<Icon id="fa-cogs" margin="10px 0 0 16px" />
+					</Link>
+				)}
 			</div>
 		</div>
 	);
