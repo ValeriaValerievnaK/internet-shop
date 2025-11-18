@@ -1,3 +1,4 @@
+const categories = require("../constants/categories");
 const Product = require("../models/Product");
 
 // add
@@ -53,10 +54,16 @@ async function getProduct(id) {
   });
 }
 
+// TODO подумать в сторону перенести categories в бд
+function getCategories() {
+  return categories;
+}
+
 module.exports = {
   addProduct,
   editProduct,
   deleteProduct,
   getProducts,
   getProduct,
+  getCategories,
 };

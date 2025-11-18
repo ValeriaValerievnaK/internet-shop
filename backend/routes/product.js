@@ -5,6 +5,7 @@ const {
   deleteProduct,
   getProducts,
   getProduct,
+  getCategories,
 } = require("../controllers/product");
 const { addComment, deleteComment } = require("../controllers/comment");
 const authenticated = require("../middlewares/authenticated");
@@ -23,6 +24,12 @@ router.get("/", async (req, res) => {
   );
 
   res.send({ data: { lastPage, products: products.map(mapProduct) } });
+});
+
+router.get("/categories", async (req, res) => {
+  const categories = await getCategories();
+
+  res.send({ data: categories });
 });
 
 router.get("/:id", async (req, res) => {
