@@ -17,7 +17,7 @@ router.get("/", authenticated, async (req, res) => {
    const cartItems = await getCart(req.query.userId);
     res.send({ data: cartItems });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.send({ error: error.message });
   }
 });
 
@@ -34,7 +34,7 @@ router.post("/", authenticated, hasRole([ROLES.ADMIN, ROLES.BUYER]), async (req,
 
     res.send({ data: newCartItem });
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    res.send({ error: error.message });
   }
 });
 
@@ -48,7 +48,7 @@ router.patch("/:id", authenticated, hasRole([ROLES.ADMIN, ROLES.BUYER]), async (
 
     res.send({ data: updatedCartItem });
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    res.send({ error: error.message });
   }
 });
 
@@ -58,7 +58,7 @@ router.delete("/:id", authenticated, hasRole([ROLES.ADMIN, ROLES.BUYER]), async 
     await deleteCartItem(req.params.id);
     res.send({ error: null });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.send({ error: error.message });
   }
 });
 
