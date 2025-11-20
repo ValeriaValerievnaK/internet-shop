@@ -7,9 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ROLE } from '../../../src/constans';
 import { Button, ErrorMessage, H2, Input } from '../../components';
 import { selectUserRole } from '../../../src/selectore';
-import { server } from '../../../src/bff';
 import { setUser } from '../../../src/actions';
 import { useResetForm } from '../../../src/hooks';
+import { request } from '../../../src/utils';
 import styles from './authorization.module.css';
 
 const authFormSchema = yup.object().shape({
@@ -51,14 +51,14 @@ export const Authorization = () => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }) => {
-		server.authorize(login, password).then(({ error, res }) => {
+		request('/api/login', 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
-				setServerError(error);
+				setServerError(`Ошибка запроса: ${error}`);
 				return;
 			}
 
-			dispatch(setUser(res));
-			sessionStorage.setItem('userData', JSON.stringify(res));
+			dispatch(setUser(user));
+			sessionStorage.setItem('userData', JSON.stringify(user));
 		});
 	};
 

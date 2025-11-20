@@ -10,12 +10,12 @@ const CartSchema = mongoose.Schema({
     ref: "User",
   },
   image: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
+    type: String,
+    required: true,
   },
   title: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
+    type: String,
+    required: true,
   },
   price: {
     type: Number,
@@ -26,8 +26,8 @@ const CartSchema = mongoose.Schema({
     required: true,
   },
   total_count: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
+    type: Number,
+    required: true,
   },
 });
 

@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserId, selectUserRole } from '../../../../../src/selectore';
+import { selectUserRole } from '../../../../../src/selectore';
 import { addCommentAsync } from '../../../../../src/actions';
 import { Icon } from '../../../../components';
 import { Comment } from './components';
-import { useServerRequest } from '../../../../../src/hooks';
-import styles from './comments.module.css';
 import { ROLE } from '../../../../../src/constans';
+import styles from './comments.module.css';
+import { formatDate } from '../../../../../src/utils';
 
 export const Comments = ({ comments, productId }) => {
 	const [newComment, setNewComment] = useState('');
-	const userId = useSelector(selectUserId);
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const userRole = useSelector(selectUserRole);
 
-	const onNewCommentAdd = (requestServer, userId, productId, content) => {
-		dispatch(addCommentAsync(requestServer, userId, productId, content));
+	const onNewCommentAdd = (productId, content) => {
+		dispatch(addCommentAsync(productId, content));
 		setNewComment('');
 	};
 
@@ -39,7 +37,7 @@ export const Comments = ({ comments, productId }) => {
 						size="19px"
 						margin="0 0 0 10px"
 						onClick={() => {
-							onNewCommentAdd(requestServer, userId, productId, newComment);
+							onNewCommentAdd(productId, newComment);
 						}}
 					/>
 				</div>
@@ -51,7 +49,7 @@ export const Comments = ({ comments, productId }) => {
 						id={id}
 						productId={productId}
 						author={author}
-						publishedAt={publishedAt}
+						publishedAt={formatDate(publishedAt)}
 						content={content}
 					/>
 				))}

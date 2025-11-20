@@ -35,6 +35,7 @@ export const Shop = () => {
 			}),
 		);
 	}, [dispatch]);
+
 	return (
 		<div className={styles.appColumn}>
 			<Header />

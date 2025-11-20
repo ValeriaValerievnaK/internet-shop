@@ -6,6 +6,7 @@ const {
   getProducts,
   getProduct,
   getCategories,
+  getAllProducts,
 } = require("../controllers/product");
 const { addComment, deleteComment } = require("../controllers/comment");
 const authenticated = require("../middlewares/authenticated");
@@ -20,10 +21,17 @@ router.get("/", async (req, res) => {
   const { products, lastPage } = await getProducts(
     req.query.search,
     req.query.limit,
-    req.query.page
+    req.query.page,
+    req.query.category
   );
 
   res.send({ data: { lastPage, products: products.map(mapProduct) } });
+});
+
+router.get("/all", async (req, res) => {
+  const products = await getAllProducts();
+
+  res.send({ data: products.map((product) => mapProduct(product)) });
 });
 
 router.get("/categories", async (req, res) => {
@@ -50,7 +58,7 @@ router.post("/:id/comments", authenticated, async (req, res) => {
 router.delete(
   "/:productId/comments/:commentId",
   authenticated,
-  hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+  hasRole([ROLES.ADMIN]),
   async (req, res) => {
     await deleteComment(req.params.productId, req.params.commentId);
 

@@ -11,7 +11,7 @@ import { H2, Loader, PrivateContent } from '../../components';
 import { useServerRequest } from '../../../src/hooks';
 import styles from './products-edit.module.css';
 import { ROLE } from '../../../src/constans';
-import { checkAccess } from '../../../src/utils';
+import { checkAccess, request } from '../../../src/utils';
 
 export const ProductsEdit = () => {
 	const [products, setProducts] = useState([]);
@@ -30,14 +30,14 @@ export const ProductsEdit = () => {
 			return;
 		}
 
-		Promise.all([requestServer('fetchProducts'), requestServer('fetchCategories')])
+		Promise.all([request(`/api/products/all`), request(`/api/products/categories`)])
 			.then(([productsRes, categoriesRes]) => {
 				if (productsRes.error || categoriesRes.error) {
 					setErrorMessage(productsRes.error || categoriesRes.error);
 					return;
 				}
-				setProducts(productsRes.res.products);
-				setCategories(categoriesRes.res);
+				setProducts(productsRes.data);
+				setCategories(categoriesRes.data);
 			})
 			.finally(() => {
 				dispatch(updateIsLoading());
@@ -62,19 +62,32 @@ export const ProductsEdit = () => {
 									<div className="count-column">Остаток</div>
 									<div className="imageUrl-column">Фото</div>
 								</TableRow>
-								{products.map(
-									({ id, title, imageUrl, category, price, count }) => (
-										<ProductRow
-											key={id}
-											id={id}
-											title={title}
-											imageUrl={imageUrl}
-											category={category}
-											price={price}
-											count={count}
-											categories={categories}
-										/>
-									),
+								{products.length > 0 ? (
+									products.map(
+										({
+											id,
+											title,
+											imageUrl,
+											category,
+											price,
+											count,
+										}) => (
+											<ProductRow
+												key={id}
+												id={id}
+												title={title}
+												imageUrl={imageUrl}
+												category={category}
+												price={price}
+												count={count}
+												categories={categories}
+											/>
+										),
+									)
+								) : (
+									<div className={styles.noProdFound}>
+										Добавьте ваш первый товар.
+									</div>
 								)}
 							</>
 						)}

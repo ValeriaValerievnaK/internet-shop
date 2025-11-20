@@ -4,10 +4,10 @@ import { CategoryMenu, Pagination, ProdCard, Search, Sorting } from './component
 import { selectIsLoading } from '../../../src/selectore';
 import { updateIsLoading } from '../../../src/actions';
 import { Loader } from '../../components';
-import { useServerRequest } from '../../../src/hooks';
 import { PAGINATION_LIMIT } from '../../../src/constans';
-import { debounce, getLastPageFormLins } from './utils';
+import { debounce } from './utils';
 import styles from './main.module.css';
+import { request } from '../../../src/utils';
 
 export const Main = () => {
 	const [products, setProducts] = useState([]);
@@ -19,33 +19,28 @@ export const Main = () => {
 	const [categorySearch, setCategorySearch] = useState('');
 	const [sortValue, setSortValue] = useState('asc');
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const isLoading = useSelector(selectIsLoading);
 
 	useEffect(() => {
 		dispatch(updateIsLoading());
-		requestServer(
-			'fetchProducts',
-			searchPhrase,
-			page,
-			PAGINATION_LIMIT,
-			categorySearch,
+		request(
+			`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}`,
 		)
-			.then(({ res: { products, links } }) => {
+			.then(({ data: { products, lastPage } }) => {
 				setProducts(products);
-				setLastPage(getLastPageFormLins(links));
+				setLastPage(lastPage);
 			})
 			.finally(() => {
 				dispatch(updateIsLoading());
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [requestServer, dispatch, page, shoudlSearch]);
+	}, [dispatch, page, shoudlSearch]);
 
 	useEffect(() => {
-		requestServer('fetchCategories').then((categoriesRes) => {
-			setCategorys(categoriesRes.res);
+		request(`/api/products/categories`).then((categoriesRes) => {
+			setCategorys(categoriesRes.data);
 		});
-	}, [requestServer]);
+	}, []);
 
 	const startDelayedSearch = useMemo(() => debounce(setShoudlSearch, 800), []);
 
@@ -60,6 +55,8 @@ export const Main = () => {
 		setPage(1);
 		setShoudlSearch(!shoudlSearch);
 	};
+
+	// TODO возможно перенести сортировку на бекенд
 
 	const onSort = () => {
 		setSortValue(sortValue === 'asc' ? 'desc' : 'asc');

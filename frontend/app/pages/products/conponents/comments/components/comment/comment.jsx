@@ -4,24 +4,22 @@ import {
 	openModal,
 	removeCommentAsync,
 } from '../../../../../../../src/actions';
+import { selectUserRole } from '../../../../../../../src/selectore';
 import { Icon } from '../../../../../../components';
-import { useServerRequest } from '../../../../../../../src/hooks';
-import styles from './comment.module.css';
 import { checkAccess } from '../../../../../../../src/utils';
 import { ROLE } from '../../../../../../../src/constans';
-import { selectUserRole } from '../../../../../../../src/selectore';
+import styles from './comment.module.css';
 
 export const Comment = ({ productId, id, author, content, publishedAt }) => {
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const roleId = useSelector(selectUserRole);
 
-	const onCommentRemove = (requestServer, id, productId) => {
+	const onCommentRemove = (commentId, productId) => {
 		dispatch(
 			openModal({
 				text: 'Действительно хотите удалить отзыв?',
 				onConfirm: () => {
-					dispatch(removeCommentAsync(requestServer, id, productId));
+					dispatch(removeCommentAsync(productId, commentId));
 					dispatch(CLOSE_MODAL);
 				},
 				onCancel: () => dispatch(CLOSE_MODAL),
@@ -63,7 +61,7 @@ export const Comment = ({ productId, id, author, content, publishedAt }) => {
 					id="fa-times"
 					size="21px"
 					margin="0 0 0 10px"
-					onClick={() => onCommentRemove(requestServer, id, productId)}
+					onClick={() => onCommentRemove(id, productId)}
 				/>
 			)}
 		</div>

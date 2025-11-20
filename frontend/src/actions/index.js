@@ -1,5 +1,6 @@
 export * from './action-type';
 export * from './add-comment-async';
+export * from './add-comment';
 export * from './close-modal';
 export * from './load-cart-async';
 export * from './load-product-async';
@@ -7,6 +8,7 @@ export * from './logout';
 export * from './open-modal';
 export * from './remove-cart-async';
 export * from './remove-comment-async';
+export * from './remove-comment';
 export * from './remove-product-async';
 export * from './remove-product-to-cart-async';
 export * from './save-product-async';

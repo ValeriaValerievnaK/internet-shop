@@ -1,10 +1,10 @@
-import { setProductData } from './set-product-data';
+import { request } from '../utils';
+import { addComment } from './add-comment';
 
-export const addCommentAsync =
-	(requestServer, userId, productId, content) => (dispatch) => {
-		requestServer('addProductComment', userId, productId, content).then(
-			(productData) => {
-				dispatch(setProductData(productData.res));
-			},
-		);
-	};
+export const addCommentAsync = (productId, content) => (dispatch) => {
+	request(`/api/products/${productId}/comments`, 'POST', { content }).then(
+		(commentData) => {
+			dispatch(addComment(commentData.data));
+		},
+	);
+};

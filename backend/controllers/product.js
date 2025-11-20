@@ -35,14 +35,30 @@ async function deleteProduct(id) {
 
 // get list with search and pagination
 
-async function getProducts(search = "", limit = 10, page = 1) {
+async function getProducts(search = "", limit = 10, page = 1, category = "") {
+  const filter = {
+    title: { $regex: search, $options: "i" },
+  };
+
+  if (category && category.trim() !== "") {
+    filter.category = category;
+  }
+
   const [products, count] = await Promise.all([
-    Product.find({ title: { $regex: search, $options: "i" } })
+    Product.find(filter)
       .limit(limit)
       .skip((page - 1) * limit),
-    Product.countDocuments({ title: { $regex: search, $options: "i" } }),
+    Product.countDocuments(filter),
   ]);
+
   return { products, lastPage: Math.ceil(count / limit) };
+}
+
+function getAllProducts() {
+  return Product.find().populate({
+    path: "comments",
+    populate: "author",
+  });
 }
 
 // get item
@@ -63,6 +79,7 @@ module.exports = {
   addProduct,
   editProduct,
   deleteProduct,
+  getAllProducts,
   getProducts,
   getProduct,
   getCategories,

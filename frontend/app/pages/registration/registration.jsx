@@ -4,12 +4,12 @@ import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { server } from '../../../src/bff';
 import { Input, Button, H2, ErrorMessage } from '../../components';
 import { setUser } from '../../../src/actions';
 import { selectUserRole } from '../../../src/selectore';
 import { ROLE } from '../../../src/constans';
 import { useResetForm } from '../../../src/hooks';
+import { request } from '../../../src/utils';
 import styles from './registration.module.css';
 
 const regFormSchema = yup.object().shape({
@@ -56,15 +56,15 @@ export const Registration = () => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }) => {
-		server.register(login, password).then(({ error, res }) => {
+		request('/api/register', 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
 
 				return;
 			}
 
-			dispatch(setUser(res));
-			sessionStorage.setItem('userData', JSON.stringify(res));
+			dispatch(setUser(user));
+			sessionStorage.setItem('userData', JSON.stringify(user));
 		});
 	};
 

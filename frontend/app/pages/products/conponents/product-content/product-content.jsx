@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUserId, selectUserRole } from '../../../../../src/selectore';
 import { Button, H2 } from '../../../../components';
-import { useServerRequest } from '../../../../../src/hooks';
 import { getCategoryPath } from './utils/get-category-path';
 import styles from './product-content.module.css';
-import { checkAccess } from '../../../../../src/utils';
+import { checkAccess, request } from '../../../../../src/utils';
 import { ROLE } from '../../../../../src/constans';
 
 export const ProductContent = ({
@@ -15,15 +14,14 @@ export const ProductContent = ({
 	const [allCategories, setAllCategories] = useState([]);
 	const [categoryPath, setCategoryPath] = useState('');
 	const navigate = useNavigate();
-	const requestServer = useServerRequest();
 	const userId = useSelector(selectUserId);
 	const roleId = useSelector(selectUserRole);
 
 	useEffect(() => {
-		requestServer('fetchCategories').then((categoriesRes) => {
-			setAllCategories(categoriesRes.res);
+		request(`/api/products/categories`).then((categoriesRes) => {
+			setAllCategories(categoriesRes.data);
 		});
-	}, [requestServer]);
+	}, []);
 
 	useEffect(() => {
 		if (allCategories.length) {
@@ -32,32 +30,29 @@ export const ProductContent = ({
 		}
 	}, [allCategories, category]);
 
-	const onBuyProductNow = (requestServer, productId, userId) => {
-		requestServer(
-			'addProductToCart',
+	const onBuyProductNow = (productId, userId) => {
+		request('/api/cart', 'POST', {
 			productId,
 			userId,
 			imageUrl,
-			title,
+			title: title.trim(),
 			price,
-			count,
-		).then((res) => {
-			if (res.res) {
+		}).then((res) => {
+			if (res.data) {
 				navigate('/cart');
 			}
 		});
 	};
 
-	const onBuyProduct = (requestServer, productId, userId) => {
-		requestServer(
-			'addProductToCart',
+	const onBuyProduct = (productId, userId) => {
+		request('/api/cart', 'POST', {
 			productId,
 			userId,
 			imageUrl,
 			title,
 			price,
 			count,
-		);
+		});
 	};
 
 	const onClickPath = () => navigate('/');
@@ -78,12 +73,10 @@ export const ProductContent = ({
 			<div className={styles.actions}>
 				{isBuyerOrAdmin && (
 					<>
-						<Button
-							onClick={() => onBuyProductNow(requestServer, id, userId)}
-						>
+						<Button onClick={() => onBuyProductNow(id, userId)}>
 							Купить сейчас
 						</Button>
-						<Button onClick={() => onBuyProduct(requestServer, id, userId)}>
+						<Button onClick={() => onBuyProduct(id, userId)}>
 							Добавить в корзину
 						</Button>
 					</>

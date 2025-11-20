@@ -1,9 +1,10 @@
+import { request } from '../utils';
 import { setProductData } from './set-product-data';
 
-export const loadProductAsync = (requestServer, productId) => (dispatch) =>
-	requestServer('fetchProduct', productId).then((productData) => {
-		if (productData.res) {
-			dispatch(setProductData(productData.res));
+export const loadProductAsync = (productId) => (dispatch) =>
+	request(`/api/products/${productId}`).then((productData) => {
+		if (productData.data) {
+			dispatch(setProductData(productData.data));
 		}
 		return productData;
 	});

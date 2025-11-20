@@ -26,6 +26,7 @@ async function addProductToCart(productData) {
     user_id: user_id,
   });
 
+
   if (existingCartItem) {
     // если да, то количество на + 1
     const newCount = existingCartItem.count + 1;
@@ -57,6 +58,7 @@ async function addProductToCart(productData) {
     // добавляем в корзину
     const newCartItem = await Cart.create({
       ...productData,
+      count: 1,
       total_count: product.count,
     });
 

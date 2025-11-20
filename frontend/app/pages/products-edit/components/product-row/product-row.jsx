@@ -6,7 +6,6 @@ import { TableRow } from '../table-row/table-row';
 import { SpecialPanel } from '../components';
 import { Icon, Input } from '../../../../components';
 import { saveProductAsync, updateProductList } from '../../../../../src/actions';
-import { useServerRequest } from '../../../../../src/hooks';
 import { SelectWithGroup, validationSchema } from '../utils';
 import styles from './product-row.module.css';
 
@@ -22,7 +21,6 @@ export const ProductRow = ({
 	const [isEditing, setIsEditing] = useState(false);
 
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 
 	const {
 		register,
@@ -46,10 +44,10 @@ export const ProductRow = ({
 
 	const onSubmit = ({ title, category, price, count, imageUrl }) => {
 		dispatch(
-			saveProductAsync(requestServer, {
+			saveProductAsync(id, {
 				id,
-				title,
-				imageUrl,
+				title: title.trim(),
+				imageUrl: imageUrl.trim(),
 				category,
 				price,
 				count,

@@ -17,7 +17,7 @@ async function addComment(productId, comment) {
 // delete
 
 async function deleteComment(productId, commentId) {
-  await Product.deleteOne({ _id: commentId });
+  await Comment.deleteOne({ _id: commentId });
   await Product.findByIdAndUpdate(productId, {
     $pull: { comments: commentId },
   });
