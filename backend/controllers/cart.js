@@ -26,7 +26,6 @@ async function addProductToCart(productData) {
     user_id: user_id,
   });
 
-
   if (existingCartItem) {
     // если да, то количество на + 1
     const newCount = existingCartItem.count + 1;
@@ -112,9 +111,15 @@ async function getCart(userId) {
   return cartItems;
 }
 
+async function deleteCart(userId) {
+  const result = await Cart.deleteMany({ user_id: userId });
+  return result;
+}
+
 module.exports = {
   getCart,
   addProductToCart,
   updateCartItem,
   deleteCartItem,
+  deleteCart,
 };

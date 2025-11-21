@@ -5,12 +5,10 @@ import { ActionBox, CartRow } from './components';
 import {
 	selectCartData,
 	selectIsLoading,
-	selectUserId,
 	selectUserRole,
 } from '../../../src/selectore';
 import { loadCartAsync, updateIsLoading } from '../../../src/actions';
 import { Loader, PrivateContent } from '../../components';
-import { useServerRequest } from '../../../src/hooks';
 import styles from './cart.module.css';
 import { ROLE } from '../../../src/constans';
 import { checkAccess } from '../../../src/utils';
@@ -20,10 +18,8 @@ export const Cart = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const cart = useSelector(selectCartData);
-	const userId = useSelector(selectUserId);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
-	const requestServer = useServerRequest();
 
 	useEffect(() => {
 		dispatch(updateIsLoading());
@@ -32,7 +28,7 @@ export const Cart = () => {
 			return;
 		}
 
-		dispatch(loadCartAsync(requestServer, userId))
+		dispatch(loadCartAsync())
 			.then((res) => {
 				if (res.error) {
 					setErrorMessage(res.error);
@@ -42,7 +38,7 @@ export const Cart = () => {
 			.finally(() => {
 				dispatch(updateIsLoading());
 			});
-	}, [dispatch, requestServer, userId, userRole]);
+	}, [dispatch, userRole]);
 
 	const onShoping = () => {
 		navigate('/');

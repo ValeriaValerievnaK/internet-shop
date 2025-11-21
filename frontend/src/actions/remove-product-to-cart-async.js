@@ -1,7 +1,8 @@
-import { setCartData } from './set-cart-data';
+import { request } from '../utils';
+import { removeProductToCart } from './remove-product-to-cart';
 
-export const removeProductToCartAsync = (requestServer, id, userId) => (dispatch) => {
-	requestServer('removeProductToCart', id, userId).then((cartData) => {
-		dispatch(setCartData(cartData.res));
+export const removeProductToCartAsync = (id) => (dispatch) => {
+	request(`/api/cart/${id}`, 'DELETE').then(() => {
+		dispatch(removeProductToCart(id));
 	});
 };

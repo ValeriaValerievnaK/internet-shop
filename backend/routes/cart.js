@@ -4,17 +4,17 @@ const {
   addProductToCart,
   updateCartItem,
   deleteCartItem,
+  deleteCart,
 } = require("../controllers/cart");
 const authenticated = require("../middlewares/authenticated");
-const hasRole = require("../middlewares/hasRole");
-const ROLES = require("../constants/roles");
+const mapCart = require("../helpers/mapCart");
 
 const router = express.Router({ mergeParams: true });
 
 router.get("/", authenticated, async (req, res) => {
   try {
-    const cartItems = await getCart(req.query.userId);
-    res.send({ data: cartItems });
+    const cartItems = await getCart(req.user._id);
+    res.send({ data: cartItems.map((product) => mapCart(product)) });
   } catch (error) {
     res.send({ error: error.message });
   }
@@ -36,36 +36,35 @@ router.post("/", authenticated, async (req, res) => {
   }
 });
 
-router.patch(
-  "/:id",
-  authenticated,
-  hasRole([ROLES.ADMIN, ROLES.BUYER]),
-  async (req, res) => {
-    try {
-      const updatedCartItem = await updateCartItem(req.params.id, {
-        count: req.body.count,
-        price: req.body.price,
-      });
-
-      res.send({ data: updatedCartItem });
-    } catch (error) {
-      res.send({ error: error.message });
-    }
+router.delete("/", authenticated, async (req, res) => {
+  try {
+    await deleteCart(req.user._id);
+    res.send({ error: null });
+  } catch (error) {
+    res.send({ error: error.message });
   }
-);
+});
 
-router.delete(
-  "/:id",
-  authenticated,
-  hasRole([ROLES.ADMIN, ROLES.BUYER]),
-  async (req, res) => {
-    try {
-      await deleteCartItem(req.params.id);
-      res.send({ error: null });
-    } catch (error) {
-      res.send({ error: error.message });
-    }
+router.patch("/:id", authenticated, async (req, res) => {
+  try {
+    const updatedCartItem = await updateCartItem(req.params.id, {
+      count: req.body.newCount,
+      price: req.body.newPrice,
+    });
+
+    res.send({ data: mapCart(updatedCartItem) });
+  } catch (error) {
+    res.send({ error: error.message });
   }
-);
+});
+
+router.delete("/:id", authenticated, async (req, res) => {
+  try {
+    await deleteCartItem(req.params.id);
+    res.send({ error: null });
+  } catch (error) {
+    res.send({ error: error.message });
+  }
+});
 
 module.exports = router;

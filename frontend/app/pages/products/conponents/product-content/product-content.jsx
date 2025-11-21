@@ -23,6 +23,7 @@ export const ProductContent = ({
 		});
 	}, []);
 
+	
 	useEffect(() => {
 		if (allCategories.length) {
 			const path = getCategoryPath(allCategories, category);

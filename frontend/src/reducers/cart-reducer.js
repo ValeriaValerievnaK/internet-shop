@@ -31,6 +31,18 @@ export const cartReducer = (state = initialCartState, action) => {
 			};
 		}
 
+		case ACTION_TYPE.REMOVE_PRODUCT_TO_CART: {
+			const updatedCartData = state.cartData.filter(
+				(product) => product.id != action.payload,
+			);
+
+			return {
+				...state,
+				cartData: updatedCartData,
+				totalPrice: calculateTotalPrice(updatedCartData),
+			};
+		}
+
 		case ACTION_TYPE.RESET_DATA:
 			return initialCartState;
 

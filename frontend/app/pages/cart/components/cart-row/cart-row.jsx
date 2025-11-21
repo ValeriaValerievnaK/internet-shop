@@ -5,7 +5,6 @@ import {
 	removeProductToCartAsync,
 	updateProductCartAsync,
 } from '../../../../../src/actions';
-import { useServerRequest } from '../../../../../src/hooks';
 import { updateCountData } from '../../../../../src/bff/utils';
 import styles from './cart-row.module.css';
 
@@ -14,33 +13,32 @@ export const CartRow = ({
 	productImageUrl,
 	productTitle,
 	price,
-	userId,
 	count,
 	id,
 	totalCount,
 }) => {
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const navigate = useNavigate();
 
 	const onIncrease = async () => {
 		const { newCount, newPrice } = updateCountData(price, count, 'increase');
 
 		if (newCount <= totalCount) {
-			dispatch(updateProductCartAsync(requestServer, id, newCount, newPrice));
+			dispatch(updateProductCartAsync(id, newCount, newPrice));
 		}
 	};
 
 	const onDecrease = async () => {
 		const { newCount, newPrice } = updateCountData(price, count, 'decrease');
 		if (newCount == 0) {
-			dispatch(removeProductToCartAsync(requestServer, id, userId));
+			dispatch(removeProductToCartAsync(id));
+		} else {
+			dispatch(updateProductCartAsync(id, newCount, newPrice));
 		}
-		dispatch(updateProductCartAsync(requestServer, id, newCount, newPrice));
 	};
 
 	const onRemove = async () => {
-		dispatch(removeProductToCartAsync(requestServer, id, userId));
+		dispatch(removeProductToCartAsync(id));
 	};
 
 	const onProduct = () => navigate(`/products/${productId}`);
@@ -71,4 +69,3 @@ export const CartRow = ({
 		</div>
 	);
 };
-
