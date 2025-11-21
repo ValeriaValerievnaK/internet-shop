@@ -8,7 +8,6 @@ import {
 import { updateIsLoading } from '../../../src/actions';
 import { TableRow, ProductRow, CreatingNewProduct } from './components';
 import { H2, Loader, PrivateContent } from '../../components';
-import { useServerRequest } from '../../../src/hooks';
 import styles from './products-edit.module.css';
 import { ROLE } from '../../../src/constans';
 import { checkAccess, request } from '../../../src/utils';
@@ -20,8 +19,7 @@ export const ProductsEdit = () => {
 	const shouldUpdateProductList = useSelector(selectShouldUpdateProductList);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
-	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
+	const dispatch = useDispatch()
 
 	useEffect(() => {
 		dispatch(updateIsLoading());
@@ -42,7 +40,7 @@ export const ProductsEdit = () => {
 			.finally(() => {
 				dispatch(updateIsLoading());
 			});
-	}, [requestServer, shouldUpdateProductList, userRole, dispatch]);
+	}, [ shouldUpdateProductList, userRole, dispatch]);
 
 	return (
 		<PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>

@@ -16,20 +16,3 @@ export const updateCountData = (price, count, action) => {
 
 	return { newCount, newPrice };
 };
-
-export const updateCountDataInCart = (price, count, action) => {
-	let newCount;
-	let newPrice;
-
-	if (action === 'increase') {
-		newCount = Number(count) + 1;
-		newPrice = newCount * price;
-	}
-
-	if (action === 'decrease') {
-		newCount = Number(count) - 1;
-		newPrice = newCount * price;
-	}
-
-	return { newCount, newPrice };
-};

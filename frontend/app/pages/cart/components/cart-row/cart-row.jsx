@@ -5,7 +5,7 @@ import {
 	removeProductToCartAsync,
 	updateProductCartAsync,
 } from '../../../../../src/actions';
-import { updateCountData } from '../../../../../src/bff/utils';
+import { updateCountData } from '../../../../../src/utils';
 import styles from './cart-row.module.css';
 
 export const CartRow = ({

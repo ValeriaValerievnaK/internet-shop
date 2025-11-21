@@ -16,6 +16,7 @@ export const ControlPanel = ({ className }) => {
 	const onLogout = () => {
 		dispatch(logout());
 		sessionStorage.removeItem('userData');
+		navigate('/')
 	};
 
 	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
