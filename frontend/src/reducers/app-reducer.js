@@ -39,10 +39,16 @@ export const appReducer = (state = initialAppState, action) => {
 				shouldUpdateProductList: !state.shouldUpdateProductList,
 			};
 
-		case ACTION_TYPE.UPDATE_IS_LOADING:
+		case ACTION_TYPE.SET_LOADING_START:
 			return {
 				...state,
-				isLoading: !state.isLoading,
+				isLoading: true,
+			};
+
+		case ACTION_TYPE.SET_LOADING_END:
+			return {
+				...state,
+				isLoading: false,
 			};
 
 		default:

@@ -33,13 +33,15 @@ const ErrorIcon = styled.div`
 `;
 
 export const Error = ({ error }) => {
+	if (!error) {
+		return null;
+	}
+
 	return (
-		error && (
-			<Div>
-				<ErrorIcon />
-				<H2 style={{ color: '#c53030', margin: '0 0 8px 0' }}>Ошибка</H2>
-				<div>{error}</div>
-			</Div>
-		)
+		<Div>
+			<ErrorIcon />
+			<H2 style={{ color: '#c53030', margin: '0 0 8px 0' }}>Ошибка</H2>
+			<div>{error}</div>
+		</Div>
 	);
 };

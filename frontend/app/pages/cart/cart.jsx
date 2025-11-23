@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ActionBox, CartRow } from './components';
+import { selectCartData, selectIsLoading, selectUserRole } from '../../../src/selectore';
 import {
-	selectCartData,
-	selectIsLoading,
-	selectUserRole,
-} from '../../../src/selectore';
-import { loadCartAsync, updateIsLoading } from '../../../src/actions';
+	loadCartAsync,
+	updateIsLoadingEnd,
+	updateIsLoadingStart,
+} from '../../../src/actions';
 import { Loader, PrivateContent } from '../../components';
 import styles from './cart.module.css';
 import { ROLE } from '../../../src/constans';
@@ -21,8 +21,10 @@ export const Cart = () => {
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
 
+	console.log('userRole', userRole);
+
 	useEffect(() => {
-		dispatch(updateIsLoading());
+		dispatch(updateIsLoadingStart());
 
 		if (!checkAccess([ROLE.ADMIN, ROLE.BUYER], userRole)) {
 			return;
@@ -36,7 +38,7 @@ export const Cart = () => {
 				}
 			})
 			.finally(() => {
-				dispatch(updateIsLoading());
+				dispatch(updateIsLoadingEnd());
 			});
 	}, [dispatch, userRole]);
 
@@ -44,54 +46,55 @@ export const Cart = () => {
 		navigate('/');
 	};
 
+	if (checkAccess([ROLE.ADMIN, ROLE.BUYER], userRole) && isLoading) {
+		return <Loader />;
+	}
+
 	return (
 		<PrivateContent access={[ROLE.ADMIN, ROLE.BUYER]} serverError={errorMessage}>
-			{isLoading && <Loader />}
-
-			{!isLoading &&
-				(cart.length > 0 ? (
-					<>
-						<h2 className={styles.title}>Корзина</h2>
-						<div className={styles.container}>
-							<div className={styles.allCart}>
-								{cart.map(
-									({
-										productId,
-										productImageUrl,
-										productTitle,
-										price,
-										userId,
-										count,
-										id,
-										totalCount,
-									}) => {
-										return (
-											<CartRow
-												key={id}
-												productId={productId}
-												userId={userId}
-												productImageUrl={productImageUrl}
-												productTitle={productTitle}
-												price={price}
-												count={count}
-												id={id}
-												totalCount={totalCount}
-											/>
-										);
-									},
-								)}
-							</div>
-							<div className={styles.action}>
-								<ActionBox />
-							</div>
+			{cart.length > 0 ? (
+				<>
+					<h2 className={styles.title}>Корзина</h2>
+					<div className={styles.container}>
+						<div className={styles.allCart}>
+							{cart.map(
+								({
+									productId,
+									productImageUrl,
+									productTitle,
+									price,
+									userId,
+									count,
+									id,
+									totalCount,
+								}) => {
+									return (
+										<CartRow
+											key={id}
+											productId={productId}
+											userId={userId}
+											productImageUrl={productImageUrl}
+											productTitle={productTitle}
+											price={price}
+											count={count}
+											id={id}
+											totalCount={totalCount}
+										/>
+									);
+								},
+							)}
 						</div>
-					</>
-				) : (
-					<div className={styles.emptyCart} onClick={onShoping}>
-						<p>У вас еще нет товаров в корзине =(</p>
-						<p>Перейти к покупкам!</p>
+						<div className={styles.action}>
+							<ActionBox />
+						</div>
 					</div>
-				))}
+				</>
+			) : (
+				<div className={styles.emptyCart} onClick={onShoping}>
+					<p>У вас еще нет товаров в корзине =(</p>
+					<p>Перейти к покупкам!</p>
+				</div>
+			)}
 		</PrivateContent>
 	);
 };

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { ERROR } from '../../../src/constans';
 import { selectUserRole } from '../../../src/selectore';
 import { Error } from '../error/error';
+checkAccess;
 import { checkAccess } from '../../../src/utils';
 
 export const PrivateContent = ({ children, access, serverError = null }) => {
@@ -11,5 +12,9 @@ export const PrivateContent = ({ children, access, serverError = null }) => {
 
 	const error = serverError || accessError;
 
-	return error ? <Error error={error} /> : children;
+	if (error) {
+		return <Error error={error} />;
+	}
+
+	return children;
 };

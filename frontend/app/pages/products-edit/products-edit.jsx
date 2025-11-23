@@ -5,7 +5,7 @@ import {
 	selectShouldUpdateProductList,
 	selectUserRole,
 } from '../../../src/selectore';
-import { updateIsLoading } from '../../../src/actions';
+import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
 import { TableRow, ProductRow, CreatingNewProduct } from './components';
 import { H2, Loader, PrivateContent } from '../../components';
 import styles from './products-edit.module.css';
@@ -19,10 +19,10 @@ export const ProductsEdit = () => {
 	const shouldUpdateProductList = useSelector(selectShouldUpdateProductList);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(updateIsLoading());
+		dispatch(updateIsLoadingStart());
 
 		if (!checkAccess([ROLE.ADMIN], userRole)) {
 			return;
@@ -38,9 +38,9 @@ export const ProductsEdit = () => {
 				setCategories(categoriesRes.data);
 			})
 			.finally(() => {
-				dispatch(updateIsLoading());
+				dispatch(updateIsLoadingEnd());
 			});
-	}, [ shouldUpdateProductList, userRole, dispatch]);
+	}, [shouldUpdateProductList, userRole, dispatch]);
 
 	return (
 		<PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
@@ -84,7 +84,7 @@ export const ProductsEdit = () => {
 									)
 								) : (
 									<div className={styles.noProdFound}>
-										Добавьте ваш первый товар.
+										Добавьте ваш первый товар!
 									</div>
 								)}
 							</>

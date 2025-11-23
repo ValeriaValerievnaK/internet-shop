@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CategoryMenu, Pagination, ProdCard, Search, Sorting } from './components';
 import { selectIsLoading } from '../../../src/selectore';
-import { updateIsLoading } from '../../../src/actions';
+import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
 import { Loader } from '../../components';
 import { PAGINATION_LIMIT } from '../../../src/constans';
 import { debounce } from './utils';
@@ -22,7 +22,7 @@ export const Main = () => {
 	const isLoading = useSelector(selectIsLoading);
 
 	useEffect(() => {
-		dispatch(updateIsLoading());
+		dispatch(updateIsLoadingStart());
 		request(
 			`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}`,
 		)
@@ -31,7 +31,7 @@ export const Main = () => {
 				setLastPage(lastPage);
 			})
 			.finally(() => {
-				dispatch(updateIsLoading());
+				dispatch(updateIsLoadingEnd());
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, page, shoudlSearch]);
