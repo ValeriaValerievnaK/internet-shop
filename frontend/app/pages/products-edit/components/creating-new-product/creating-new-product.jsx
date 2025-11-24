@@ -39,9 +39,7 @@ export const CreatingNewProduct = ({ categories: allCategories }) => {
 				dispatch(updateProductList());
 				reset();
 			})
-			.catch((error) => {
-				console.error('Error saving product:', error);
-			});
+			.catch(console.error);
 	};
 
 	const formError =

@@ -35,7 +35,13 @@ async function deleteProduct(id) {
 
 // get list with search and pagination
 
-async function getProducts(search = "", limit = 10, page = 1, category = "") {
+async function getProducts(
+  search = "",
+  limit = 10,
+  page = 1,
+  category = "",
+  sort = "asc"
+) {
   const filter = {
     title: { $regex: search, $options: "i" },
   };
@@ -44,8 +50,11 @@ async function getProducts(search = "", limit = 10, page = 1, category = "") {
     filter.category = category;
   }
 
+  const sortOrder = sort === "desc" ? -1 : 1;
+
   const [products, count] = await Promise.all([
     Product.find(filter)
+      .sort({ price: sortOrder })
       .limit(limit)
       .skip((page - 1) * limit),
     Product.countDocuments(filter),
@@ -70,7 +79,8 @@ async function getProduct(id) {
   });
 }
 
-// TODO подумать в сторону перенести categories в бд
+// get Categories
+
 function getCategories() {
   return categories;
 }

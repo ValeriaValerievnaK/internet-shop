@@ -24,7 +24,7 @@ export const Main = () => {
 	useEffect(() => {
 		dispatch(updateIsLoadingStart());
 		request(
-			`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}`,
+			`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}&sort=${sortValue}`,
 		)
 			.then(({ data: { products, lastPage } }) => {
 				setProducts(products);
@@ -34,7 +34,7 @@ export const Main = () => {
 				dispatch(updateIsLoadingEnd());
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, page, shoudlSearch]);
+	}, [dispatch, page, shoudlSearch, sortValue]);
 
 	useEffect(() => {
 		request(`/api/products/categories`).then((categoriesRes) => {
@@ -56,21 +56,11 @@ export const Main = () => {
 		setShoudlSearch(!shoudlSearch);
 	};
 
-	// TODO возможно перенести сортировку на бекенд
-
 	const onSort = () => {
-		setSortValue(sortValue === 'asc' ? 'desc' : 'asc');
+		const newSortValue = sortValue === 'asc' ? 'desc' : 'asc';
+		setSortValue(newSortValue);
+		setPage(1);
 	};
-
-	const sortedProducts = useMemo(() => {
-		return [...products].sort((a, b) => {
-			if (sortValue === 'asc') {
-				return a.price - b.price;
-			} else {
-				return b.price - a.price;
-			}
-		});
-	}, [products, sortValue]);
 
 	return (
 		<div className={styles.container}>
@@ -91,9 +81,9 @@ export const Main = () => {
 
 				{!isLoading && (
 					<div className={styles.productsSection}>
-						{sortedProducts.length > 0 ? (
+						{products.length > 0 ? (
 							<div className={styles.prodList}>
-								{sortedProducts.map(({ id, title, imageUrl, price }) => (
+								{products.map(({ id, title, imageUrl, price }) => (
 									<ProdCard
 										key={id}
 										id={id}
@@ -109,7 +99,7 @@ export const Main = () => {
 					</div>
 				)}
 			</div>
-			{lastPage > 1 && sortedProducts.length > 0 && (
+			{lastPage > 1 && products.length > 0 && (
 				<div className={styles.paginationContainer}>
 					<Pagination page={page} lastPage={lastPage} setPage={setPage} />
 				</div>

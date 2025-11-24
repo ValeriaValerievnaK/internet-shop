@@ -22,7 +22,8 @@ router.get("/", async (req, res) => {
     req.query.search,
     req.query.limit,
     req.query.page,
-    req.query.category
+    req.query.category,
+    req.query.sort
   );
 
   res.send({ data: { lastPage, products: products.map(mapProduct) } });

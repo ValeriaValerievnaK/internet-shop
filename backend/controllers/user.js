@@ -41,22 +41,7 @@ async function login(login, password) {
   return { token, user };
 }
 
-function getUsers() {
-  return User.find();
-}
-
-// TODO проверить использованние getUsers, getRoles
-
-function getRoles() {
-  return [
-    { id: ROLES.ADMIN, name: "Admin" },
-    { id: ROLES.BUYER, name: "Buyer" },
-  ];
-}
-
 module.exports = {
   register,
   login,
-  getUsers,
-  getRoles,
 };

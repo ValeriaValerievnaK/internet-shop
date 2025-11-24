@@ -21,8 +21,6 @@ export const Cart = () => {
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
 
-	console.log('userRole', userRole);
-
 	useEffect(() => {
 		dispatch(updateIsLoadingStart());
 

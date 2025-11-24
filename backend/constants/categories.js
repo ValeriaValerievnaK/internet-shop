@@ -71,4 +71,14 @@ module.exports = [
       },
     ],
   },
+  {
+    id: "013",
+    categoriesName: "Другое",
+    subCategories: [
+      {
+        id: "014",
+        name: "Прочее",
+      },
+    ],
+  },
 ];
