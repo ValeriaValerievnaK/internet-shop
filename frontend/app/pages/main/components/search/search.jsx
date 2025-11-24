@@ -10,6 +10,7 @@ export const Search = ({ searchPhrase, onChange }) => {
 				placeholder="Искать товар"
 				onChange={onChange}
 			/>
+			
 			<div className={styles.iconWrapper}>
 				<Icon inactive={true} id="fa-search" size="18px" />
 			</div>

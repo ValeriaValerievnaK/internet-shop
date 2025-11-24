@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-const ButtonContainer = ({ children, className, ...props }) => {
-	return (
-		<button className={className} {...props}>
-			{children}
-		</button>
-	);
-};
+const ButtonContainer = ({ children, className, ...props }) => (
+	<button className={className} {...props}>
+		{children}
+	</button>
+);
 
 export const Button = styled(ButtonContainer)`
 	display: flex;

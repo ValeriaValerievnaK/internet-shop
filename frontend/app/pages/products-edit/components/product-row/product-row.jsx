@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TableRow } from '../table-row/table-row';
-import { SpecialPanel } from '../components';
 import { Icon, Input } from '../../../../components';
 import { saveProductAsync, updateProductList } from '../../../../../src/actions';
 import { SelectWithGroup, validationSchema } from '../utils';
+import { SpecialPanel } from '../special-panel/special-panel';
 import styles from './product-row.module.css';
 
 export const ProductRow = ({
@@ -84,11 +84,13 @@ export const ProductRow = ({
 							error={titleError}
 							{...register('title')}
 						/>
+
 						<SelectWithGroup
 							allCategories={allCategories}
 							error={categoryError}
 							{...register('category')}
 						/>
+
 						<Input
 							className="price-column"
 							type="number"
@@ -96,6 +98,7 @@ export const ProductRow = ({
 							error={priceError}
 							{...register('price')}
 						/>
+
 						<Input
 							className="count-column"
 							type="number"
@@ -103,6 +106,7 @@ export const ProductRow = ({
 							error={countError}
 							{...register('count')}
 						/>
+
 						<Input
 							className="imageUrl-column"
 							type="text"
@@ -111,6 +115,7 @@ export const ProductRow = ({
 							{...register('imageUrl')}
 						/>
 					</TableRow>
+
 					<SpecialPanel
 						id={id}
 						editButton={

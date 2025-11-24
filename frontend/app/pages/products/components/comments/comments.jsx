@@ -10,7 +10,9 @@ import { formatDate } from '../../../../../src/utils';
 
 export const Comments = ({ comments, productId }) => {
 	const [newComment, setNewComment] = useState('');
+
 	const dispatch = useDispatch();
+
 	const userRole = useSelector(selectUserRole);
 
 	const onNewCommentAdd = (productId, content) => {
@@ -19,11 +21,13 @@ export const Comments = ({ comments, productId }) => {
 	};
 
 	const isGuest = userRole === ROLE.GUEST;
+
 	const checkH2 = !(isGuest && comments.length === 0);
 
 	return (
 		<div className={styles.container}>
 			{checkH2 && <h2>Отзывы</h2>}
+
 			{!isGuest && (
 				<div className={styles.newComment}>
 					<textarea
@@ -32,6 +36,7 @@ export const Comments = ({ comments, productId }) => {
 						placeholder="Поделитесь своим мнением о товаре..."
 						onChange={({ target }) => setNewComment(target.value)}
 					></textarea>
+
 					<Icon
 						id="fa-arrow-circle-right"
 						size="19px"
@@ -42,6 +47,7 @@ export const Comments = ({ comments, productId }) => {
 					/>
 				</div>
 			)}
+
 			<div className={styles.comments}>
 				{comments.map(({ id, author, content, publishedAt }) => (
 					<Comment

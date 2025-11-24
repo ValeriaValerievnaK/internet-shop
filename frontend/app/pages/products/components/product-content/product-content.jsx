@@ -13,7 +13,9 @@ export const ProductContent = ({
 }) => {
 	const [allCategories, setAllCategories] = useState([]);
 	const [categoryPath, setCategoryPath] = useState('');
+
 	const navigate = useNavigate();
+
 	const userId = useSelector(selectUserId);
 	const roleId = useSelector(selectUserRole);
 
@@ -23,7 +25,6 @@ export const ProductContent = ({
 		});
 	}, []);
 
-	
 	useEffect(() => {
 		if (allCategories.length) {
 			const path = getCategoryPath(allCategories, category);
@@ -65,18 +66,24 @@ export const ProductContent = ({
 			<div className={styles.category} onClick={onClickPath}>
 				{categoryPath}
 			</div>
+
 			{imageUrl && <img src={imageUrl} alt={title} />}
+
 			<div className={styles.content}>
 				<H2>{title}</H2>
+
 				<div className={styles.price}>{price} рублей</div>
+
 				<div className={styles.count}>Осталось {count} шт</div>
 			</div>
+
 			<div className={styles.actions}>
 				{isBuyerOrAdmin && (
 					<>
 						<Button onClick={() => onBuyProductNow(id, userId)}>
 							Купить сейчас
 						</Button>
+
 						<Button onClick={() => onBuyProduct(id, userId)}>
 							Добавить в корзину
 						</Button>

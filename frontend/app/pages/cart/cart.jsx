@@ -53,6 +53,7 @@ export const Cart = () => {
 			{cart.length > 0 ? (
 				<>
 					<h2 className={styles.title}>Корзина</h2>
+
 					<div className={styles.container}>
 						<div className={styles.allCart}>
 							{cart.map(
@@ -82,6 +83,7 @@ export const Cart = () => {
 								},
 							)}
 						</div>
+
 						<div className={styles.action}>
 							<ActionBox />
 						</div>
@@ -90,6 +92,7 @@ export const Cart = () => {
 			) : (
 				<div className={styles.emptyCart} onClick={onShoping}>
 					<p>У вас еще нет товаров в корзине =(</p>
+
 					<p>Перейти к покупкам!</p>
 				</div>
 			)}

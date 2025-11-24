@@ -8,9 +8,9 @@ import {
 import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
 import { TableRow, ProductRow, CreatingNewProduct } from './components';
 import { H2, Loader, PrivateContent } from '../../components';
-import styles from './products-edit.module.css';
 import { ROLE } from '../../../src/constans';
 import { checkAccess, request } from '../../../src/utils';
+import styles from './products-edit.module.css';
 
 export const ProductsEdit = () => {
 	const [products, setProducts] = useState([]);
@@ -46,8 +46,10 @@ export const ProductsEdit = () => {
 		<PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
 			<div className={styles.appСontainer}>
 				<H2>Панель управления товарами</H2>
+
 				<div className={styles.content}>
 					<CreatingNewProduct categories={categories} />
+
 					<div className={styles.productsList}>
 						{isLoading && <Loader />}
 
@@ -60,6 +62,7 @@ export const ProductsEdit = () => {
 									<div className="count-column">Остаток</div>
 									<div className="imageUrl-column">Фото</div>
 								</TableRow>
+
 								{products.length > 0 ? (
 									products.map(
 										({

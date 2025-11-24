@@ -13,8 +13,8 @@ import {
 	Main,
 } from './pages';
 import '../index.css';
-import styles from './shop.module.css';
 import { ERROR } from '../src/constans';
+import styles from './shop.module.css';
 
 export const Shop = () => {
 	const dispatch = useDispatch();
@@ -39,6 +39,7 @@ export const Shop = () => {
 	return (
 		<div className={styles.appColumn}>
 			<Header />
+
 			<div className={styles.page}>
 				<Routes>
 					<Route path="/" element={<Main />} />
@@ -51,7 +52,9 @@ export const Shop = () => {
 					<Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} />
 				</Routes>
 			</div>
+
 			<Footer />
+
 			<Modal />
 		</div>
 	);

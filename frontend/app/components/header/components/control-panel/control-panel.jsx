@@ -9,14 +9,17 @@ import styles from './control-panel.module.css';
 
 export const ControlPanel = ({ className }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const roleId = useSelector(selectUserRole);
 	const login = useSelector(selectUserLogin);
-	const dispatch = useDispatch();
 
 	const onLogout = () => {
 		dispatch(logout());
+
 		sessionStorage.removeItem('userData');
-		navigate('/')
+
+		navigate('/');
 	};
 
 	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
@@ -32,21 +35,25 @@ export const ControlPanel = ({ className }) => {
 				) : (
 					<>
 						<div className={styles.userName}>Привет, {login}!</div>
+
 						<Icon id="fa-sign-out" margin="0 0 0 10px" onClick={onLogout} />
 					</>
 				)}
 			</div>
+
 			<div className={styles.rightAligned}>
 				<Icon
 					id="fa-arrow-left"
 					margin="10px 0 0 0"
 					onClick={() => navigate(-1)}
 				/>
+
 				{isBuyerOrAdmin && (
 					<Link to="/cart">
 						<Icon id="fa-shopping-basket" margin="10px 0 0 16px" />
 					</Link>
 				)}
+
 				{isAdmin && (
 					<Link to="/products-edit">
 						<Icon id="fa-cogs" margin="10px 0 0 16px" />

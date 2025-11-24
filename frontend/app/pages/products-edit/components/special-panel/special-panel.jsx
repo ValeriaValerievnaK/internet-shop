@@ -4,8 +4,8 @@ import {
 	openModal,
 	removeProductAsync,
 	updateProductList,
-} from '../../../../../../src/actions';
-import { Icon } from '../../../../../components';
+} from '../../../../../src/actions';
+import { Icon } from '../../../../components';
 
 export const SpecialPanel = ({ id, editButton }) => {
 	const dispatch = useDispatch();
@@ -28,6 +28,7 @@ export const SpecialPanel = ({ id, editButton }) => {
 	return (
 		<div className="actions-column">
 			{editButton}
+
 			<Icon
 				id="fa-trash-o"
 				margin="0 0 0 10px"

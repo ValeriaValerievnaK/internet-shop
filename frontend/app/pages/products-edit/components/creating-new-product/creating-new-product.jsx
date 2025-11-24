@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, ErrorMessage } from '../../../../components';
 import { saveProductAsync, updateProductList } from '../../../../../src/actions';
-import { SelectWithGroup, validationSchema } from '../utils';
+import { validationSchema } from '../utils';
+import { SelectWithGroup } from '../select-with-group/select-with-group';
 import styles from './creating-new-product.module.css';
 
 export const CreatingNewProduct = ({ categories: allCategories }) => {
@@ -52,18 +53,25 @@ export const CreatingNewProduct = ({ categories: allCategories }) => {
 	return (
 		<div className={styles.sidebar}>
 			<h3>Создайте новый товар</h3>
+
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input type="text" placeholder="Наименование..." {...register('title')} />
+
 				<SelectWithGroup
 					allCategories={allCategories}
 					{...register('category')}
 				/>
+
 				<Input type="number" placeholder="Стоимость..." {...register('price')} />
+
 				<Input type="number" placeholder="Остаток..." {...register('count')} />
+
 				<Input type="text" placeholder="Фото..." {...register('imageUrl')} />
+
 				<Button type="submit" disabled={!!formError}>
 					Сохранить
 				</Button>
+
 				{formError && <ErrorMessage>{formError}</ErrorMessage>}
 			</form>
 		</div>

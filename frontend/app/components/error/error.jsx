@@ -40,7 +40,9 @@ export const Error = ({ error }) => {
 	return (
 		<Div>
 			<ErrorIcon />
+
 			<H2 style={{ color: '#c53030', margin: '0 0 8px 0' }}>Ошибка</H2>
+
 			<div>{error}</div>
 		</Div>
 	);

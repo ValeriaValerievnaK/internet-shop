@@ -23,6 +23,7 @@ export const CategoryMenu = ({ searchPhrase, onChange, categorys }) => {
 									onChange={onChange}
 									className={styles.radioInput}
 								/>
+
 								<div className={styles.subCategoryName}>
 									{subCategory.name}
 								</div>

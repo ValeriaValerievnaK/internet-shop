@@ -8,6 +8,7 @@ import styles from './action-box.module.css';
 export const ActionBox = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
 	const totalPrise = useSelector(selectCartTotalPrice);
 
 	const onToBuy = () => {
@@ -18,7 +19,9 @@ export const ActionBox = () => {
 	return (
 		<div className={styles.container}>
 			<h3>Итого к оплате:</h3>
+
 			<div className={styles.price}>{totalPrise} ₽</div>
+
 			<Button onClick={onToBuy}>Оформить заказ</Button>
 		</div>
 	);

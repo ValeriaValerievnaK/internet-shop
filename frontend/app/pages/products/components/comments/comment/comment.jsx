@@ -3,15 +3,16 @@ import {
 	CLOSE_MODAL,
 	openModal,
 	removeCommentAsync,
-} from '../../../../../../../src/actions';
-import { selectUserRole } from '../../../../../../../src/selectore';
-import { Icon } from '../../../../../../components';
-import { checkAccess } from '../../../../../../../src/utils';
-import { ROLE } from '../../../../../../../src/constans';
+} from '../../../../../../src/actions';
+import { selectUserRole } from '../../../../../../src/selectore';
+import { Icon } from '../../../../../components';
+import { checkAccess } from '../../../../../../src/utils';
+import { ROLE } from '../../../../../../src/constans';
 import styles from './comment.module.css';
 
 export const Comment = ({ productId, id, author, content, publishedAt }) => {
 	const dispatch = useDispatch();
+
 	const roleId = useSelector(selectUserRole);
 
 	const onCommentRemove = (commentId, productId) => {
@@ -41,8 +42,10 @@ export const Comment = ({ productId, id, author, content, publishedAt }) => {
 							margin="0 10px 0 0"
 							onClick={() => {}}
 						/>
+
 						{author}
 					</div>
+
 					<div className={styles.publishedAt}>
 						<Icon
 							inactive={true}
@@ -51,11 +54,14 @@ export const Comment = ({ productId, id, author, content, publishedAt }) => {
 							margin="0 10px 0 0"
 							onClick={() => {}}
 						/>
+
 						{publishedAt}
 					</div>
 				</div>
+
 				<div className={styles.commentText}>{content}</div>
 			</div>
+
 			{isAdmin && (
 				<Icon
 					id="fa-times"

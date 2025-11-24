@@ -6,8 +6,8 @@ import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
 import { Loader } from '../../components';
 import { PAGINATION_LIMIT } from '../../../src/constans';
 import { debounce } from './utils';
-import styles from './main.module.css';
 import { request } from '../../../src/utils';
+import styles from './main.module.css';
 
 export const Main = () => {
 	const [products, setProducts] = useState([]);
@@ -18,7 +18,9 @@ export const Main = () => {
 	const [searchPhrase, setSearchPhrase] = useState('');
 	const [categorySearch, setCategorySearch] = useState('');
 	const [sortValue, setSortValue] = useState('asc');
+
 	const dispatch = useDispatch();
+
 	const isLoading = useSelector(selectIsLoading);
 
 	useEffect(() => {
@@ -66,8 +68,10 @@ export const Main = () => {
 		<div className={styles.container}>
 			<div className={styles.searchSortContainer}>
 				<Search onChange={onSearch} searchPhrase={searchPhrase} />
+
 				<Sorting onSort={onSort} sortValue={sortValue} />
 			</div>
+
 			<div className={styles.mainContent}>
 				<div className={styles.category}>
 					<CategoryMenu
@@ -99,6 +103,7 @@ export const Main = () => {
 					</div>
 				)}
 			</div>
+
 			{lastPage > 1 && products.length > 0 && (
 				<div className={styles.paginationContainer}>
 					<Pagination page={page} lastPage={lastPage} setPage={setPage} />

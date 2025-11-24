@@ -11,6 +11,7 @@ export const Sorting = ({ onSort, sortValue }) => {
 					}
 					size="18px"
 				/>
+				
 				<div>
 					{sortValue === 'asc'
 						? 'От дорогих к дешевым'

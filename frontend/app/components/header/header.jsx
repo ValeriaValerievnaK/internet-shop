@@ -4,6 +4,7 @@ import styles from './header.module.css';
 export const Header = () => (
 	<div className={styles.header}>
 		<Logo />
+
 		<div className={styles.discription}>
 			Выгода!
 			<br />
@@ -11,6 +12,7 @@ export const Header = () => (
 			<br />
 			Удобстово!
 		</div>
+
 		<ControlPanel />
 	</div>
 );

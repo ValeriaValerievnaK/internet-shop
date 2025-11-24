@@ -7,8 +7,10 @@ export const ProdCard = ({ id, title, imageUrl, price }) => {
 		<div className={styles.allContainer}>
 			<Link to={`/products/${id}`}>
 				<img src={imageUrl} alt={title} />
+
 				<div className={styles.prodCardFooter}>
 					<h4>{title}</h4>
+
 					<div className={styles.prodCardPrice}>
 						{price}
 						<Icon

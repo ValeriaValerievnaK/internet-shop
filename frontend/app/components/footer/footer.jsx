@@ -17,19 +17,27 @@ export const Footer = () => {
 				setWeather(weather[0].description);
 			});
 	}, []);
+
+	const currentDate = new Date().toLocaleString('ru', {
+		day: 'numeric',
+		month: 'long',
+	});
+
 	return (
 		<div className={styles.footer}>
 			<div className={styles.contacts}>
 				<div>Связаться с разработчиком</div>
+
 				<a href="mailto:valeriakartaseva39@gmail.com?subject=Вопрос об интеренет-магазине&body=Здравствуйте! У мення есть вопрос...">
 					Valeriakartaseva39@gmail.com
 				</a>
 			</div>
+
 			<div className={styles.weather}>
 				<div>
-					В городе {city},{' '}
-					{new Date().toLocaleString('ru', { day: 'numeric', month: 'long' })}
+					В городе {city}, {currentDate}
 				</div>
+
 				<div>
 					Погода за окном {temperature} °C, {weather}
 				</div>

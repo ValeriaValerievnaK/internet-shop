@@ -13,10 +13,13 @@ import styles from './products.module.css';
 
 export const Products = () => {
 	const [error, setError] = useState(false);
+
 	const dispatch = useDispatch();
-	const param = useParams();
+
 	const product = useSelector(selectProduct);
 	const isLoading = useSelector(selectIsLoading);
+
+	const param = useParams();
 
 	useEffect(() => {
 		dispatch(updateIsLoadingStart());
@@ -43,6 +46,7 @@ export const Products = () => {
 	return (
 		<div className={styles.container}>
 			<ProductContent product={product} />
+
 			<Comments comments={product.comments} productId={product.id} />
 		</div>
 	);

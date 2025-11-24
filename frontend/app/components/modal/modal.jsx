@@ -21,12 +21,15 @@ export const Modal = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.overlay}></div>
+
 			<div className={styles.box}>
 				<h3>{text}</h3>
+
 				<div className={styles.buttons}>
 					<Button width="120px" onClick={onConfirm}>
 						Да
 					</Button>
+
 					<Button width="120px" onClick={onCancel}>
 						Отмена
 					</Button>

@@ -47,8 +47,10 @@ export const CartRow = ({
 		<div className={styles.productItem}>
 			<div className={styles.imageTitleContainer} onClick={onProduct}>
 				<img src={productImageUrl} alt={productTitle} />
+
 				<div className={styles.title}>{productTitle}</div>
 			</div>
+
 			<div className={styles.countControl}>
 				<Icon
 					id="fa fa-minus"
@@ -56,10 +58,14 @@ export const CartRow = ({
 					onClick={onDecrease}
 					disabled={count === 1}
 				/>
+
 				<div className={styles.count}>{count} шт</div>
+
 				<Icon id="fa fa-plus" size="16px" onClick={onIncrease} />
 			</div>
+
 			<div className={styles.price}>{price} ₽</div>
+
 			<Icon
 				id="fa fa-times"
 				size="16px"

@@ -6,6 +6,7 @@ export const SelectWithGroup = ({ allCategories, ...props }) => {
 			<option value="" disabled hidden>
 				Категория
 			</option>
+
 			{allCategories.map(({ id, categoriesName, subCategories }) => (
 				<optgroup label={categoriesName} key={id}>
 					{subCategories.map(({ id, name }) => (
