@@ -1,4 +1,5 @@
 import { ACTION_TYPE } from '../actions';
+
 const initialProductState = {
 	id: '',
 	title: '',

@@ -4,7 +4,7 @@ import {
 	selectIsLoading,
 	selectShouldUpdateProductList,
 	selectUserRole,
-} from '../../../src/selectore';
+} from '../../../src/selectors';
 import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
 import { TableRow, ProductRow, CreatingNewProduct } from './components';
 import { H2, Loader, PrivateContent } from '../../components';
@@ -16,9 +16,11 @@ export const ProductsEdit = () => {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
+
 	const shouldUpdateProductList = useSelector(selectShouldUpdateProductList);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -64,27 +66,13 @@ export const ProductsEdit = () => {
 								</TableRow>
 
 								{products.length > 0 ? (
-									products.map(
-										({
-											id,
-											title,
-											imageUrl,
-											category,
-											price,
-											count,
-										}) => (
-											<ProductRow
-												key={id}
-												id={id}
-												title={title}
-												imageUrl={imageUrl}
-												category={category}
-												price={price}
-												count={count}
-												categories={categories}
-											/>
-										),
-									)
+									products.map((product) => (
+										<ProductRow
+											key={product.id}
+											product={product}
+											categories={categories}
+										/>
+									))
 								) : (
 									<div className={styles.noProdFound}>
 										Добавьте ваш первый товар!

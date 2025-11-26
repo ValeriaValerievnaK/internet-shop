@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CategoryMenu, Pagination, ProdCard, Search, Sorting } from './components';
-import { selectIsLoading } from '../../../src/selectore';
+import { selectIsLoading } from '../../../src/selectors';
 import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
 import { Loader } from '../../components';
 import { PAGINATION_LIMIT } from '../../../src/constans';
@@ -25,6 +25,7 @@ export const Main = () => {
 
 	useEffect(() => {
 		dispatch(updateIsLoadingStart());
+
 		request(
 			`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}&sort=${sortValue}`,
 		)
@@ -60,6 +61,7 @@ export const Main = () => {
 
 	const onSort = () => {
 		const newSortValue = sortValue === 'asc' ? 'desc' : 'asc';
+
 		setSortValue(newSortValue);
 		setPage(1);
 	};

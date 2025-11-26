@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ActionBox, CartRow } from './components';
-import { selectCartData, selectIsLoading, selectUserRole } from '../../../src/selectore';
+import { selectCartData, selectIsLoading, selectUserRole } from '../../../src/selectors';
 import {
 	loadCartAsync,
 	updateIsLoadingEnd,
@@ -15,9 +15,11 @@ import { checkAccess } from '../../../src/utils';
 
 export const Cart = () => {
 	const [errorMessage, setErrorMessage] = useState(null);
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const cart = useSelector(selectCartData);
+
+	const carts = useSelector(selectCartData);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
 
@@ -32,6 +34,7 @@ export const Cart = () => {
 			.then((res) => {
 				if (res.error) {
 					setErrorMessage(res.error);
+
 					return;
 				}
 			})
@@ -50,38 +53,15 @@ export const Cart = () => {
 
 	return (
 		<PrivateContent access={[ROLE.ADMIN, ROLE.BUYER]} serverError={errorMessage}>
-			{cart.length > 0 ? (
+			{carts.length > 0 ? (
 				<>
 					<h2 className={styles.title}>Корзина</h2>
 
 					<div className={styles.container}>
 						<div className={styles.allCart}>
-							{cart.map(
-								({
-									productId,
-									productImageUrl,
-									productTitle,
-									price,
-									userId,
-									count,
-									id,
-									totalCount,
-								}) => {
-									return (
-										<CartRow
-											key={id}
-											productId={productId}
-											userId={userId}
-											productImageUrl={productImageUrl}
-											productTitle={productTitle}
-											price={price}
-											count={count}
-											id={id}
-											totalCount={totalCount}
-										/>
-									);
-								},
-							)}
+							{carts.map((cart) => {
+								return <CartRow key={cart.id} cart={cart} />;
+							})}
 						</div>
 
 						<div className={styles.action}>

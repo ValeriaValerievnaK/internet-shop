@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserRole } from '../../../../../src/selectore';
+import { selectUserRole } from '../../../../../src/selectors';
 import { addCommentAsync } from '../../../../../src/actions';
 import { Icon } from '../../../../components';
 import { Comment } from './comment/comment';
@@ -17,16 +17,17 @@ export const Comments = ({ comments, productId }) => {
 
 	const onNewCommentAdd = (productId, content) => {
 		dispatch(addCommentAsync(productId, content));
+
 		setNewComment('');
 	};
 
 	const isGuest = userRole === ROLE.GUEST;
 
-	const checkH2 = !(isGuest && comments.length === 0);
+	const checkDisplayOfReviews = !(isGuest && comments.length === 0);
 
 	return (
 		<div className={styles.container}>
-			{checkH2 && <h2>Отзывы</h2>}
+			{checkDisplayOfReviews && <h2>Отзывы</h2>}
 
 			{!isGuest && (
 				<div className={styles.newComment}>

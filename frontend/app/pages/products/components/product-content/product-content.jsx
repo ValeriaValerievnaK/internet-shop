@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUserId, selectUserRole } from '../../../../../src/selectore';
+import { selectUserId, selectUserRole } from '../../../../../src/selectors';
 import { Button, H2 } from '../../../../components';
 import { getCategoryPath } from './utils/get-category-path';
 import styles from './product-content.module.css';

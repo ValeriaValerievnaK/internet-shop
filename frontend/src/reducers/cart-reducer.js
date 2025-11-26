@@ -1,4 +1,5 @@
 import { ACTION_TYPE } from '../actions';
+
 const initialCartState = { cartData: [], totalPrice: 0 };
 
 const calculateTotalPrice = (cartItems) => {

@@ -6,7 +6,7 @@ import {
 	updateIsLoadingEnd,
 	updateIsLoadingStart,
 } from '../../../src/actions';
-import { selectIsLoading, selectProduct } from '../../../src/selectore';
+import { selectIsLoading, selectProduct } from '../../../src/selectors';
 import { ProductContent, Comments } from './components';
 import { Error, Loader } from '../../components';
 import styles from './products.module.css';

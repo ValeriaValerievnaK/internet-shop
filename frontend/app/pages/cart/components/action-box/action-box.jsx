@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../../components';
-import { selectCartTotalPrice } from '../../../../../src/selectore';
+import { selectCartTotalPrice } from '../../../../../src/selectors';
 import { removeCartAsync } from '../../../../../src/actions';
 import styles from './action-box.module.css';
 

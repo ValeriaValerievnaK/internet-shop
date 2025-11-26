@@ -63,9 +63,7 @@ export const CreatingNewProduct = ({ categories: allCategories }) => {
 				/>
 
 				<Input type="number" placeholder="Стоимость..." {...register('price')} />
-
 				<Input type="number" placeholder="Остаток..." {...register('count')} />
-
 				<Input type="text" placeholder="Фото..." {...register('imageUrl')} />
 
 				<Button type="submit" disabled={!!formError}>

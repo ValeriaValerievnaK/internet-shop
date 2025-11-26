@@ -5,7 +5,7 @@ import {
 	selectModalOnCancel,
 	selectModalOnConfirm,
 	selectModalText,
-} from '../../../src/selectore';
+} from '../../../src/selectors';
 import styles from './modal.module.css';
 
 export const Modal = () => {

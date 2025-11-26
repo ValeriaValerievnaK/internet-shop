@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon, Button } from '../../../../components';
 import { ROLE } from '../../../../../src/constans';
-import { selectUserRole, selectUserLogin } from '../../../../../src/selectore';
+import { selectUserRole, selectUserLogin } from '../../../../../src/selectors';
 import { logout } from '../../../../../src/actions';
 import { checkAccess } from '../../../../../src/utils';
 import styles from './control-panel.module.css';

@@ -1,8 +1,7 @@
-import * as yup from 'yup';
+import { string, number, object } from 'yup';
 
-export const validationSchema = yup.object().shape({
-	title: yup
-		.string()
+export const validationSchema = object().shape({
+	title: string()
 		.required('Введите наименование товара')
 		.matches(
 			/^[a-zA-Zа-яА-ЯёЁ\s]+$/,
@@ -10,25 +9,22 @@ export const validationSchema = yup.object().shape({
 		)
 		.min(2, 'Неверное наименование. Минимум 2 символа.')
 		.max(20, 'Неверное наименование. Максимум 20 символов.'),
-	category: yup.string().required('Выберете категорю'),
-	price: yup
-		.number()
+	category: string().required('Выберете категорю'),
+	price: number()
 		.typeError('Стоимость должна быть числом')
 		.required('Введите стоимость товара')
 		.positive('Стоимость не может быть меньше 0')
 		.integer('Стоимость должна быть целым числом')
 		.min(1, 'Стоимость не может быть меньше 1')
 		.max(9999999999, 'Неверная стоимость. Максимум 10 цифр.'),
-	count: yup
-		.number()
+	count: number()
 		.typeError('Остаток должен быть числом')
 		.required('Введите остаток товара')
 		.positive('Остаток не может быть меньше 0')
 		.integer('Остаток должен быть целым числом')
 		.min(0, 'Остаток не может быть меньше 0')
 		.max(9999999999, 'Неверный остаток. Максимум 10 цифр.'),
-	imageUrl: yup
-		.string()
+	imageUrl: string()
 		.required('Введите ссылку на изображение')
 		.url('Введите корректный URL'),
 });

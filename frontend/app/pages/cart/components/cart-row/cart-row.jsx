@@ -9,13 +9,7 @@ import { updateCountData } from '../../../../../src/utils';
 import styles from './cart-row.module.css';
 
 export const CartRow = ({
-	productId,
-	productImageUrl,
-	productTitle,
-	price,
-	count,
-	id,
-	totalCount,
+	cart: { productId, productImageUrl, productTitle, price, count, id, totalCount },
 }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -30,6 +24,7 @@ export const CartRow = ({
 
 	const onDecrease = async () => {
 		const { newCount, newPrice } = updateCountData(price, count, 'decrease');
+
 		if (newCount == 0) {
 			dispatch(removeProductToCartAsync(id));
 		} else {

@@ -4,7 +4,7 @@ import {
 	openModal,
 	removeCommentAsync,
 } from '../../../../../../src/actions';
-import { selectUserRole } from '../../../../../../src/selectore';
+import { selectUserRole } from '../../../../../../src/selectors';
 import { Icon } from '../../../../../components';
 import { checkAccess } from '../../../../../../src/utils';
 import { ROLE } from '../../../../../../src/constans';

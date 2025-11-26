@@ -11,12 +11,7 @@ import { SpecialPanel } from '../special-panel/special-panel';
 import styles from './product-row.module.css';
 
 export const ProductRow = ({
-	id,
-	title,
-	imageUrl,
-	category: productCategory,
-	price,
-	count,
+	product: { id, title, imageUrl, category: productCategory, price, count },
 	categories: allCategories,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -67,11 +62,7 @@ export const ProductRow = ({
 	const imageUrlError = errors?.imageUrl?.message;
 
 	const formError =
-		errors?.title?.message ||
-		errors?.category?.message ||
-		errors?.price?.message ||
-		errors?.count?.message ||
-		errors?.imageUrl?.message;
+		titleError || categoryError || priceError || countError || imageUrlError;
 
 	const renderContent = () => {
 		if (isEditing) {
@@ -149,6 +140,7 @@ export const ProductRow = ({
 						<img src={imageUrl} alt={title} className={styles.productImage} />
 					</div>
 				</TableRow>
+
 				<SpecialPanel
 					id={id}
 					editButton={

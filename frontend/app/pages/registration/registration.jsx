@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { regFormSchema } from './validation.schema';
 import { Input, Button, H2, ErrorMessage } from '../../components';
 import { setUser } from '../../../src/actions';
-import { selectUserRole } from '../../../src/selectore';
+import { selectUserRole } from '../../../src/selectors';
 import { ROLE } from '../../../src/constans';
 import { useResetForm } from '../../../src/hooks';
 import { request } from '../../../src/utils';
