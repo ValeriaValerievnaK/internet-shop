@@ -5,7 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TableRow } from '../table-row/table-row';
 import { Icon, Input } from '../../../../components';
 import { saveProductAsync, updateProductList } from '../../../../../src/actions';
-import { SelectWithGroup, validationSchema } from '../utils';
+import { validationSchema } from '../utils';
+import { SelectWithGroup } from '../select-with-group/select-with-group';
 import { SpecialPanel } from '../special-panel/special-panel';
 import styles from './product-row.module.css';
 

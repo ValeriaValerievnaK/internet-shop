@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserRole } from '../../../../../src/selectore';
 import { addCommentAsync } from '../../../../../src/actions';
 import { Icon } from '../../../../components';
-import { Comment } from './components';
+import { Comment } from './comment/comment';
 import { ROLE } from '../../../../../src/constans';
 import styles from './comments.module.css';
 import { formatDate } from '../../../../../src/utils';
