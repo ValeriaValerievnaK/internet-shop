@@ -1,7 +1,14 @@
-import { forwardRef } from 'react';
+import { forwardRef, type InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-const InputContainer = forwardRef(({ className, ...props }, ref) => (
+interface IProps extends InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+  width?: string;
+  margin?: string;
+  error?: boolean;
+}
+
+const InputContainer = forwardRef<HTMLInputElement, IProps>(({ className, ...props }, ref) => (
 	<input className={className} {...props} ref={ref} />
 ));
 

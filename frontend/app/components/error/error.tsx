@@ -1,5 +1,10 @@
+import type { FC } from 'react';
 import { H2 } from '../h2/h2';
 import styled from 'styled-components';
+
+interface IProps {
+  error?: string;
+}
 
 const Div = styled.div`
 	text-align: center;
@@ -32,7 +37,8 @@ const ErrorIcon = styled.div`
 	}
 `;
 
-export const Error = ({ error }) => {
+
+export const Error: FC<IProps> = ({ error }) => {
 	if (!error) {
 		return null;
 	}

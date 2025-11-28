@@ -3,7 +3,7 @@ import styles from './footer.module.css';
 
 export const Footer = () => {
 	const [city, setCity] = useState('');
-	const [temperature, setTemperature] = useState('');
+	const [temperature, setTemperature] = useState(0);
 	const [weather, setWeather] = useState('');
 
 	useEffect(() => {
