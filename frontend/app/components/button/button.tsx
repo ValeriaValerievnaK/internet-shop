@@ -1,6 +1,13 @@
+import type { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-const ButtonContainer = ({ children, className, ...props }) => (
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  className?: string;
+  width?: string;
+}
+
+const ButtonContainer: FC<IProps> = ({ children, className, ...props }) => (
 	<button className={className} {...props}>
 		{children}
 	</button>

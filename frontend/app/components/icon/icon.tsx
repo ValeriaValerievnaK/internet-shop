@@ -1,7 +1,16 @@
+import type { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-// eslint-disable-next-line no-unused-vars
-const IconContainer = ({ className, id, inactive, ...props }) => (
+interface IProps extends HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  id?: string;
+  inactive?: boolean;
+  size?: string;
+  margin?: string;
+  disabled?: boolean;
+}
+
+const IconContainer: FC<IProps> = ({ className, id, inactive, ...props }) => (
 	<div className={className} {...props}>
 		<i className={`fa ${id}`} aria-hidden="true"></i>
 	</div>

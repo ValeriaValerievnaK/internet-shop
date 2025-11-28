@@ -1,13 +1,18 @@
+import type { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Icon, Button } from '../../../../components';
+import { Icon, Button } from '../../..';
 import { ROLE } from '../../../../../src/constans';
 import { selectUserRole, selectUserLogin } from '../../../../../src/selectors';
 import { logout } from '../../../../../src/actions';
 import { checkAccess } from '../../../../../src/utils';
 import styles from './control-panel.module.css';
 
-export const ControlPanel = ({ className }) => {
+interface IProps {
+	className?: string
+}
+
+export const ControlPanel: FC<IProps> = ({ className }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -29,7 +34,7 @@ export const ControlPanel = ({ className }) => {
 		<div className={className}>
 			<div className={styles.rightAligned}>
 				{roleId === ROLE.GUEST ? (
-					<Button>
+					<Button >
 						<Link to="/login">Войти</Link>
 					</Button>
 				) : (

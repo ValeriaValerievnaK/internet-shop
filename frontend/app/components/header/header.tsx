@@ -1,4 +1,4 @@
-import { Logo, ControlPanel } from './components';
+import { Logo, ControlPanel } from './components/index.js';
 import styles from './header.module.css';
 
 export const Header = () => (
