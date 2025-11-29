@@ -56,7 +56,12 @@ export const CartRow = ({
 
 				<div className={styles.count}>{count} шт</div>
 
-				<Icon id="fa fa-plus" size="16px" onClick={onIncrease} />
+				<Icon
+					id="fa fa-plus"
+					size="16px"
+					onClick={onIncrease}
+					disabled={count === totalCount}
+				/>
 			</div>
 
 			<div className={styles.price}>{price} ₽</div>
