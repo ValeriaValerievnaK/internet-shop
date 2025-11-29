@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authFormSchema } from './validation.schema';
+import { authFormSchema, type TAuthFormSchema } from './validation.schema';
 import { ROLE } from '../../../src/constans';
 import { Button, ErrorMessage, H2, Input } from '../../components';
 import { selectUserRole } from '../../../src/selectors';
@@ -12,12 +12,17 @@ import { useResetForm } from '../../../src/hooks';
 import { request } from '../../../src/utils';
 import styles from './authorization.module.css';
 
+interface ILoginResponse {
+	error?: string;
+	user?: string;
+}
+
 export const Authorization = () => {
 	const dispatch = useDispatch();
 
 	const roleId = useSelector(selectUserRole);
 
-	const [serverError, setServerError] = useState(null);
+	const [serverError, setServerError] = useState<string | null>(null);
 
 	const {
 		register,
@@ -34,8 +39,8 @@ export const Authorization = () => {
 
 	useResetForm(reset);
 
-	const onSubmit = ({ login, password }) => {
-		request('/api/login', 'POST', { login, password }).then(({ error, user }) => {
+	const onSubmit = ({ login, password }: TAuthFormSchema) => {
+		request<ILoginResponse, TAuthFormSchema>('/api/login', 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
 

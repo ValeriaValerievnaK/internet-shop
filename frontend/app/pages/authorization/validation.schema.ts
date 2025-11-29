@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { object, string, type InferType } from 'yup';
 
 export const authFormSchema = object().shape({
 	login: string()
@@ -15,3 +15,5 @@ export const authFormSchema = object().shape({
 		.min(6, 'Неверно заполнен пароль. Минимум 6 символа')
 		.max(30, 'Неверно заполнен пароль. Максимум 30 символов'),
 });
+
+export type TAuthFormSchema = InferType<typeof authFormSchema>
