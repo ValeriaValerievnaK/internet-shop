@@ -1,6 +1,6 @@
-export const updateCountData = (price, count, action) => {
-	let newCount;
-	let newPrice;
+export const updateCountData = (price: number, count: number, action: string) => {
+	let newCount: number;
+	let newPrice: number;
 
 	const singlePrice = Number(price) / Number(count);
 

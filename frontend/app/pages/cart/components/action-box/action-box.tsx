@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../../components';
 import { selectCartTotalPrice } from '../../../../../src/selectors';
 import { removeCartAsync } from '../../../../../src/actions';
+import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './action-box.module.css';
 
 export const ActionBox = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const totalPrise = useSelector(selectCartTotalPrice);
 

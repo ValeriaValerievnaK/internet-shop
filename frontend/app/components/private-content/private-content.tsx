@@ -7,7 +7,7 @@ import { checkAccess } from '../../../src/utils';
 
 interface IProps {
   children: ReactNode;
-  access: number;
+  access: number[];
   serverError: string | null;
 }
 

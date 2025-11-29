@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ActionBox, CartRow } from './components';
 import { selectCartData, selectIsLoading, selectUserRole } from '../../../src/selectors';
@@ -9,15 +9,16 @@ import {
 	updateIsLoadingStart,
 } from '../../../src/actions';
 import { Loader, PrivateContent } from '../../components';
-import styles from './cart.module.css';
 import { ROLE } from '../../../src/constans';
 import { checkAccess } from '../../../src/utils';
+import { useAppDispatch } from '../../../src/hooks';
+import styles from './cart.module.css';
 
 export const Cart = () => {
-	const [errorMessage, setErrorMessage] = useState(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const carts = useSelector(selectCartData);
 	const userRole = useSelector(selectUserRole);

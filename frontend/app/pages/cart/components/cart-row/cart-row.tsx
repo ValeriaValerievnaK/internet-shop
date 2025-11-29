@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../../../../components';
 import {
@@ -6,15 +5,16 @@ import {
 	updateProductCartAsync,
 } from '../../../../../src/actions';
 import { updateCountData } from '../../../../../src/utils';
+import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './cart-row.module.css';
 
 export const CartRow = ({
 	cart: { productId, productImageUrl, productTitle, price, count, id, totalCount },
 }) => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
-	const onIncrease = async () => {
+	const onIncrease = () => {
 		const { newCount, newPrice } = updateCountData(price, count, 'increase');
 
 		if (newCount <= totalCount) {
@@ -22,7 +22,7 @@ export const CartRow = ({
 		}
 	};
 
-	const onDecrease = async () => {
+	const onDecrease = () => {
 		const { newCount, newPrice } = updateCountData(price, count, 'decrease');
 
 		if (newCount == 0) {
@@ -32,7 +32,7 @@ export const CartRow = ({
 		}
 	};
 
-	const onRemove = async () => {
+	const onRemove = () => {
 		dispatch(removeProductToCartAsync(id));
 	};
 
