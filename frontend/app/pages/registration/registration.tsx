@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { regFormSchema } from './validation.schema';
+import { regFormSchema, type TRegFormSchema } from './validation.schema';
 import { Input, Button, H2, ErrorMessage } from '../../components';
 import { setUser } from '../../../src/actions';
 import { selectUserRole } from '../../../src/selectors';
@@ -12,8 +12,13 @@ import { useResetForm } from '../../../src/hooks';
 import { request } from '../../../src/utils';
 import styles from './registration.module.css';
 
+interface ILoginResponse {
+	error?: string;
+	user?: string;
+}
+
 export const Registration = () => {
-	const [serverError, setServerError] = useState(null);
+	const [serverError, setServerError] = useState<string | null>(null);
 
 	const dispatch = useDispatch();
 
@@ -35,8 +40,8 @@ export const Registration = () => {
 
 	useResetForm(reset);
 
-	const onSubmit = ({ login, password }) => {
-		request('/api/register', 'POST', { login, password }).then(({ error, user }) => {
+	const onSubmit = ({ login, password }: TRegFormSchema) => {
+		request<ILoginResponse, TRegFormSchema>('/api/register', 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
 

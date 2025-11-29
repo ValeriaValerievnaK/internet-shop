@@ -1,4 +1,4 @@
-import { object, string, ref } from 'yup';
+import { object, string, ref, type InferType } from 'yup';
 
 export const regFormSchema = object().shape({
 	login: string()
@@ -18,3 +18,5 @@ export const regFormSchema = object().shape({
 		.required('Повторите пароль')
 		.oneOf([ref('password'), null], 'Пароли не совпадают'),
 });
+
+export type TRegFormSchema = InferType<typeof regFormSchema>
