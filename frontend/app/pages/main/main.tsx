@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import type { ICategories, IProduct } from '../../../src/types';
 import { CategoryMenu, Pagination, ProdCard, Search, Sorting } from './components';
 import { selectIsLoading } from '../../../src/selectors';
 import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
@@ -7,9 +8,8 @@ import { Loader } from '../../components';
 import { PAGINATION_LIMIT } from '../../../src/constans';
 import { debounce } from './utils';
 import { request } from '../../../src/utils';
-import styles from './main.module.css';
 import { useAppDispatch } from '../../../src/hooks';
-import type { ICategories, IProduct } from '../../../src/types';
+import styles from './main.module.css';
 
 interface IResponse {
 	data?: {

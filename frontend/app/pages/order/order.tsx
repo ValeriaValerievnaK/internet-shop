@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { generateRandomOrderNumber } from './utils/generate-random-order-number';
 import { ROLE } from '../../../src/constans';
-import styles from './order.module.css';
 import { PrivateContent } from '../../components';
+import styles from './order.module.css';
 
 export const Order = () => {
 	const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
 	loadProductAsync,
@@ -8,13 +8,12 @@ import {
 } from '../../../src/actions';
 import { selectIsLoading, selectProduct } from '../../../src/selectors';
 import { ProductContent, Comments } from './components';
-import { Error, Loader } from '../../components';
+import { Loader } from '../../components';
+import { useAppDispatch } from '../../../src/hooks';
 import styles from './products.module.css';
 
 export const Products = () => {
-	const [error, setError] = useState(false);
-
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const product = useSelector(selectProduct);
 	const isLoading = useSelector(selectIsLoading);
@@ -25,11 +24,6 @@ export const Products = () => {
 		dispatch(updateIsLoadingStart());
 
 		dispatch(loadProductAsync(param.productId))
-			.then((productData) => {
-				if (productData?.error) {
-					setError(productData.error);
-				}
-			})
 			.finally(() => {
 				dispatch(updateIsLoadingEnd());
 			});
@@ -39,8 +33,8 @@ export const Products = () => {
 		return <Loader />;
 	}
 
-	if (error) {
-		return <Error error={error} />;
+	if (!product) {
+		return null;
 	}
 
 	return (

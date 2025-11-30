@@ -1,16 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import type { ICategories, IProduct } from '../../../../../src/types';
 import { selectUserId, selectUserRole } from '../../../../../src/selectors';
 import { Button, H2 } from '../../../../components';
 import { getCategoryPath } from './utils/get-category-path';
-import styles from './product-content.module.css';
 import { checkAccess, request } from '../../../../../src/utils';
 import { ROLE } from '../../../../../src/constans';
+import styles from './product-content.module.css';
 
-export const ProductContent = ({
-	product: { id, title, imageUrl, category, price, count },
-}) => {
+interface IParam {
+	product: IProduct;
+}
+
+interface IResponse {
+	data?: string;
+}
+
+interface IRequest {
+	productId: string;
+	userId: string;
+	imageUrl: string;
+	title: string;
+	price: number;
+}
+
+export const ProductContent: FC<IParam> = ({ product }) => {
+	const { id, title, imageUrl, category, price, count } = product;
+
 	const [allCategories, setAllCategories] = useState([]);
 	const [categoryPath, setCategoryPath] = useState('');
 
@@ -20,7 +37,7 @@ export const ProductContent = ({
 	const roleId = useSelector(selectUserRole);
 
 	useEffect(() => {
-		request(`/api/products/categories`).then((categoriesRes) => {
+		request<ICategories>(`/api/products/categories`).then((categoriesRes) => {
 			setAllCategories(categoriesRes.data);
 		});
 	}, []);
@@ -32,29 +49,18 @@ export const ProductContent = ({
 		}
 	}, [allCategories, category]);
 
-	const onBuyProductNow = (productId, userId) => {
-		request('/api/cart', 'POST', {
+	const onBuyProduct = (productId: string, userId: string, navigateAfter?: boolean) => {
+		request<IResponse, IRequest>('/api/cart', 'POST', {
 			productId,
 			userId,
 			imageUrl,
 			title: title.trim(),
 			price,
-		}).then((res) => {
-			if (res.data) {
-				navigate('/cart');
-			}
 		});
-	};
 
-	const onBuyProduct = (productId, userId) => {
-		request('/api/cart', 'POST', {
-			productId,
-			userId,
-			imageUrl,
-			title,
-			price,
-			count,
-		});
+		if (navigateAfter) {
+			navigate('/cart');
+		}
 	};
 
 	const onClickPath = () => navigate('/');
@@ -80,7 +86,7 @@ export const ProductContent = ({
 			<div className={styles.actions}>
 				{isBuyerOrAdmin && (
 					<>
-						<Button onClick={() => onBuyProductNow(id, userId)}>
+						<Button onClick={() => onBuyProduct(id, userId, true)}>
 							Купить сейчас
 						</Button>
 

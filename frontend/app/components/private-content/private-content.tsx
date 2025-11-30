@@ -6,9 +6,9 @@ import { Error } from '../error/error';
 import { checkAccess } from '../../../src/utils';
 
 interface IProps {
-  children: ReactNode;
-  access: number[];
-  serverError: string | null;
+	children: ReactNode;
+	access: number[];
+	serverError?: string | null;
 }
 
 export const PrivateContent: FC<IProps> = ({ children, access, serverError = null }) => {

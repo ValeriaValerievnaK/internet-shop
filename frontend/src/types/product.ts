@@ -1,9 +1,15 @@
+export interface IComment {
+	author: string;
+	content: string;
+	id: string;
+	publishedAt: string;
+}
 export interface IProduct {
 	category: string;
-	comments?: string[];
+	comments?: IComment[];
 	count: number;
 	id: string;
 	imageUrl: string;
-	price: number
+	price: number;
 	title: string;
 }

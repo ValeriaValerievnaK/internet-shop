@@ -1,21 +1,28 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, type FC } from 'react';
+import { useSelector } from 'react-redux';
+import type { IComment } from '../../../../../src/types';
 import { selectUserRole } from '../../../../../src/selectors';
 import { addCommentAsync } from '../../../../../src/actions';
 import { Icon } from '../../../../components';
 import { Comment } from './comment/comment';
 import { ROLE } from '../../../../../src/constans';
-import styles from './comments.module.css';
 import { formatDate } from '../../../../../src/utils';
+import { useAppDispatch } from '../../../../../src/hooks';
+import styles from './comments.module.css';
 
-export const Comments = ({ comments, productId }) => {
+interface IParam {
+	comments: IComment[];
+	productId: string;
+}
+
+export const Comments: FC<IParam> = ({ comments, productId }) => {
 	const [newComment, setNewComment] = useState('');
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const userRole = useSelector(selectUserRole);
 
-	const onNewCommentAdd = (productId, content) => {
+	const onNewCommentAdd = (productId: string, content: string) => {
 		dispatch(addCommentAsync(productId, content));
 
 		setNewComment('');
@@ -36,7 +43,7 @@ export const Comments = ({ comments, productId }) => {
 						value={newComment}
 						placeholder="Поделитесь своим мнением о товаре..."
 						onChange={({ target }) => setNewComment(target.value)}
-					></textarea>
+					/>
 
 					<Icon
 						id="fa-arrow-circle-right"
