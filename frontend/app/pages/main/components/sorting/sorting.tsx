@@ -1,7 +1,13 @@
+import type { FC, MouseEventHandler } from 'react';
 import { Icon } from '../../../../components';
 import styles from './sorting.module.css';
 
-export const Sorting = ({ onSort, sortValue }) => (
+interface IParam {
+	onSort: MouseEventHandler<HTMLButtonElement>;
+	sortValue: 'asc' | 'desc';
+}
+
+export const Sorting: FC<IParam> = ({ onSort, sortValue }) => (
 	<div className={styles.sortContainer}>
 		<button className={styles.sortButton} onClick={onSort}>
 			<Icon

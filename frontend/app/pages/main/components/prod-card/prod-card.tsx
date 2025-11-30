@@ -1,8 +1,16 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '../../../../components';
 import styles from './prod-card.module.css';
+import type { FC } from 'react';
 
-export const ProdCard = ({ id, title, imageUrl, price }) => (
+interface IParam {
+	id: string;
+	title: string;
+	imageUrl: string;
+	price: number;
+}
+
+export const ProdCard: FC<IParam> = ({ id, title, imageUrl, price }) => (
 	<div className={styles.allContainer}>
 		<Link to={`/products/${id}`}>
 			<img src={imageUrl} alt={title} />

@@ -1,6 +1,15 @@
+import type { ChangeEvent, FC } from 'react';
+import type { ICategoriesData } from '../../../../../src/types';
 import styles from './category-menu.module.css';
 
-export const CategoryMenu = ({ searchPhrase, onChange, categorys }) => (
+interface IParam {
+	searchPhrase?: string;
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+	onClear: () => void;
+	categorys: ICategoriesData[]
+}
+
+export const CategoryMenu: FC<IParam> = ({ searchPhrase, onChange, onClear, categorys }) => (
 	<div className={styles.container}>
 		{categorys.map((mainCategory) => (
 			<div key={mainCategory.id} className={styles.mainCategory}>
@@ -32,7 +41,7 @@ export const CategoryMenu = ({ searchPhrase, onChange, categorys }) => (
 		{searchPhrase && (
 			<button
 				className={styles.clearButton}
-				onClick={() => onChange({ target: { value: '' } })}
+				onClick={onClear}
 			>
 				Сбросить
 			</button>

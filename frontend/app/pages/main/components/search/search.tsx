@@ -1,7 +1,13 @@
+import type { ChangeEvent, FC } from 'react';
 import { Icon, Input } from '../../../../components';
 import styles from './search.module.css';
 
-export const Search = ({ searchPhrase, onChange }) => (
+interface IParam {
+	searchPhrase: string;
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const Search: FC<IParam> = ({ searchPhrase, onChange }) => (
 	<div className={styles.container}>
 		<Input
 			value={searchPhrase}

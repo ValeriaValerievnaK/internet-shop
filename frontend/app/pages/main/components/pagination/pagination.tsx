@@ -1,7 +1,14 @@
+import type { FC } from 'react';
 import { Button } from '../../../../components';
 import styles from './pagination.module.css';
 
-export const Pagination = ({ page, lastPage, setPage }) => (
+interface IParam {
+	page?: number;
+	lastPage: number;
+	setPage: (i: number) => void;
+}
+
+export const Pagination: FC<IParam> = ({ page, lastPage, setPage }) => (
 	<div className={styles.paginationBox}>
 		<Button disabled={page === 1} onClick={() => setPage(1)}>
 			В начало

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CategoryMenu, Pagination, ProdCard, Search, Sorting } from './components';
 import { selectIsLoading } from '../../../src/selectors';
@@ -8,6 +8,15 @@ import { PAGINATION_LIMIT } from '../../../src/constans';
 import { debounce } from './utils';
 import { request } from '../../../src/utils';
 import styles from './main.module.css';
+import { useAppDispatch } from '../../../src/hooks';
+import type { ICategories, IProduct } from '../../../src/types';
+
+interface IResponse {
+	data?: {
+		products: IProduct[];
+		lastPage: number;
+	}
+}
 
 export const Main = () => {
 	const [products, setProducts] = useState([]);
@@ -17,20 +26,21 @@ export const Main = () => {
 	const [shoudlSearch, setShoudlSearch] = useState(false);
 	const [searchPhrase, setSearchPhrase] = useState('');
 	const [categorySearch, setCategorySearch] = useState('');
-	const [sortValue, setSortValue] = useState('asc');
+	const [sortValue, setSortValue] = useState<'asc' | 'desc'>('asc');
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const isLoading = useSelector(selectIsLoading);
 
 	useEffect(() => {
 		dispatch(updateIsLoadingStart());
 
-		request(
+		request<IResponse>(
 			`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}&sort=${sortValue}`,
 		)
 			.then(({ data: { products, lastPage } }) => {
 				setProducts(products);
+
 				setLastPage(lastPage);
 			})
 			.finally(() => {
@@ -40,21 +50,31 @@ export const Main = () => {
 	}, [dispatch, page, shoudlSearch, sortValue]);
 
 	useEffect(() => {
-		request(`/api/products/categories`).then((categoriesRes) => {
+		request<ICategories>(`/api/products/categories`).then((categoriesRes) => {
 			setCategorys(categoriesRes.data);
 		});
 	}, []);
 
 	const startDelayedSearch = useMemo(() => debounce(setShoudlSearch, 800), []);
 
-	const onSearch = ({ target }) => {
-		setSearchPhrase(target.value);
+	const onSearch = ( event: ChangeEvent<HTMLInputElement> ) => {
+		const value = event.target.value
+
+		setSearchPhrase(value);
 		setPage(1);
 		startDelayedSearch(!shoudlSearch);
 	};
 
-	const onCategory = ({ target }) => {
-		setCategorySearch(target.value);
+	const onCategory = (event: ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value
+
+		setCategorySearch(value);
+		setPage(1);
+		setShoudlSearch(!shoudlSearch);
+	};
+
+	const onCategoryClear = () => {
+		setCategorySearch('');
 		setPage(1);
 		setShoudlSearch(!shoudlSearch);
 	};
@@ -77,8 +97,9 @@ export const Main = () => {
 			<div className={styles.mainContent}>
 				<div className={styles.category}>
 					<CategoryMenu
-						onChange={onCategory}
 						searchPhrase={categorySearch}
+						onChange={onCategory}
+						onClear={onCategoryClear}
 						categorys={categorys}
 					/>
 				</div>
