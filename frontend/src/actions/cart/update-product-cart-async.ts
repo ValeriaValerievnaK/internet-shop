@@ -1,25 +1,16 @@
 import type { TAppDispatch, TAppThunk } from '../../store';
+import type { ICartData } from '../../types';
 import { request } from '../../utils';
 import { updateCart } from './update-cart';
 
-interface IData {
-	count: number;
-	id: string;
-	price: number;
-	productId: string;
-	productImageUrl: string;
-	productTitle: string;
-	totalCount: number;
-	userId: string;
-}
-
 export const updateProductCartAsync =
-	(id: string, newCount: number, newPrice: number): TAppThunk<Promise<IData>> =>
+	(id: string, newCount: number, newPrice: number): TAppThunk<Promise<ICartData>> =>
 	(dispatch: TAppDispatch) =>
-		request<{ data: IData }>(`/api/cart/${id}`, 'PATCH', { newCount, newPrice }).then(
-			(updatedCart) => {
-				dispatch(updateCart(updatedCart.data));
+		request<{ data: ICartData }>(`/api/cart/${id}`, 'PATCH', {
+			newCount,
+			newPrice,
+		}).then((updatedCart) => {
+			dispatch(updateCart(updatedCart.data));
 
-				return updatedCart.data;
-			},
-		);
+			return updatedCart.data;
+		});
