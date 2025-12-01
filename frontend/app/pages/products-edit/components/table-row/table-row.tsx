@@ -1,6 +1,13 @@
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 import styled from 'styled-components';
 
-const TableRowContainer = ({ children, className }) => {
+interface IProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
+	className?: string;
+	border?: boolean;
+}
+
+const TableRowContainer: FC<IProps> = ({ children, className }) => {
 	return <div className={className}>{children}</div>;
 };
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,7 +8,7 @@ import { ROLE } from '../../../src/constans';
 import { Button, ErrorMessage, H2, Input } from '../../components';
 import { selectUserRole } from '../../../src/selectors';
 import { setUser } from '../../../src/actions';
-import { useResetForm } from '../../../src/hooks';
+import { useAppDispatch, useResetForm } from '../../../src/hooks';
 import { request } from '../../../src/utils';
 import styles from './authorization.module.css';
 
@@ -18,7 +18,7 @@ interface ILoginResponse {
 }
 
 export const Authorization = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const roleId = useSelector(selectUserRole);
 
@@ -40,7 +40,10 @@ export const Authorization = () => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }: TAuthFormSchema) => {
-		request<ILoginResponse, TAuthFormSchema>('/api/login', 'POST', { login, password }).then(({ error, user }) => {
+		request<ILoginResponse, TAuthFormSchema>('/api/login', 'POST', {
+			login,
+			password,
+		}).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
 

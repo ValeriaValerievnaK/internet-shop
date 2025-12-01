@@ -10,5 +10,6 @@ export interface ICategoriesData {
 }
 
 export interface ICategories {
-	data: ICategoriesData[];
+	data?: ICategoriesData[];
+	error?: string;
 }

@@ -1,22 +1,28 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, type FC } from 'react';
 import { useForm } from 'react-hook-form';
+import type { ICategoriesData, IProduct } from '../../../../../src/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TableRow } from '../table-row/table-row';
 import { Icon, Input } from '../../../../components';
 import { saveProductAsync, updateProductList } from '../../../../../src/actions';
-import { validationSchema } from '../utils';
+import { validationSchema, type TFormSchema } from '../utils';
 import { SelectWithGroup } from '../select-with-group/select-with-group';
 import { SpecialPanel } from '../special-panel/special-panel';
+import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './product-row.module.css';
 
-export const ProductRow = ({
+interface IProps {
+	product?: IProduct;
+	categories?: ICategoriesData[];
+}
+
+export const ProductRow: FC<IProps> = ({
 	product: { id, title, imageUrl, category: productCategory, price, count },
 	categories: allCategories,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const {
 		register,
@@ -38,16 +44,19 @@ export const ProductRow = ({
 		setIsEditing((prev) => !prev);
 	};
 
-	const onSubmit = ({ title, category, price, count, imageUrl }) => {
+	const onSubmit = ({ title, category, price, count, imageUrl }: TFormSchema) => {
 		dispatch(
-			saveProductAsync(id, {
+			saveProductAsync(
+				{
+					id,
+					title: title.trim(),
+					imageUrl: imageUrl.trim(),
+					category,
+					price,
+					count,
+				},
 				id,
-				title: title.trim(),
-				imageUrl: imageUrl.trim(),
-				category,
-				price,
-				count,
-			}),
+			),
 		).then(() => {
 			dispatch(updateProductList());
 			reset();

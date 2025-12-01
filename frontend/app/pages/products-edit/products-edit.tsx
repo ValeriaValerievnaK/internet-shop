@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
 	selectIsLoading,
 	selectShouldUpdateProductList,
@@ -10,18 +10,25 @@ import { TableRow, ProductRow, CreatingNewProduct } from './components';
 import { H2, Loader, PrivateContent } from '../../components';
 import { ROLE } from '../../../src/constans';
 import { checkAccess, request } from '../../../src/utils';
+import { useAppDispatch } from '../../../src/hooks';
 import styles from './products-edit.module.css';
+import type { ICategories, IProduct } from '../../../src/types';
+
+interface IProductsResponse {
+	data?: IProduct[];
+	error?: string;
+}
 
 export const ProductsEdit = () => {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
-	const [errorMessage, setErrorMessage] = useState(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	const shouldUpdateProductList = useSelector(selectShouldUpdateProductList);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectIsLoading);
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(updateIsLoadingStart());
@@ -30,7 +37,10 @@ export const ProductsEdit = () => {
 			return;
 		}
 
-		Promise.all([request(`/api/products/all`), request(`/api/products/categories`)])
+		Promise.all([
+			request<IProductsResponse>(`/api/products/all`),
+			request<ICategories>(`/api/products/categories`),
+		])
 			.then(([productsRes, categoriesRes]) => {
 				if (productsRes.error || categoriesRes.error) {
 					setErrorMessage(productsRes.error || categoriesRes.error);

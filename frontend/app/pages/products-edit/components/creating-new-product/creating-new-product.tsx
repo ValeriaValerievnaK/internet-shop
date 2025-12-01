@@ -1,14 +1,20 @@
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import type { FC } from 'react';
+import type { ICategoriesData } from '../../../../../src/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, ErrorMessage } from '../../../../components';
 import { saveProductAsync, updateProductList } from '../../../../../src/actions';
-import { validationSchema } from '../utils';
+import { validationSchema, type TFormSchema } from '../utils';
 import { SelectWithGroup } from '../select-with-group/select-with-group';
+import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './creating-new-product.module.css';
 
-export const CreatingNewProduct = ({ categories: allCategories }) => {
-	const dispatch = useDispatch();
+interface IProps {
+	categories: ICategoriesData[];
+}
+
+export const CreatingNewProduct: FC<IProps> = ({ categories: allCategories }) => {
+	const dispatch = useAppDispatch();
 
 	const {
 		register,
@@ -19,22 +25,25 @@ export const CreatingNewProduct = ({ categories: allCategories }) => {
 		defaultValues: {
 			title: '',
 			category: '',
-			price: '',
-			count: '',
+			price: null,
+			count: null,
 			imageUrl: '',
 		},
 		resolver: yupResolver(validationSchema),
 	});
 
-	const onSubmit = ({ title, category, price, count, imageUrl }) => {
+	const onSubmit = ({ title, category, price, count, imageUrl }: TFormSchema) => {
 		dispatch(
-			saveProductAsync(null, {
-				title: title.trim(),
-				imageUrl: imageUrl.trim(),
-				category,
-				price,
-				count,
-			}),
+			saveProductAsync(
+				{
+					title: title.trim(),
+					imageUrl: imageUrl.trim(),
+					category,
+					price,
+					count,
+				},
+				null,
+			),
 		)
 			.then(() => {
 				dispatch(updateProductList());

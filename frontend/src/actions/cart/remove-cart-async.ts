@@ -6,7 +6,7 @@ interface IResponse {
 	error?: string | null;
 }
 
-export const removeCartAsync = ():TAppThunk<Promise<void>> => (dispatch: TAppDispatch) =>
+export const removeCartAsync = (): TAppThunk<Promise<void>> => (dispatch: TAppDispatch) =>
 	request<IResponse>(`/api/cart/`, 'DELETE').then((cartData) => {
 		if (!cartData.error) {
 			dispatch(removeCart());

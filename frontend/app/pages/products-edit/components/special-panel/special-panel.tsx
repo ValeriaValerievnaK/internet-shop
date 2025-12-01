@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import type { FC, ReactNode } from 'react';
 import {
 	CLOSE_MODAL,
 	openModal,
@@ -6,11 +6,17 @@ import {
 	updateProductList,
 } from '../../../../../src/actions';
 import { Icon } from '../../../../components';
+import { useAppDispatch } from '../../../../../src/hooks';
 
-export const SpecialPanel = ({ id, editButton }) => {
-	const dispatch = useDispatch();
+interface IProps {
+	id: string;
+	editButton: ReactNode;
+}
 
-	const onProductRemove = (id) => {
+export const SpecialPanel: FC<IProps> = ({ id, editButton }) => {
+	const dispatch = useAppDispatch();
+
+	const onProductRemove = (id: string) => {
 		dispatch(
 			openModal({
 				text: 'Вы действительно хотите удалить этот товар?',

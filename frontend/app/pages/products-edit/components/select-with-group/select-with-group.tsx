@@ -1,6 +1,13 @@
+import type { FC, HTMLAttributes } from 'react';
+import type { ICategoriesData } from '../../../../../src/types';
 import styles from './select-with-group.module.css';
 
-export const SelectWithGroup = ({ allCategories, ...props }) => (
+interface IProps extends HTMLAttributes<HTMLSelectElement> {
+	allCategories?: ICategoriesData[];
+	error?: string;
+}
+
+export const SelectWithGroup: FC<IProps> = ({ allCategories, ...props }) => (
 	<select className={styles.container} {...props}>
 		<option value="" disabled hidden>
 			Категория

@@ -1,4 +1,4 @@
-import { string, number, object } from 'yup';
+import { string, number, object, type InferType } from 'yup';
 
 export const validationSchema = object().shape({
 	title: string()
@@ -28,3 +28,5 @@ export const validationSchema = object().shape({
 		.required('Введите ссылку на изображение')
 		.url('Введите корректный URL'),
 });
+
+export type TFormSchema = InferType<typeof validationSchema>;

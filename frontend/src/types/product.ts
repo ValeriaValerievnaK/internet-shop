@@ -8,7 +8,7 @@ export interface IProduct {
 	category: string;
 	comments?: IComment[];
 	count: number;
-	id: string;
+	id?: string;
 	imageUrl: string;
 	price: number;
 	title: string;

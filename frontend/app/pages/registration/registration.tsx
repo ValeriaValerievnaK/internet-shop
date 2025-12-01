@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { regFormSchema, type TRegFormSchema } from './validation.schema';
 import { Input, Button, H2, ErrorMessage } from '../../components';
 import { setUser } from '../../../src/actions';
 import { selectUserRole } from '../../../src/selectors';
 import { ROLE } from '../../../src/constans';
-import { useResetForm } from '../../../src/hooks';
+import { useAppDispatch, useResetForm } from '../../../src/hooks';
 import { request } from '../../../src/utils';
 import styles from './registration.module.css';
 
@@ -20,7 +20,7 @@ interface ILoginResponse {
 export const Registration = () => {
 	const [serverError, setServerError] = useState<string | null>(null);
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const roleId = useSelector(selectUserRole);
 
@@ -41,7 +41,10 @@ export const Registration = () => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }: TRegFormSchema) => {
-		request<ILoginResponse, TRegFormSchema>('/api/register', 'POST', { login, password }).then(({ error, user }) => {
+		request<ILoginResponse, TRegFormSchema>('/api/register', 'POST', {
+			login,
+			password,
+		}).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
 

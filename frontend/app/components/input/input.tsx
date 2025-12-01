@@ -2,15 +2,17 @@ import { forwardRef, type InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  width?: string;
-  margin?: string;
-  error?: boolean;
+	className?: string;
+	width?: string;
+	margin?: string;
+	error?: boolean | string;
 }
 
-const InputContainer = forwardRef<HTMLInputElement, IProps>(({ className, ...props }, ref) => (
-	<input className={className} {...props} ref={ref} />
-));
+const InputContainer = forwardRef<HTMLInputElement, IProps>(
+	({ className, ...props }, ref) => (
+		<input className={className} {...props} ref={ref} />
+	),
+);
 
 export const Input = styled(InputContainer)`
 	border: 1px solid ${({ error }) => (error ? '#f19c9cff' : '#ddd')};

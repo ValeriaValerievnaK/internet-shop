@@ -16,4 +16,4 @@ export const authFormSchema = object().shape({
 		.max(30, 'Неверно заполнен пароль. Максимум 30 символов'),
 });
 
-export type TAuthFormSchema = InferType<typeof authFormSchema>
+export type TAuthFormSchema = InferType<typeof authFormSchema>;

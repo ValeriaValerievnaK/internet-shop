@@ -1,6 +1,5 @@
 import { useLayoutEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Header, Footer, Modal, Error } from './components';
 import { setUser } from '../src/actions';
 import {
@@ -14,10 +13,11 @@ import {
 } from './pages';
 import '../index.css';
 import { ERROR } from '../src/constans';
+import { useAppDispatch } from '../src/hooks';
 import styles from './shop.module.css';
 
 export const Shop = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	useLayoutEffect(() => {
 		const currentUserDataJSON = sessionStorage.getItem('userData');

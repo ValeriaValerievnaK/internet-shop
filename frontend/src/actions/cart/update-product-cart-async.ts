@@ -13,9 +13,13 @@ interface IData {
 	userId: string;
 }
 
-export const updateProductCartAsync = (id: string, newCount: number, newPrice: number):TAppThunk<Promise<IData>> => (dispatch: TAppDispatch) =>
-	request<{ data: IData }>(`/api/cart/${id}`, 'PATCH', { newCount, newPrice }).then((updatedCart) => {
-		dispatch(updateCart(updatedCart.data));
+export const updateProductCartAsync =
+	(id: string, newCount: number, newPrice: number): TAppThunk<Promise<IData>> =>
+	(dispatch: TAppDispatch) =>
+		request<{ data: IData }>(`/api/cart/${id}`, 'PATCH', { newCount, newPrice }).then(
+			(updatedCart) => {
+				dispatch(updateCart(updatedCart.data));
 
-		return updatedCart.data;
-	});
+				return updatedCart.data;
+			},
+		);
