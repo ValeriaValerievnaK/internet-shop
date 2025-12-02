@@ -1,4 +1,4 @@
-import type { TAppDispatch, TAppThunk } from '../../store';
+import type { TAppThunk } from '../../store';
 import type { IComment } from '../../types';
 import { request } from '../../utils';
 import { addComment } from './add-comment';
@@ -8,9 +8,9 @@ interface IResponse {
 	error?: string;
 }
 
-// TODO: посмотреть типы
 export const addCommentAsync =
-	(productId: string, content: string) => (dispatch: TAppDispatch) => {
+	(productId: string, content: string): TAppThunk =>
+	(dispatch) => {
 		request<IResponse>(`/api/products/${productId}/comments`, 'POST', {
 			content,
 		}).then((commentData) => {

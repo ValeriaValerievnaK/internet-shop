@@ -1,6 +1,6 @@
 import { request } from '../../utils';
 import { setCartData } from './set-cart-data';
-import type { TAppDispatch, TAppThunk } from '../../store';
+import type { TAppThunk } from '../../store';
 import type { ICartData } from '../../types';
 
 interface IResponse {
@@ -8,12 +8,11 @@ interface IResponse {
 	error?: string;
 }
 
-export const loadCartAsync =
-	(): TAppThunk<Promise<IResponse>> => (dispatch: TAppDispatch) =>
-		request<IResponse>(`/api/cart`).then((cartData) => {
-			if (cartData.data) {
-				dispatch(setCartData(cartData.data));
-			}
+export const loadCartAsync = (): TAppThunk<Promise<IResponse>> => (dispatch) =>
+	request<IResponse>(`/api/cart`).then((cartData) => {
+		if (cartData.data) {
+			dispatch(setCartData(cartData.data));
+		}
 
-			return cartData;
-		});
+		return cartData;
+	});
