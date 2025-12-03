@@ -1,0 +1,21 @@
+.sortContainer {
+	display: flex;
+}
+
+.sortButton {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 16px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: white;
+	cursor: pointer;
+	font-size: 14px;
+	transition: all 0.2s;
+	white-space: nowrap;
+}
+
+.sortButton:hover {
+	border-color: #999;
+}

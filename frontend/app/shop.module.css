@@ -1,0 +1,13 @@
+.appColumn {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 1050px;
+	min-height: 100%;
+	margin: 0 auto;
+	background-color: #fff;
+}
+
+.page {
+	padding: 120px 0 0 0;
+}

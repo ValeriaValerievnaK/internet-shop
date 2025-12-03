@@ -1,0 +1,44 @@
+.conteiner {
+	display: flex;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.comment {
+	width: 550px;
+	padding: 16px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.informationPanel {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.author {
+	display: flex;
+	align-items: center;
+	font-weight: 600;
+	color: #333;
+	font-size: 16px;
+}
+
+.publishedAt {
+	display: flex;
+	align-items: center;
+	color: #666;
+	font-size: 14px;
+}
+
+.commentText {
+	font-size: 16px;
+	color: #333;
+	word-wrap: break-word;
+}

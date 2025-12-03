@@ -1,0 +1,30 @@
+.container {
+	border: 1px solid #ddd;
+	background: #f5eadd4b;
+	height: 40px;
+	margin: 0;
+	padding: 0 10px;
+	font-size: 18px;
+	border-radius: 10px;
+	width: 150px;
+	flex-shrink: 0;
+	box-sizing: border-box;
+	font-family: inherit;
+	cursor: pointer;
+}
+
+.container:focus {
+	outline: none;
+	border-color: #aaa;
+	box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.container optgroup {
+	font-weight: bold;
+	color: #333;
+}
+
+.container option {
+	padding: 8px;
+	background: white;
+}

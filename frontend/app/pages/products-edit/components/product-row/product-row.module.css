@@ -1,0 +1,27 @@
+.container {
+	display: flex;
+	margin-top: 10px;
+	width: 700px;
+	height: 80px;
+}
+.container form {
+	display: flex;
+	align-items: center;
+}
+
+.productImage {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 4px;
+}
+
+.container button {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}

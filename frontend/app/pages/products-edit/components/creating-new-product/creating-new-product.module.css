@@ -1,0 +1,22 @@
+.sidebar {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	padding: 20px;
+	margin: 0 20px 0 0;
+	width: 250px;
+	position: sticky;
+	top: 0;
+	align-self: flex-start;
+}
+
+.sidebar h3 {
+	margin: 0 0 20px 0;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.sidebar input,
+.sidebar select {
+	width: 100%;
+	margin-bottom: 15px;
+}
