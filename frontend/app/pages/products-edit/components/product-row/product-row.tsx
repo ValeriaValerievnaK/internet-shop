@@ -12,7 +12,7 @@ import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './product-row.module.css';
 
 interface IProps {
-	product?: IProduct;
+	product: IProduct;
 	categories?: ICategoriesData[];
 }
 
@@ -117,23 +117,25 @@ export const ProductRow: FC<IProps> = ({
 						/>
 					</TableRow>
 
-					<SpecialPanel
-						id={id}
-						editButton={
-							<button
-								className={styles.saveButton}
-								type="submit"
-								disabled={!!formError}
-							>
-								<Icon
-									id="fa-floppy-o"
-									size="21px"
-									margin="0 0 0 10px"
+					{id && (
+						<SpecialPanel
+							id={id}
+							editButton={
+								<button
+									className={styles.saveButton}
+									type="submit"
 									disabled={!!formError}
-								/>
-							</button>
-						}
-					/>
+								>
+									<Icon
+										id="fa-floppy-o"
+										size="21px"
+										margin="0 0 0 10px"
+										disabled={!!formError}
+									/>
+								</button>
+							}
+						/>
+					)}
 				</form>
 			);
 		}
@@ -150,17 +152,19 @@ export const ProductRow: FC<IProps> = ({
 					</div>
 				</TableRow>
 
-				<SpecialPanel
-					id={id}
-					editButton={
-						<Icon
-							id="fa-pencil"
-							size="21px"
-							margin="0 0 0 10px"
-							onClick={onHandelEdit}
-						/>
-					}
-				/>
+				{id && (
+					<SpecialPanel
+						id={id}
+						editButton={
+							<Icon
+								id="fa-pencil"
+								size="21px"
+								margin="0 0 0 10px"
+								onClick={onHandelEdit}
+							/>
+						}
+					/>
+				)}
 			</>
 		);
 	};

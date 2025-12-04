@@ -1,15 +1,9 @@
 import { useEffect } from 'react';
-import type { UseFormReset } from 'react-hook-form';
+import type { FieldValues, UseFormReset } from 'react-hook-form';
 import { useStore } from 'react-redux';
 import type { TRootState } from '../store';
 
-interface IResetForm {
-	login: string;
-	password: string;
-	passwordchek: string;
-}
-
-export const useResetForm = (reset: UseFormReset<IResetForm>) => {
+export const useResetForm = <T extends FieldValues>(reset: UseFormReset<T>) => {
 	const store = useStore<TRootState>();
 
 	useEffect(() => {

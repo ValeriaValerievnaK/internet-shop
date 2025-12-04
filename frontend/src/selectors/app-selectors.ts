@@ -1,7 +1,5 @@
 import type { TRootState } from '../store';
 
-export const selectIsLoading = ({ app }: TRootState) => app.isLoading;
-
 export const selectModalIsOpen = ({ app }: TRootState) => app.modal.isOpen;
 
 export const selectModalOnCancel = ({ app }: TRootState) => app.modal.onCancel;

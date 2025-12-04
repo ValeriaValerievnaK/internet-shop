@@ -1,7 +1,7 @@
+import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../../../../components';
 import styles from './prod-card.module.css';
-import type { FC } from 'react';
 
 interface IParam {
 	id: string;

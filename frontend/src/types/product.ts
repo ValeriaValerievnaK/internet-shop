@@ -6,10 +6,10 @@ export interface IComment {
 }
 export interface IProduct {
 	category: string;
-	comments?: IComment[];
-	count: number;
+	count: number | null;
 	id?: string;
 	imageUrl: string;
-	price: number;
+	price: number | null;
 	title: string;
+	comments?: IComment[];
 }

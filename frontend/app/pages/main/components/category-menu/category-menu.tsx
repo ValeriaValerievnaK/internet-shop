@@ -6,12 +6,17 @@ interface IParam {
 	searchPhrase?: string;
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	onClear: () => void;
-	categorys: ICategoriesData[]
+	categories: ICategoriesData[];
 }
 
-export const CategoryMenu: FC<IParam> = ({ searchPhrase, onChange, onClear, categorys }) => (
+export const CategoryMenu: FC<IParam> = ({
+	searchPhrase,
+	onChange,
+	onClear,
+	categories,
+}) => (
 	<div className={styles.container}>
-		{categorys.map((mainCategory) => (
+		{categories.map((mainCategory) => (
 			<div key={mainCategory.id} className={styles.mainCategory}>
 				<div className={styles.mainCategoryName}>
 					{mainCategory.categoriesName}
@@ -39,10 +44,7 @@ export const CategoryMenu: FC<IParam> = ({ searchPhrase, onChange, onClear, cate
 		))}
 
 		{searchPhrase && (
-			<button
-				className={styles.clearButton}
-				onClick={onClear}
-			>
+			<button className={styles.clearButton} onClick={onClear}>
 				Сбросить
 			</button>
 		)}

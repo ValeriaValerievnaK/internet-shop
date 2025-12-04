@@ -1,28 +1,20 @@
 import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
-import type { ICategories, IProduct } from '../../../src/types';
 import { CategoryMenu, Pagination, ProdCard, Search, Sorting } from './components';
-import { selectIsLoading } from '../../../src/selectors';
-import { updateIsLoadingEnd, updateIsLoadingStart } from '../../../src/actions';
+import {
+	selectProductCategories,
+	selectProductIsLoading,
+	selectProductLastPage,
+	selectProducts,
+} from '../../../src/selectors';
+import { loadProductCategories, loadProducts } from '../../../src/actions';
 import { Loader } from '../../components';
-import { PAGINATION_LIMIT } from '../../../src/constans';
 import { debounce } from './utils';
-import { request } from '../../../src/utils';
 import { useAppDispatch } from '../../../src/hooks';
 import styles from './main.module.css';
 
-interface IResponse {
-	data?: {
-		products: IProduct[];
-		lastPage: number;
-	}
-}
-
 export const Main = () => {
-	const [products, setProducts] = useState([]);
-	const [categorys, setCategorys] = useState([]);
 	const [page, setPage] = useState(1);
-	const [lastPage, setLastPage] = useState(1);
 	const [shoudlSearch, setShoudlSearch] = useState(false);
 	const [searchPhrase, setSearchPhrase] = useState('');
 	const [categorySearch, setCategorySearch] = useState('');
@@ -30,35 +22,23 @@ export const Main = () => {
 
 	const dispatch = useAppDispatch();
 
-	const isLoading = useSelector(selectIsLoading);
+	const categories = useSelector(selectProductCategories);
+	const products = useSelector(selectProducts);
+	const isLoading = useSelector(selectProductIsLoading);
+	const lastPage = useSelector(selectProductLastPage);
 
 	useEffect(() => {
-		dispatch(updateIsLoadingStart());
-
-		request<IResponse>(
-			`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}&sort=${sortValue}`,
-		)
-			.then(({ data: { products, lastPage } }) => {
-				setProducts(products);
-
-				setLastPage(lastPage);
-			})
-			.finally(() => {
-				dispatch(updateIsLoadingEnd());
-			});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		dispatch(loadProducts(searchPhrase, page, categorySearch, sortValue));
 	}, [dispatch, page, shoudlSearch, sortValue]);
 
 	useEffect(() => {
-		request<ICategories>(`/api/products/categories`).then((categoriesRes) => {
-			setCategorys(categoriesRes.data);
-		});
+		dispatch(loadProductCategories());
 	}, []);
 
 	const startDelayedSearch = useMemo(() => debounce(setShoudlSearch, 800), []);
 
-	const onSearch = ( event: ChangeEvent<HTMLInputElement> ) => {
-		const value = event.target.value
+	const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
 
 		setSearchPhrase(value);
 		setPage(1);
@@ -66,7 +46,7 @@ export const Main = () => {
 	};
 
 	const onCategory = (event: ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value
+		const value = event.target.value;
 
 		setCategorySearch(value);
 		setPage(1);
@@ -100,7 +80,7 @@ export const Main = () => {
 						searchPhrase={categorySearch}
 						onChange={onCategory}
 						onClear={onCategoryClear}
-						categorys={categorys}
+						categories={categories}
 					/>
 				</div>
 
@@ -113,10 +93,10 @@ export const Main = () => {
 								{products.map(({ id, title, imageUrl, price }) => (
 									<ProdCard
 										key={id}
-										id={id}
+										id={id!}
 										title={title}
 										imageUrl={imageUrl}
-										price={price}
+										price={price!}
 									/>
 								))}
 							</div>

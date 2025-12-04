@@ -34,16 +34,13 @@ export const CreatingNewProduct: FC<IProps> = ({ categories: allCategories }) =>
 
 	const onSubmit = ({ title, category, price, count, imageUrl }: TFormSchema) => {
 		dispatch(
-			saveProductAsync(
-				{
-					title: title.trim(),
-					imageUrl: imageUrl.trim(),
-					category,
-					price,
-					count,
-				},
-				null,
-			),
+			saveProductAsync({
+				title: title.trim(),
+				imageUrl: imageUrl.trim(),
+				category,
+				price,
+				count,
+			}),
 		)
 			.then(() => {
 				dispatch(updateProductList());

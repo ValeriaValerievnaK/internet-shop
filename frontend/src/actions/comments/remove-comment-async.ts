@@ -1,5 +1,7 @@
 import type { TAppThunk } from '../../store';
+import type { TApiError } from '../../types';
 import { request } from '../../utils';
+import { setProductError } from '../products';
 import { removeComment } from './remove-comment';
 
 interface IResponse {
@@ -8,11 +10,25 @@ interface IResponse {
 
 export const removeCommentAsync =
 	(productId: string, commentId: string): TAppThunk =>
-	(dispatch) => {
-		request<IResponse>(
-			`/api/products/${productId}/comments/${commentId}`,
-			'DELETE',
-		).then(() => {
-			dispatch(removeComment(commentId));
-		});
+	async (dispatch) => {
+		dispatch(setProductError(null));
+
+		try {
+			const response = await request<IResponse>(
+				`/api/products/${productId}/comments/${commentId}`,
+				'DELETE',
+			);
+
+			if (!response.error) {
+				dispatch(removeComment(commentId));
+			}
+
+			return response;
+		} catch (e) {
+			const error = e as TApiError;
+
+			dispatch(setProductError(error.error));
+
+			throw e;
+		}
 	};

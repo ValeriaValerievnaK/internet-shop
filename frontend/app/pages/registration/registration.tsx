@@ -1,35 +1,27 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { regFormSchema, type TRegFormSchema } from './validation.schema';
 import { Input, Button, H2, ErrorMessage } from '../../components';
-import { setUser } from '../../../src/actions';
-import { selectUserRole } from '../../../src/selectors';
+import { selectUserError, selectUserRole } from '../../../src/selectors';
 import { ROLE } from '../../../src/constans';
 import { useAppDispatch, useResetForm } from '../../../src/hooks';
-import { request } from '../../../src/utils';
+import { addRegister, setUserError } from '../../../src/actions/user';
 import styles from './registration.module.css';
 
-interface ILoginResponse {
-	error?: string;
-	user?: string;
-}
-
 export const Registration = () => {
-	const [serverError, setServerError] = useState<string | null>(null);
-
 	const dispatch = useAppDispatch();
 
 	const roleId = useSelector(selectUserRole);
+	const serverError = useSelector(selectUserError);
 
 	const {
 		register,
 		reset,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({
+	} = useForm<TRegFormSchema>({
 		defaultValues: {
 			login: '',
 			password: '',
@@ -41,20 +33,7 @@ export const Registration = () => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }: TRegFormSchema) => {
-		request<ILoginResponse, TRegFormSchema>('/api/register', 'POST', {
-			login,
-			password,
-		}).then(({ error, user }) => {
-			if (error) {
-				setServerError(`Ошибка запроса: ${error}`);
-
-				return;
-			}
-
-			dispatch(setUser(user));
-
-			sessionStorage.setItem('userData', JSON.stringify(user));
-		});
+		dispatch(addRegister({ login, password }));
 	};
 
 	const formError =
@@ -77,7 +56,7 @@ export const Registration = () => {
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
-						onChange: () => setServerError(null),
+						onChange: () => dispatch(setUserError(null)),
 					})}
 				/>
 
@@ -85,7 +64,7 @@ export const Registration = () => {
 					type="password"
 					placeholder="И пароль..."
 					{...register('password', {
-						onChange: () => setServerError(null),
+						onChange: () => dispatch(setUserError(null)),
 					})}
 				/>
 
@@ -93,7 +72,7 @@ export const Registration = () => {
 					type="password"
 					placeholder="Повторите пароль..."
 					{...register('passwordchek', {
-						onChange: () => setServerError(null),
+						onChange: () => dispatch(setUserError(null)),
 					})}
 				/>
 

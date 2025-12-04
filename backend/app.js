@@ -12,7 +12,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/api", routes);
+app.use("/", routes);
 
 app.use(express.static(path.join(__dirname, "..", "frontend", "dist")));
 

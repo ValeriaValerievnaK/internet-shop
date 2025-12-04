@@ -1,46 +1,41 @@
 import { useEffect, useState, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import type { ICategories, IProduct } from '../../../../../src/types';
-import { selectUserId, selectUserRole } from '../../../../../src/selectors';
+import type { IProduct } from '../../../../../src/types';
+import {
+	selectProductCategories,
+	selectUserId,
+	selectUserRole,
+} from '../../../../../src/selectors';
 import { Button, H2 } from '../../../../components';
 import { getCategoryPath } from './utils/get-category-path';
-import { checkAccess, request } from '../../../../../src/utils';
+import { checkAccess } from '../../../../../src/utils';
 import { ROLE } from '../../../../../src/constans';
+import { useAppDispatch } from '../../../../../src/hooks';
+import { addProductToCart, loadProductCategories } from '../../../../../src/actions';
 import styles from './product-content.module.css';
 
 interface IParam {
 	product: IProduct;
 }
 
-interface IResponse {
-	data?: string;
-}
-
-interface IRequest {
-	productId: string;
-	userId: string;
-	imageUrl: string;
-	title: string;
-	price: number;
-}
-
 export const ProductContent: FC<IParam> = ({ product }) => {
 	const { id, title, imageUrl, category, price, count } = product;
 
-	const [allCategories, setAllCategories] = useState([]);
 	const [categoryPath, setCategoryPath] = useState('');
 
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
+	const allCategories = useSelector(selectProductCategories);
 	const userId = useSelector(selectUserId);
 	const roleId = useSelector(selectUserRole);
 
 	useEffect(() => {
-		request<ICategories>(`/api/products/categories`).then((categoriesRes) => {
-			setAllCategories(categoriesRes.data);
-		});
-	}, []);
+		if (!allCategories.length) {
+			dispatch(loadProductCategories());
+		}
+	}, [dispatch, allCategories.length]);
 
 	useEffect(() => {
 		if (allCategories.length) {
@@ -50,13 +45,15 @@ export const ProductContent: FC<IParam> = ({ product }) => {
 	}, [allCategories, category]);
 
 	const onBuyProduct = (productId: string, userId: string, navigateAfter?: boolean) => {
-		request<IResponse, IRequest>('/api/cart', 'POST', {
-			productId,
-			userId,
-			imageUrl,
-			title: title.trim(),
-			price,
-		});
+		dispatch(
+			addProductToCart({
+				productId,
+				userId,
+				imageUrl,
+				title: title.trim(),
+				price,
+			}),
+		);
 
 		if (navigateAfter) {
 			navigate('/cart');
@@ -66,6 +63,8 @@ export const ProductContent: FC<IParam> = ({ product }) => {
 	const onClickPath = () => navigate('/');
 
 	const isBuyerOrAdmin = checkAccess([ROLE.ADMIN, ROLE.BUYER], roleId);
+
+	const areButtonsVisible = isBuyerOrAdmin && id && userId;
 
 	return (
 		<div className={styles.conteiner}>
@@ -84,7 +83,7 @@ export const ProductContent: FC<IParam> = ({ product }) => {
 			</div>
 
 			<div className={styles.actions}>
-				{isBuyerOrAdmin && (
+				{areButtonsVisible && (
 					<>
 						<Button onClick={() => onBuyProduct(id, userId, true)}>
 							Купить сейчас
