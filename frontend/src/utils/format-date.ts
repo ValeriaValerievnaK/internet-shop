@@ -1,5 +1,7 @@
-export const formatDate = (date: string) => {
+export const formatDate = (date: string): string => {
 	if (!date) return '';
 
-	return new Date(date).toISOString().split('T')[0];
+	const newDate = new Date(date).toISOString().split('T')[0];
+
+	return newDate || '';
 };

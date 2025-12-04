@@ -57,8 +57,8 @@ export const Main = () => {
 
 	const startDelayedSearch = useMemo(() => debounce(setShoudlSearch, 800), []);
 
-	const onSearch = ( event: ChangeEvent<HTMLInputElement> ) => {
-		const value = event.target.value
+	const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
 
 		setSearchPhrase(value);
 		setPage(1);
@@ -66,7 +66,7 @@ export const Main = () => {
 	};
 
 	const onCategory = (event: ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value
+		const value = event.target.value;
 
 		setCategorySearch(value);
 		setPage(1);

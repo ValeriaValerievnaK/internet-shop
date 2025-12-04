@@ -13,7 +13,7 @@ export const SelectWithGroup: FC<IProps> = ({ allCategories, ...props }) => (
 			Категория
 		</option>
 
-		{allCategories.map(({ id, categoriesName, subCategories }) => (
+		{allCategories?.map(({ id, categoriesName, subCategories }) => (
 			<optgroup label={categoriesName} key={id}>
 				{subCategories.map(({ id, name }) => (
 					<option key={id}>{name}</option>

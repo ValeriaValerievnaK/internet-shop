@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {
-	loadProductAsync,
-	updateIsLoadingEnd,
-	updateIsLoadingStart,
-} from '../../../src/actions';
-import { selectIsLoading, selectProduct } from '../../../src/selectors';
+import { loadProductAsync, updateIsLoadingStart } from '../../../src/actions';
+import { selectProduct, selectProductIsLoading } from '../../../src/selectors';
 import { ProductContent, Comments } from './components';
 import { Loader } from '../../components';
 import { useAppDispatch } from '../../../src/hooks';
@@ -16,17 +12,14 @@ export const Products = () => {
 	const dispatch = useAppDispatch();
 
 	const product = useSelector(selectProduct);
-	const isLoading = useSelector(selectIsLoading);
+	const isLoading = useSelector(selectProductIsLoading);
 
 	const param = useParams();
 
 	useEffect(() => {
 		dispatch(updateIsLoadingStart());
 
-		dispatch(loadProductAsync(param.productId))
-			.finally(() => {
-				dispatch(updateIsLoadingEnd());
-			});
+		dispatch(loadProductAsync(param.productId));
 	}, [dispatch, param.productId]);
 
 	if (isLoading) {
@@ -41,7 +34,7 @@ export const Products = () => {
 		<div className={styles.container}>
 			<ProductContent product={product} />
 
-			<Comments comments={product.comments} productId={product.id} />
+			<Comments comments={product.comments || []} productId={product.id || ''} />
 		</div>
 	);
 };

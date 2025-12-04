@@ -1,18 +1,35 @@
 import type { TAppThunk } from '../../store';
-import type { IProduct } from '../../types';
+import type { IProduct, TApiError } from '../../types';
 import { request } from '../../utils';
 import { setProductData } from './set-product-data';
+import { setProductError } from './set-product-error';
+import { setProductLoading } from './set-product-loading';
 
 interface IResponse {
 	data?: IProduct;
 }
 
 export const loadProductAsync =
-	(productId: string): TAppThunk<Promise<IResponse>> =>
-	(dispatch) =>
-		request<IResponse>(`/api/products/${productId}`).then((productData) => {
-			if (productData.data) {
-				dispatch(setProductData(productData.data));
+	(productId?: string): TAppThunk<Promise<IResponse>> =>
+	async (dispatch) => {
+		dispatch(setProductLoading(true));
+		dispatch(setProductError(null));
+
+		try {
+			const response = await request<IResponse>(`/api/products/${productId}`);
+
+			if (response.data) {
+				dispatch(setProductData(response.data));
 			}
-			return productData;
-		});
+
+			return response;
+		} catch (e) {
+			const error = e as TApiError;
+
+			dispatch(setProductError(error.error));
+
+			throw e;
+		} finally {
+			dispatch(setProductLoading(false));
+		}
+	};

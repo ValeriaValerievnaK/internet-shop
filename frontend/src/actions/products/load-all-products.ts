@@ -1,25 +1,25 @@
 import type { TAppThunk } from '../../store';
-import type { TApiError } from '../../types';
+import type { IProduct, TApiError } from '../../types';
 import { request } from '../../utils';
-import { removeProductToCart } from './remove-product-to-cart';
+import { setAllProducts } from './set-all-products';
 import { setProductError } from './set-product-error';
 import { setProductLoading } from './set-product-loading';
 
-interface IResponse {
-	error?: string | null;
+interface IProductsResponse {
+	data?: IProduct[];
+	error?: string;
 }
 
-export const removeProductToCartAsync =
-	(id: string): TAppThunk =>
-	async (dispatch) => {
+export const loadAllProducts =
+	(): TAppThunk<Promise<IProductsResponse>> => async (dispatch) => {
 		dispatch(setProductLoading(true));
 		dispatch(setProductError(null));
 
 		try {
-			const response = await request<IResponse>(`/api/cart/${id}`, 'DELETE');
+			const response = await request<IProductsResponse>(`/api/products/all`);
 
-			if (!response.error) {
-				dispatch(removeProductToCart(id));
+			if (response.data) {
+				dispatch(setAllProducts(response.data));
 			}
 
 			if (response.error) {
