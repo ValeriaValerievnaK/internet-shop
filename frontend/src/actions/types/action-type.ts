@@ -42,6 +42,7 @@ export enum EProductActionTypes {
 	ADD_COMMENT = 'ADD_COMMENT',
 	REMOVE_COMMENT = 'REMOVE_COMMENT',
 	SET_PRODUCT_DATA = 'SET_PRODUCT_DATA',
+	
 }
 
 export enum EUserActionTypes {
