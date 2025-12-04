@@ -4,22 +4,36 @@ import { request } from '../../utils';
 import { setProducts } from './set-products';
 import { setProductError } from './set-product-error';
 import { setProductLoading } from './set-product-loading';
+import { PAGINATION_LIMIT } from '../../constans';
+import { setLastPage } from './set-last-page';
 
-interface IProductsResponse {
-	data?: IProduct[];
+interface IResponse {
+	data?: {
+		products: IProduct[];
+		lastPage: number;
+	};
 	error?: string;
 }
 
-export const loadAllProducts =
-	(): TAppThunk<Promise<IProductsResponse>> => async (dispatch) => {
+export const loadProducts =
+	(
+		searchPhrase?: string,
+		page?: number,
+		categorySearch?: string,
+		sortValue?: string,
+	): TAppThunk<Promise<IResponse>> =>
+	async (dispatch) => {
 		dispatch(setProductLoading(true));
 		dispatch(setProductError(null));
 
 		try {
-			const response = await request<IProductsResponse>(`/api/products/all`);
+			const response = await request<IResponse>(
+				`/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}&category=${categorySearch}&sort=${sortValue}`,
+			);
 
 			if (response.data) {
-				dispatch(setProducts(response.data));
+				dispatch(setProducts(response.data.products));
+				dispatch(setLastPage(response.data.lastPage));
 			}
 
 			if (response.error) {

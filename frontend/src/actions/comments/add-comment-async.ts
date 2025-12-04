@@ -1,7 +1,7 @@
 import type { TAppThunk } from '../../store';
 import type { IComment, TApiError } from '../../types';
 import { request } from '../../utils';
-import { setProductError, setProductLoading } from '../products';
+import { setProductError } from '../products';
 import { addComment } from './add-comment';
 
 interface IResponse {

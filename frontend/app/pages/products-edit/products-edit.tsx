@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
-	selectAllProducts,
+	selectProducts,
 	selectProductCategories,
 	selectProductError,
 	selectProductIsLoading,
@@ -19,7 +19,7 @@ import styles from './products-edit.module.css';
 export const ProductsEdit = () => {
 	const shouldUpdateProductList = useSelector(selectShouldUpdateProductList);
 	const categories = useSelector(selectProductCategories);
-	const products = useSelector(selectAllProducts);
+	const products = useSelector(selectProducts);
 	const errorMessage = useSelector(selectProductError);
 	const userRole = useSelector(selectUserRole);
 	const isLoading = useSelector(selectProductIsLoading);

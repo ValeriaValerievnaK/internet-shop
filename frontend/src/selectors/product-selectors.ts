@@ -8,4 +8,6 @@ export const selectProductError = ({ product }: TRootState) => product.error;
 
 export const selectProductCategories = ({ product }: TRootState) => product.categories;
 
-export const selectAllProducts = ({ product }: TRootState) => product.allProduct;
+export const selectProducts = ({ product }: TRootState) => product.products;
+
+export const selectProductLastPage = ({ product }: TRootState) => product.lastPage;

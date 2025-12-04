@@ -5,19 +5,21 @@ import type { ICategoriesData } from '../types';
 export interface IInitialProductState {
 	productData: IProduct;
 	categories: ICategoriesData[];
-	allProduct: IProduct[];
+	products: IProduct[];
 	error: string | null;
 	isLoading: boolean;
+	lastPage: number;
 }
 
 type TProductAction =
 	| { type: EProductActionTypes.SET_PRODUCT_LOADING; payload: boolean }
 	| { type: EProductActionTypes.SET_PRODUCT_ERROR; payload: string | null }
 	| { type: EProductActionTypes.SET_PRODUCT_CATEGORIES; payload: ICategoriesData[] }
-	| { type: EProductActionTypes.SET_ALL_PRODUCT; payload: IProduct[] }
+	| { type: EProductActionTypes.SET_PRODUCTS; payload: IProduct[] }
 	| { type: EProductActionTypes.ADD_COMMENT; payload: IComment }
 	| { type: EProductActionTypes.REMOVE_COMMENT; payload: string }
-	| { type: EProductActionTypes.SET_PRODUCT_DATA; payload: IProduct };
+	| { type: EProductActionTypes.SET_PRODUCT_DATA; payload: IProduct }
+	| { type: EProductActionTypes.SET_LAST_PAGE; payload: number };
 
 const initialProductState: IInitialProductState = {
 	productData: {
@@ -30,9 +32,10 @@ const initialProductState: IInitialProductState = {
 		comments: [],
 	},
 	categories: [],
-	allProduct: [],
+	products: [],
 	error: null,
 	isLoading: false,
+	lastPage: 1,
 };
 
 export const productReducer = (
@@ -82,10 +85,16 @@ export const productReducer = (
 				categories: action.payload,
 			};
 
-		case EProductActionTypes.SET_ALL_PRODUCT:
+		case EProductActionTypes.SET_PRODUCTS:
 			return {
 				...state,
-				allProduct: action.payload,
+				products: action.payload,
+			};
+
+		case EProductActionTypes.SET_LAST_PAGE:
+			return {
+				...state,
+				lastPage: action.payload,
 			};
 		default:
 			return state;

@@ -9,7 +9,6 @@ export interface IInitialAppState {
 		onCancel: () => void;
 	};
 	shouldUpdateProductList: boolean;
-	isLoading: boolean;
 }
 
 type TOpenModalPayload = Partial<IInitialAppState['modal']>;
@@ -18,9 +17,7 @@ type TAppAction =
 	| { type: EAppActionTypes.LOGOUT }
 	| { type: EAppActionTypes.OPEN_MODAL; payload: TOpenModalPayload }
 	| { type: EAppActionTypes.CLOSE_MODAL }
-	| { type: EAppActionTypes.UPDATE_PRODUCT_LIST }
-	| { type: EAppActionTypes.SET_LOADING_START }
-	| { type: EAppActionTypes.SET_LOADING_END };
+	| { type: EAppActionTypes.UPDATE_PRODUCT_LIST };
 
 const initialAppState: IInitialAppState = {
 	wasLogout: false,
@@ -31,7 +28,6 @@ const initialAppState: IInitialAppState = {
 		onCancel: () => {},
 	},
 	shouldUpdateProductList: false,
-	isLoading: false,
 };
 
 export const appReducer = (
@@ -62,18 +58,6 @@ export const appReducer = (
 			return {
 				...state,
 				shouldUpdateProductList: !state.shouldUpdateProductList,
-			};
-
-		case EAppActionTypes.SET_LOADING_START:
-			return {
-				...state,
-				isLoading: true,
-			};
-
-		case EAppActionTypes.SET_LOADING_END:
-			return {
-				...state,
-				isLoading: false,
 			};
 
 		default:
