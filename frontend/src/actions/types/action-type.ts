@@ -20,6 +20,7 @@ export const ACTION_TYPE = {
 	SET_PRODUCT_ERROR: 'SET_PRODUCT_ERROR',
 	SET_PRODUCT_LOADING: 'SET_PRODUCT_LOADING',
 	SET_LAST_PAGE: 'SET_LAST_PAGE',
+	SET_USER_ERROR: 'SET_USER_ERROR',
 };
 
 export enum EAppActionTypes {
@@ -53,4 +54,5 @@ export enum EProductActionTypes {
 export enum EUserActionTypes {
 	SET_USER = 'SET_USER',
 	LOGOUT = 'LOGOUT',
+	SET_USER_ERROR = 'SET_USER_ERROR',
 }

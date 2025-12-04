@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -6,30 +5,23 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { authFormSchema, type TAuthFormSchema } from './validation.schema';
 import { ROLE } from '../../../src/constans';
 import { Button, ErrorMessage, H2, Input } from '../../components';
-import { selectUserRole } from '../../../src/selectors';
-import { setUser } from '../../../src/actions';
+import { selectUserError, selectUserRole } from '../../../src/selectors';
 import { useAppDispatch, useResetForm } from '../../../src/hooks';
-import { request } from '../../../src/utils';
+import { addlogin, setUserError } from '../../../src/actions/user';
 import styles from './authorization.module.css';
-
-interface ILoginResponse {
-	error?: string;
-	user?: string;
-}
 
 export const Authorization = () => {
 	const dispatch = useAppDispatch();
 
 	const roleId = useSelector(selectUserRole);
-
-	const [serverError, setServerError] = useState<string | null>(null);
+	const serverError = useSelector(selectUserError);
 
 	const {
 		register,
 		reset,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({
+	} = useForm<TAuthFormSchema>({
 		defaultValues: {
 			login: '',
 			password: '',
@@ -40,20 +32,7 @@ export const Authorization = () => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }: TAuthFormSchema) => {
-		request<ILoginResponse, TAuthFormSchema>('/api/login', 'POST', {
-			login,
-			password,
-		}).then(({ error, user }) => {
-			if (error) {
-				setServerError(`Ошибка запроса: ${error}`);
-
-				return;
-			}
-
-			dispatch(setUser(user));
-
-			sessionStorage.setItem('userData', JSON.stringify(user));
-		});
+		dispatch(addlogin({ login, password }));
 	};
 
 	const formError = errors?.login?.message || errors?.password?.message;
@@ -73,7 +52,7 @@ export const Authorization = () => {
 					type="text"
 					placeholder="Ваш логин..."
 					{...register('login', {
-						onChange: () => setServerError(null),
+						onChange: () => dispatch(setUserError(null)),
 					})}
 				/>
 
@@ -81,7 +60,7 @@ export const Authorization = () => {
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
-						onChange: () => setServerError(null),
+						onChange: () => dispatch(setUserError(null)),
 					})}
 				/>
 

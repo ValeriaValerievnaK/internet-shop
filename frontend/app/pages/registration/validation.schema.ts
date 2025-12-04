@@ -16,7 +16,7 @@ export const regFormSchema = object().shape({
 		.max(30, 'Неверно заполнен парол. Максимум 30 символов'),
 	passwordchek: string()
 		.required('Повторите пароль')
-		.oneOf([ref('password'), null], 'Пароли не совпадают'),
+		.oneOf([ref('password')], 'Пароли не совпадают'),
 });
 
-export type TRegFormSchema = InferType<typeof regFormSchema>
+export type TRegFormSchema = InferType<typeof regFormSchema>;

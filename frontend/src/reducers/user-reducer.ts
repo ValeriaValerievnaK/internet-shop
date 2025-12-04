@@ -6,17 +6,20 @@ export interface IInitialUserState {
 	login: string | null;
 	roleId: number;
 	session: string | null;
+	error: string | null;
 }
 
 type TUserAction =
 	| { type: EUserActionTypes.SET_USER; payload: IInitialUserState }
-	| { type: EUserActionTypes.LOGOUT };
+	| { type: EUserActionTypes.LOGOUT }
+	| { type: EUserActionTypes.SET_USER_ERROR; payload: string | null };
 
 const initialUserState: IInitialUserState = {
 	id: null,
 	login: null,
 	roleId: ROLE.GUEST,
 	session: null,
+	error: null,
 };
 
 export const userReducer = (
@@ -31,6 +34,12 @@ export const userReducer = (
 			};
 		case EUserActionTypes.LOGOUT:
 			return initialUserState;
+
+		case EUserActionTypes.SET_USER_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
 
 		default:
 			return state;
