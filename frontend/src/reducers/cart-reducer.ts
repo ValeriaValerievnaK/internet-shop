@@ -1,18 +1,27 @@
-import { ECartActionTypes } from '../actions';
 import type { ICartData } from '../types';
+import { ECartActionTypes } from '../actions';
 
 export interface IInitialCartState {
 	cartData: ICartData[];
 	totalPrice: number;
+	error: string | null;
+	isLoading: boolean;
 }
 
 type TCartAction =
+	| { type: ECartActionTypes.SET_CART_LOADING; payload: boolean }
+	| { type: ECartActionTypes.SET_CART_ERROR; payload: string | null }
 	| { type: ECartActionTypes.SET_CART_DATA; payload: ICartData[] }
 	| { type: ECartActionTypes.UPDATE_CART; payload: ICartData }
 	| { type: ECartActionTypes.REMOVE_PRODUCT_TO_CART; payload: string }
 	| { type: ECartActionTypes.RESET_DATA };
 
-const initialCartState: IInitialCartState = { cartData: [], totalPrice: 0 };
+const initialCartState: IInitialCartState = {
+	cartData: [],
+	totalPrice: 0,
+	error: null,
+	isLoading: false,
+};
 
 const calculateTotalPrice = (cartItems: ICartData[]) => {
 	if (!cartItems) {
@@ -62,6 +71,18 @@ export const cartReducer = (
 
 		case ECartActionTypes.RESET_DATA:
 			return initialCartState;
+
+		case ECartActionTypes.SET_CART_LOADING:
+			return {
+				...state,
+				isLoading: action.payload,
+			};
+
+		case ECartActionTypes.SET_CART_ERROR:
+			return {
+				...state,
+				error: action.payload,
+			};
 
 		default:
 			return state;

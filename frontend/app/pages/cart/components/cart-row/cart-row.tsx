@@ -1,4 +1,6 @@
+import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import type { ICartData } from '../../../../../src/types';
 import { Icon } from '../../../../components';
 import {
 	removeProductToCartAsync,
@@ -8,7 +10,7 @@ import { updateCountData } from '../../../../../src/utils';
 import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './cart-row.module.css';
 
-export const CartRow = ({
+export const CartRow: FC<{ cart: ICartData }> = ({
 	cart: { productId, productImageUrl, productTitle, price, count, id, totalCount },
 }) => {
 	const dispatch = useAppDispatch();
