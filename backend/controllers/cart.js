@@ -1,5 +1,6 @@
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 
 // add
 // Сложная часть, поэтому оставлю комменарии
@@ -116,10 +117,40 @@ async function deleteCart(userId) {
   return result;
 }
 
+// создание заказа
+
+async function createOrder(userId) {
+  const cartItems = await Cart.find({ user_id: userId });
+
+  if (cartItems.length === 0) {
+    throw new Error("Корзина пуста");
+  }
+
+  await Order.create({
+    user_id: userId,
+    items: cartItems.map((item) => ({
+      product_id: item.product_id,
+      count: item.count,
+    })),
+  });
+
+  for (const item of cartItems) {
+    await Product.updateOne(
+      { _id: item.product_id },
+      { $inc: { count: -item.count } }
+    );
+  }
+
+  await Product.deleteMany({ count: { $lte: 0 } });
+
+  await Cart.deleteMany({ user_id: userId });
+}
+
 module.exports = {
   getCart,
   addProductToCart,
   updateCartItem,
   deleteCartItem,
   deleteCart,
+  createOrder,
 };

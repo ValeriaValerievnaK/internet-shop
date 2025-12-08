@@ -5,6 +5,7 @@ const {
   updateCartItem,
   deleteCartItem,
   deleteCart,
+  createOrder,
 } = require("../controllers/cart");
 const authenticated = require("../middlewares/authenticated");
 const mapCart = require("../helpers/mapCart");
@@ -31,6 +32,15 @@ router.post("/", authenticated, async (req, res) => {
     });
 
     res.send({ data: newCartItem });
+  } catch (error) {
+    res.send({ error: error.message });
+  }
+});
+
+router.post("/order", authenticated, async (req, res) => {
+  try {
+    await createOrder(req.body.userId);
+    res.send({ error: null });
   } catch (error) {
     res.send({ error: error.message });
   }

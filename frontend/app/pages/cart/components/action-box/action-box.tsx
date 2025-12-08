@@ -1,19 +1,21 @@
+import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../../components';
-import { selectCartTotalPrice } from '../../../../../src/selectors';
-import { removeCartAsync } from '../../../../../src/actions';
+import { selectCartTotalPrice, selectUserId } from '../../../../../src/selectors';
+import { addOrderCartAsync } from '../../../../../src/actions';
 import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './action-box.module.css';
 
-export const ActionBox = () => {
+export const ActionBox: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
 	const totalPrise = useSelector(selectCartTotalPrice);
+	const userId = useSelector(selectUserId);
 
 	const onToBuy = () => {
-		dispatch(removeCartAsync());
+		dispatch(addOrderCartAsync(userId!));
 		navigate('/order');
 	};
 
