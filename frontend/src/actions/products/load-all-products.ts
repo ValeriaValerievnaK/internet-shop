@@ -4,6 +4,7 @@ import { request } from '../../utils';
 import { setProducts } from './set-products';
 import { setProductError } from './set-product-error';
 import { setProductLoading } from './set-product-loading';
+import { getApiErrorMessage } from '../../utils/apiError';
 
 interface IProductsResponse {
 	data?: IProduct[];
@@ -29,8 +30,9 @@ export const loadAllProducts =
 			return response;
 		} catch (e) {
 			const error = e as TApiError;
+			const message = getApiErrorMessage(error.status);
 
-			dispatch(setProductError(error.error));
+			dispatch(setProductError(error.message || message));
 
 			throw e;
 		} finally {

@@ -1,7 +1,6 @@
 const bcrypt = require(`bcrypt`);
 const User = require(`../models/User`);
 const { generate } = require("../helpers/token");
-const ROLES = require("../constants/roles");
 
 // register
 
@@ -16,7 +15,12 @@ async function register(login, password) {
     login,
     password: passwordHash,
   });
-  const token = generate({ id: user.id });
+
+  if (!user._id) {
+    throw new Error("Произошла ошибка! Идентификатор пользователя не найден.");
+  }
+
+  const token = generate({ id: user._id });
 
   return { token, user };
 }
@@ -36,7 +40,11 @@ async function login(login, password) {
     throw new Error("Wrong password. Неправильный пароль.");
   }
 
-  const token = generate({ id: user.id });
+  if (!user.id) {
+    throw new Error("Произошла ошибка! Идентификатор пользователя не найден.");
+  }
+
+  const token = generate({ id: user._id });
 
   return { token, user };
 }

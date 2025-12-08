@@ -3,6 +3,8 @@ import type { TRegFormSchema } from '../../../app/pages/registration/validation.
 import { request } from '../../utils';
 import { setUserError } from './set-user-error';
 import { setUser } from '../app';
+import type { TApiError } from '../../types';
+import { getApiErrorMessage } from '../../utils/apiError';
 
 interface IRegisterResponse {
 	error?: string;
@@ -32,12 +34,13 @@ export const addRegister =
 				sessionStorage.setItem('userData', JSON.stringify(response.user));
 			}
 
-			if (response.error) {
-				dispatch(setUserError(response.error));
-			}
-
 			return response;
 		} catch (e) {
+			const error = e as TApiError;
+			const message = getApiErrorMessage(error.status);
+
+			dispatch(setUserError(error.message || message));
+
 			throw e;
 		}
 	};

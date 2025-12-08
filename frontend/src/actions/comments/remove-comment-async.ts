@@ -1,6 +1,7 @@
 import type { TAppThunk } from '../../store';
 import type { TApiError } from '../../types';
 import { request } from '../../utils';
+import { getApiErrorMessage } from '../../utils/apiError';
 import { setProductError } from '../products';
 import { removeComment } from './remove-comment';
 
@@ -26,8 +27,9 @@ export const removeCommentAsync =
 			return response;
 		} catch (e) {
 			const error = e as TApiError;
+			const message = getApiErrorMessage(error.status);
 
-			dispatch(setProductError(error.error));
+			dispatch(setProductError(error.message || message));
 
 			throw e;
 		}

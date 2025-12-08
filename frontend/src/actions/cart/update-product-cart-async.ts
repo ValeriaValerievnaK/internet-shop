@@ -1,11 +1,13 @@
 import type { TAppThunk } from '../../store';
 import type { ICartData, TApiError } from '../../types';
 import { request } from '../../utils';
+import { getApiErrorMessage } from '../../utils/apiError';
 import { setCartError } from './set-cart-error';
 import { updateCart } from './update-cart';
 
 interface IUpdatedProduct {
 	data: ICartData;
+	status?: number;
 }
 
 export const updateProductCartAsync =
@@ -31,7 +33,9 @@ export const updateProductCartAsync =
 		} catch (e) {
 			const error = e as TApiError;
 
-			dispatch(setCartError(error.error));
+			const message = getApiErrorMessage(error.status);
+
+			dispatch(setCartError(error.message || message));
 
 			throw e;
 		}

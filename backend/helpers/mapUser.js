@@ -1,6 +1,6 @@
 module.exports = function (user) {
   return {
-    id: user.id,
+    id: user._id,
     login: user.login,
     roleId: user.role,
   };

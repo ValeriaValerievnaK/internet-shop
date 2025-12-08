@@ -1,6 +1,7 @@
 import type { TAppThunk } from '../../store';
 import type { ICategories, TApiError } from '../../types';
 import { request } from '../../utils';
+import { getApiErrorMessage } from '../../utils/apiError';
 import { setProductCategories } from './set-product-categories';
 import { setProductError } from './set-product-error';
 import { setProductLoading } from './set-product-loading';
@@ -20,8 +21,9 @@ export const loadProductCategories =
 			return response;
 		} catch (e) {
 			const error = e as TApiError;
+			const message = getApiErrorMessage(error.status);
 
-			dispatch(setProductError(error.error));
+			dispatch(setProductError(error.message || message));
 
 			throw e;
 		} finally {

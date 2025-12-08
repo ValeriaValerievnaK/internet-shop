@@ -4,6 +4,7 @@ import { request } from '../../utils';
 import { setProductData } from './set-product-data';
 import { setProductLoading } from './set-product-loading';
 import { setProductError } from './set-product-error';
+import { getApiErrorMessage } from '../../utils/apiError';
 
 export const saveProductAsync =
 	(newProductData: IProduct, id?: string): TAppThunk<Promise<IProduct>> =>
@@ -25,8 +26,9 @@ export const saveProductAsync =
 			return response.data;
 		} catch (e) {
 			const error = e as TApiError;
+			const message = getApiErrorMessage(error.status);
 
-			dispatch(setProductError(error.error));
+			dispatch(setProductError(error.message || message));
 
 			throw e;
 		} finally {

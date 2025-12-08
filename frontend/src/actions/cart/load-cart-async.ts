@@ -4,6 +4,7 @@ import { request } from '../../utils';
 import { setCartData } from './set-cart-data';
 import { setCartLoading } from './set-cart-loading';
 import { setCartError } from './set-cart-error';
+import { getApiErrorMessage } from '../../utils/apiError';
 
 interface IResponse {
 	data?: ICartData[];
@@ -29,7 +30,9 @@ export const loadCartAsync = (): TAppThunk<Promise<IResponse>> => async (dispatc
 	} catch (e) {
 		const error = e as TApiError;
 
-		dispatch(setCartError(error.error));
+		const message = getApiErrorMessage(error.status);
+
+		dispatch(setCartError(error.message || message));
 
 		throw e;
 	} finally {

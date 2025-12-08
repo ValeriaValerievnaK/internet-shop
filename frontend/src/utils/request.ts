@@ -3,11 +3,22 @@ export const request = async <TResponse = unknown, TRequest = unknown>(
 	method?: string,
 	data?: TRequest,
 ): Promise<TResponse> => {
-	return fetch(url, {
+	const response = await fetch(url, {
+		method,
 		headers: {
 			'content-type': 'application/json',
 		},
-		method: method || 'GET',
 		body: data ? JSON.stringify(data) : undefined,
-	}).then((res) => res.json());
+	});
+
+	const json = await response.json().catch(() => null);
+
+	if (!response.ok) {
+		throw {
+			status: response.status,
+			message: json?.error || json?.message || 'Error',
+		};
+	}
+
+	return json;
 };

@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../../components';
-import { selectCartTotalPrice, selectUserId } from '../../../../../src/selectors';
+import { selectCartTotalPrice } from '../../../../../src/selectors';
 import { addOrderCartAsync } from '../../../../../src/actions';
 import { useAppDispatch } from '../../../../../src/hooks';
 import styles from './action-box.module.css';
@@ -12,10 +12,9 @@ export const ActionBox: FC = () => {
 	const dispatch = useAppDispatch();
 
 	const totalPrise = useSelector(selectCartTotalPrice);
-	const userId = useSelector(selectUserId);
 
 	const onToBuy = () => {
-		dispatch(addOrderCartAsync(userId!));
+		dispatch(addOrderCartAsync());
 		navigate('/order');
 	};
 

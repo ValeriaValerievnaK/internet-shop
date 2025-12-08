@@ -6,6 +6,7 @@ import { setProductError } from './set-product-error';
 import { setProductLoading } from './set-product-loading';
 import { PAGINATION_LIMIT } from '../../constans';
 import { setLastPage } from './set-last-page';
+import { getApiErrorMessage } from '../../utils/apiError';
 
 interface IResponse {
 	data?: {
@@ -43,8 +44,9 @@ export const loadProducts =
 			return response;
 		} catch (e) {
 			const error = e as TApiError;
+			const message = getApiErrorMessage(error.status);
 
-			dispatch(setProductError(error.error));
+			dispatch(setProductError(error.message || message));
 
 			throw e;
 		} finally {

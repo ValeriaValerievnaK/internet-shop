@@ -68,8 +68,8 @@ async function addProductToCart(productData) {
 
 // edit (тут у меня проверка лимитов почти аналогична комментариям выше)
 
-async function updateCartItem(id, updateData) {
-  const cartItem = await Cart.findById(id);
+async function updateCartItem(id, updateData, userId) {
+  const cartItem = await Cart.findById({ _id: id, user_id: userId });
 
   if (!cartItem) {
     throw new Error("Товар в корзине не найден");

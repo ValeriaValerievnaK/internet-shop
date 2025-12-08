@@ -57,7 +57,7 @@ export const productReducer = (
 				productData: {
 					...state.productData,
 					comments: (state.productData.comments || []).filter(
-						(comment) => comment.id != action.payload,
+						(comment) => comment.id !== action.payload,
 					),
 				},
 			};

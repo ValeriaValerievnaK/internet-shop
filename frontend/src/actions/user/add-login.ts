@@ -1,6 +1,8 @@
 import type { TAuthFormSchema } from '../../../app/pages/authorization/validation.schema';
 import type { TAppThunk } from '../../store';
+import type { TApiError } from '../../types';
 import { request } from '../../utils';
+import { getApiErrorMessage } from '../../utils/apiError';
 import { setUser } from '../app';
 import { setUserError } from './set-user-error';
 
@@ -27,12 +29,13 @@ export const addlogin =
 				sessionStorage.setItem('userData', JSON.stringify(response.user));
 			}
 
-			if (response.error) {
-				dispatch(setUserError(response.error));
-			}
-
 			return response;
 		} catch (e) {
+			const error = e as TApiError;
+			const message = getApiErrorMessage(error.status);
+
+			dispatch(setUserError(error.message || message));
+
 			throw e;
 		}
 	};
