@@ -1,20 +1,22 @@
 import type { TAuthFormSchema } from '../../../app/pages/authorization/validation.schema';
 import type { TAppThunk } from '../../store';
-import type { TApiError } from '../../types';
+import type { IUser, TApiError } from '../../types';
 import { request } from '../../utils';
 import { getApiErrorMessage } from '../../utils/apiError';
 import { setUser } from '../app';
 import { setUserError } from './set-user-error';
+import { setUserLoading } from './set-user-loading';
 
 interface ILoginResponse {
 	error?: string;
-	user?: string;
+	user?: IUser;
 }
 
 export const addlogin =
 	({ login, password }: TAuthFormSchema): TAppThunk<Promise<ILoginResponse>> =>
 	async (dispatch) => {
 		dispatch(setUserError(null));
+		dispatch(setUserLoading(true));
 
 		try {
 			const response = await request<ILoginResponse, TAuthFormSchema>(
@@ -37,5 +39,7 @@ export const addlogin =
 			dispatch(setUserError(error.message || message));
 
 			throw e;
+		} finally {
+			dispatch(setUserLoading(false));
 		}
 	};

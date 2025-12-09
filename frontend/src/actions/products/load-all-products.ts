@@ -23,10 +23,6 @@ export const loadAllProducts =
 				dispatch(setProducts(response.data));
 			}
 
-			if (response.error) {
-				dispatch(setProductError(response.error));
-			}
-
 			return response;
 		} catch (e) {
 			const error = e as TApiError;

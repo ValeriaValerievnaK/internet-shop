@@ -15,6 +15,7 @@ import '../index.css';
 import { ERROR } from '../src/constans';
 import { useAppDispatch } from '../src/hooks';
 import styles from './shop.module.css';
+import type { IUser } from '../src/types';
 
 export const Shop = () => {
 	const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ export const Shop = () => {
 			return;
 		}
 
-		const currentUserData = JSON.parse(currentUserDataJSON);
+		const currentUserData: IUser = JSON.parse(currentUserDataJSON);
 
 		dispatch(
 			setUser({

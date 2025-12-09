@@ -3,8 +3,12 @@ import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { regFormSchema, type TRegFormSchema } from './validation.schema';
-import { Input, Button, H2, ErrorMessage } from '../../components';
-import { selectUserError, selectUserRole } from '../../../src/selectors';
+import { Input, Button, H2, ErrorMessage, Loader } from '../../components';
+import {
+	selectUserError,
+	selectUserIsLoading,
+	selectUserRole,
+} from '../../../src/selectors';
 import { ROLE } from '../../../src/constans';
 import { useAppDispatch, useResetForm } from '../../../src/hooks';
 import { addRegister, setUserError } from '../../../src/actions/user';
@@ -15,6 +19,7 @@ export const Registration = () => {
 
 	const roleId = useSelector(selectUserRole);
 	const serverError = useSelector(selectUserError);
+	const isLoading = useSelector(selectUserIsLoading);
 
 	const {
 		register,
@@ -45,6 +50,10 @@ export const Registration = () => {
 
 	if (roleId !== ROLE.GUEST) {
 		return <Navigate to="/" />;
+	}
+
+	if (isLoading) {
+		return <Loader />;
 	}
 
 	return (

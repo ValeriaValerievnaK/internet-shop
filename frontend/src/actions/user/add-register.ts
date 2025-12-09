@@ -1,14 +1,15 @@
 import type { TAppThunk } from '../../store';
 import type { TRegFormSchema } from '../../../app/pages/registration/validation.schema';
+import type { IUser, TApiError } from '../../types';
 import { request } from '../../utils';
 import { setUserError } from './set-user-error';
 import { setUser } from '../app';
-import type { TApiError } from '../../types';
 import { getApiErrorMessage } from '../../utils/apiError';
+import { setUserLoading } from './set-user-loading';
 
 interface IRegisterResponse {
 	error?: string;
-	user?: string;
+	user?: IUser;
 }
 
 type TRegister = Omit<TRegFormSchema, 'passwordchek'>;
@@ -17,6 +18,7 @@ export const addRegister =
 	({ login, password }: TRegister): TAppThunk<Promise<IRegisterResponse>> =>
 	async (dispatch) => {
 		dispatch(setUserError(null));
+		dispatch(setUserLoading(true));
 
 		try {
 			const response = await request<IRegisterResponse, TRegister>(
@@ -42,5 +44,7 @@ export const addRegister =
 			dispatch(setUserError(error.message || message));
 
 			throw e;
+		} finally {
+			dispatch(setUserLoading(false));
 		}
 	};

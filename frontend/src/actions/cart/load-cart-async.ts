@@ -22,10 +22,6 @@ export const loadCartAsync = (): TAppThunk<Promise<IResponse>> => async (dispatc
 			dispatch(setCartData(response.data));
 		}
 
-		if (response.error) {
-			dispatch(setCartError(response.error));
-		}
-
 		return response;
 	} catch (e) {
 		const error = e as TApiError;

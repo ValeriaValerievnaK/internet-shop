@@ -7,12 +7,14 @@ export interface IInitialUserState {
 	roleId: number;
 	session: string | null;
 	error: string | null;
+	isLoading: boolean;
 }
 
 type TUserAction =
 	| { type: EUserActionTypes.SET_USER; payload: IInitialUserState }
 	| { type: EUserActionTypes.LOGOUT }
-	| { type: EUserActionTypes.SET_USER_ERROR; payload: string | null };
+	| { type: EUserActionTypes.SET_USER_ERROR; payload: string | null }
+	| { type: EUserActionTypes.SET_USER_LOADING; payload: boolean };
 
 const initialUserState: IInitialUserState = {
 	id: null,
@@ -20,6 +22,7 @@ const initialUserState: IInitialUserState = {
 	roleId: ROLE.GUEST,
 	session: null,
 	error: null,
+	isLoading: false,
 };
 
 export const userReducer = (
@@ -39,6 +42,12 @@ export const userReducer = (
 			return {
 				...state,
 				error: action.payload,
+			};
+
+		case EUserActionTypes.SET_USER_LOADING:
+			return {
+				...state,
+				isLoading: action.payload,
 			};
 
 		default:

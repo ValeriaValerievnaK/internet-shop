@@ -37,10 +37,6 @@ export const loadProducts =
 				dispatch(setLastPage(response.data.lastPage));
 			}
 
-			if (response.error) {
-				dispatch(setProductError(response.error));
-			}
-
 			return response;
 		} catch (e) {
 			const error = e as TApiError;
