@@ -16,3 +16,4 @@ export const updateCountData = (price: number, count: number, action: string) =>
 
 	return { newCount, newPrice };
 };
+

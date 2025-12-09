@@ -27,6 +27,10 @@ async function addProductToCart(productData) {
     user_id: user_id,
   });
 
+  const existingProductItem = await Product.findOne({
+    _id: product_id,
+  });
+
   if (existingCartItem) {
     // если да, то количество на + 1
     const newCount = existingCartItem.count + 1;
@@ -36,8 +40,7 @@ async function addProductToCart(productData) {
       throw new Error("Недостаточно товара на складе");
     }
     // обновляем количество и цену
-    const newPrice =
-      newCount * (existingCartItem.price / existingCartItem.count);
+    const newPrice = newCount * existingProductItem.price;
 
     const updatedCartItem = await Cart.findByIdAndUpdate(
       existingCartItem._id,
