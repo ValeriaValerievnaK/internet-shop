@@ -1,13 +1,13 @@
 import { useState, type FC } from 'react';
 import { useSelector } from 'react-redux';
 import type { IComment } from '../../../../../src/types';
-import { selectUserRole } from '../../../../../src/selectors';
-import { addCommentAsync } from '../../../../../src/actions';
 import { Icon } from '../../../../components';
 import { Comment } from './comment/comment';
-import { ROLE } from '../../../../../src/constans';
+import { ROLE } from '../../../../../src/constants';
 import { formatDate } from '../../../../../src/utils';
 import { useAppDispatch } from '../../../../../src/hooks';
+import { selectUserRole } from '../../../../../src/modules/user';
+import { addCommentAsync } from '../../../../../src/modules/product';
 import styles from './comments.module.css';
 
 interface IParam {

@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { CategoryMenu, Pagination, ProdCard, Search, Sorting } from './components';
+import { Loader } from '../../components';
+import { debounce } from './utils';
+import { useAppDispatch } from '../../../src/hooks';
 import {
+	loadProductCategories,
+	loadProducts,
 	selectProductCategories,
 	selectProductIsLoading,
 	selectProductLastPage,
 	selectProducts,
-} from '../../../src/selectors';
-import { loadProductCategories, loadProducts } from '../../../src/actions';
-import { Loader } from '../../components';
-import { debounce } from './utils';
-import { useAppDispatch } from '../../../src/hooks';
+} from '../../../src/modules/product';
 import styles from './main.module.css';
 
 export const Main = () => {

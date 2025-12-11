@@ -4,14 +4,15 @@ import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { regFormSchema, type TRegFormSchema } from './validation.schema';
 import { Input, Button, H2, ErrorMessage, Loader } from '../../components';
+import { useAppDispatch, useResetForm } from '../../../src/hooks';
 import {
+	addRegister,
 	selectUserError,
 	selectUserIsLoading,
 	selectUserRole,
-} from '../../../src/selectors';
-import { ROLE } from '../../../src/constans';
-import { useAppDispatch, useResetForm } from '../../../src/hooks';
-import { addRegister, setUserError } from '../../../src/actions/user';
+	setUserError,
+} from '../../../src/modules/user';
+import { ROLE } from '../../../src/constants';
 import styles from './registration.module.css';
 
 export const Registration = () => {

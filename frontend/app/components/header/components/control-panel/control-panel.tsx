@@ -2,12 +2,12 @@ import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon, Button } from '../../..';
-import { ROLE } from '../../../../../src/constans';
-import { selectUserRole, selectUserLogin } from '../../../../../src/selectors';
-import { logout } from '../../../../../src/actions';
+import { ROLE } from '../../../../../src/constants';
 import { checkAccess } from '../../../../../src/utils';
-import styles from './control-panel.module.css';
 import { useAppDispatch } from '../../../../../src/hooks';
+import { selectUserLogin, selectUserRole } from '../../../../../src/modules/user';
+import { logout } from '../../../../../src/modules/app';
+import styles from './control-panel.module.css';
 
 interface IProps {
 	className?: string;

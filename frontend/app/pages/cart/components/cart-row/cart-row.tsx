@@ -2,12 +2,10 @@ import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { ICartData } from '../../../../../src/types';
 import { Icon } from '../../../../components';
-import {
-	removeProductToCartAsync,
-	updateProductCartAsync,
-} from '../../../../../src/actions';
 import { updateCountData } from '../../../../../src/utils';
 import { useAppDispatch } from '../../../../../src/hooks';
+import { updateProductCartAsync } from '../../../../../src/modules/cart';
+import { removeProductToCartAsync } from '../../../../../src/modules/product';
 import styles from './cart-row.module.css';
 
 export const CartRow: FC<{ cart: ICartData }> = ({

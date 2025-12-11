@@ -3,10 +3,10 @@ import type { FC } from 'react';
 import type { ICategoriesData } from '../../../../../src/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, ErrorMessage } from '../../../../components';
-import { saveProductAsync, updateProductList } from '../../../../../src/actions';
 import { validationSchema, type TFormSchema } from '../utils';
 import { SelectWithGroup } from '../select-with-group/select-with-group';
 import { useAppDispatch } from '../../../../../src/hooks';
+import { saveProductAsync, updateProductList } from '../../../../../src/modules/product';
 import styles from './creating-new-product.module.css';
 
 interface IProps {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import type { FieldValues, UseFormReset } from 'react-hook-form';
 import { useStore } from 'react-redux';
+import type { FieldValues, UseFormReset } from 'react-hook-form';
 import type { TRootState } from '../store';
 
 export const useResetForm = <T extends FieldValues>(reset: UseFormReset<T>) => {

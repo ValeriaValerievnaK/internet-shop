@@ -2,12 +2,12 @@ import type { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  id?: string;
-  inactive?: boolean;
-  size?: string;
-  margin?: string;
-  disabled?: boolean;
+	className?: string;
+	id?: string;
+	inactive?: boolean;
+	size?: string;
+	margin?: string;
+	disabled?: boolean;
 }
 
 const IconContainer: FC<IProps> = ({ className, id, inactive, ...props }) => (

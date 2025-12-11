@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import type { IUser } from '../src/types';
 import { Header, Footer, Modal, Error } from './components';
-import { setUser } from '../src/actions';
 import {
 	Authorization,
 	Registration,
@@ -12,10 +12,10 @@ import {
 	Main,
 } from './pages';
 import '../index.css';
-import { ERROR } from '../src/constans';
+import { ERROR } from '../src/constants';
 import { useAppDispatch } from '../src/hooks';
+import { setUser } from '../src/modules/app';
 import styles from './shop.module.css';
-import type { IUser } from '../src/types';
 
 export const Shop = () => {
 	const dispatch = useAppDispatch();
