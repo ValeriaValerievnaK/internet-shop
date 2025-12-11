@@ -1,5 +1,6 @@
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 
 // add
 // Сложная часть, поэтому оставлю комменарии
@@ -26,6 +27,10 @@ async function addProductToCart(productData) {
     user_id: user_id,
   });
 
+  const existingProductItem = await Product.findOne({
+    _id: product_id,
+  });
+
   if (existingCartItem) {
     // если да, то количество на + 1
     const newCount = existingCartItem.count + 1;
@@ -35,8 +40,7 @@ async function addProductToCart(productData) {
       throw new Error("Недостаточно товара на складе");
     }
     // обновляем количество и цену
-    const newPrice =
-      newCount * (existingCartItem.price / existingCartItem.count);
+    const newPrice = newCount * existingProductItem.price;
 
     const updatedCartItem = await Cart.findByIdAndUpdate(
       existingCartItem._id,
@@ -67,8 +71,8 @@ async function addProductToCart(productData) {
 
 // edit (тут у меня проверка лимитов почти аналогична комментариям выше)
 
-async function updateCartItem(id, updateData) {
-  const cartItem = await Cart.findById(id);
+async function updateCartItem(id, updateData, userId) {
+  const cartItem = await Cart.findById({ _id: id, user_id: userId });
 
   if (!cartItem) {
     throw new Error("Товар в корзине не найден");
@@ -116,10 +120,40 @@ async function deleteCart(userId) {
   return result;
 }
 
+// создание заказа
+
+async function createOrder(userId) {
+  const cartItems = await Cart.find({ user_id: userId });
+
+  if (cartItems.length === 0) {
+    throw new Error("Корзина пуста");
+  }
+
+  await Order.create({
+    user_id: userId,
+    items: cartItems.map((item) => ({
+      product_id: item.product_id,
+      count: item.count,
+    })),
+  });
+
+  for (const item of cartItems) {
+    await Product.updateOne(
+      { _id: item.product_id },
+      { $inc: { count: -item.count } }
+    );
+  }
+
+  await Product.deleteMany({ count: { $lte: 0 } });
+
+  await Cart.deleteMany({ user_id: userId });
+}
+
 module.exports = {
   getCart,
   addProductToCart,
   updateCartItem,
   deleteCartItem,
   deleteCart,
+  createOrder,
 };

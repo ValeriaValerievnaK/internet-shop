@@ -1,12 +1,11 @@
 import type { FC, ReactNode } from 'react';
-import {
-	CLOSE_MODAL,
-	openModal,
-	removeProductAsync,
-	updateProductList,
-} from '../../../../../src/actions';
 import { Icon } from '../../../../components';
 import { useAppDispatch } from '../../../../../src/hooks';
+import { CLOSE_MODAL, openModal } from '../../../../../src/modules/app';
+import {
+	removeProductAsync,
+	updateProductList,
+} from '../../../../../src/modules/product';
 
 interface IProps {
 	id: string;

@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { TableRow, ProductRow, CreatingNewProduct } from './components';
+import { H2, Loader, PrivateContent } from '../../components';
+import { ROLE } from '../../../src/constants';
+import { checkAccess } from '../../../src/utils';
+import { useAppDispatch } from '../../../src/hooks';
+import { selectShouldUpdateProductList } from '../../../src/modules/app';
 import {
-	selectProducts,
+	loadAllProducts,
+	loadProductCategories,
 	selectProductCategories,
 	selectProductError,
 	selectProductIsLoading,
-	selectShouldUpdateProductList,
-	selectUserRole,
-} from '../../../src/selectors';
-import { loadAllProducts, loadProductCategories } from '../../../src/actions';
-import { TableRow, ProductRow, CreatingNewProduct } from './components';
-import { H2, Loader, PrivateContent } from '../../components';
-import { ROLE } from '../../../src/constans';
-import { checkAccess } from '../../../src/utils';
-import { useAppDispatch } from '../../../src/hooks';
+	selectProducts,
+} from '../../../src/modules/product';
+import { selectUserRole } from '../../../src/modules/user';
 import styles from './products-edit.module.css';
 
 export const ProductsEdit = () => {

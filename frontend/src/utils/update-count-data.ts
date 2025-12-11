@@ -1,4 +1,8 @@
-export const updateCountData = (price: number, count: number, action: string) => {
+export const updateCountData = (
+	price: number,
+	count: number,
+	action: 'increase' | 'decrease',
+) => {
 	let newCount: number;
 	let newPrice: number;
 
@@ -7,9 +11,7 @@ export const updateCountData = (price: number, count: number, action: string) =>
 	if (action === 'increase') {
 		newCount = Number(count) + 1;
 		newPrice = newCount * singlePrice;
-	}
-
-	if (action === 'decrease') {
+	} else {
 		newCount = Number(count) - 1;
 		newPrice = newCount * singlePrice;
 	}

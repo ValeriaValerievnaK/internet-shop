@@ -1,17 +1,13 @@
-import { useSelector } from 'react-redux';
-import {
-	CLOSE_MODAL,
-	openModal,
-	removeCommentAsync,
-} from '../../../../../../src/actions';
 import type { FC } from 'react';
-import { selectUserRole } from '../../../../../../src/selectors';
+import { useSelector } from 'react-redux';
 import { Icon } from '../../../../../components';
 import { checkAccess } from '../../../../../../src/utils';
-import { ROLE } from '../../../../../../src/constans';
+import { ROLE } from '../../../../../../src/constants';
 import { useAppDispatch } from '../../../../../../src/hooks';
+import { selectUserRole } from '../../../../../../src/modules/user';
+import { CLOSE_MODAL, openModal } from '../../../../../../src/modules/app';
+import { removeCommentAsync } from '../../../../../../src/modules/product';
 import styles from './comment.module.css';
-
 interface IParam {
 	productId: string;
 	id: string;

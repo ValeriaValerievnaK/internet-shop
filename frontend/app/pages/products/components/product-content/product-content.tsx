@@ -2,17 +2,17 @@ import { useEffect, useState, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { IProduct } from '../../../../../src/types';
-import {
-	selectProductCategories,
-	selectUserId,
-	selectUserRole,
-} from '../../../../../src/selectors';
 import { Button, H2 } from '../../../../components';
 import { getCategoryPath } from './utils/get-category-path';
 import { checkAccess } from '../../../../../src/utils';
-import { ROLE } from '../../../../../src/constans';
+import { ROLE } from '../../../../../src/constants';
 import { useAppDispatch } from '../../../../../src/hooks';
-import { addProductToCart, loadProductCategories } from '../../../../../src/actions';
+import {
+	addProductToCart,
+	loadProductCategories,
+	selectProductCategories,
+} from '../../../../../src/modules/product';
+import { selectUserId, selectUserRole } from '../../../../../src/modules/user';
 import styles from './product-content.module.css';
 
 interface IParam {

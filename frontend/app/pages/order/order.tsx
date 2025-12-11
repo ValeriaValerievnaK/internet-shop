@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { generateRandomOrderNumber } from './utils/generate-random-order-number';
-import { ROLE } from '../../../src/constans';
+import { ROLE } from '../../../src/constants';
 import { PrivateContent } from '../../components';
 import styles from './order.module.css';
 

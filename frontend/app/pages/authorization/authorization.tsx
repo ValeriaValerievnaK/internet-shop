@@ -3,11 +3,16 @@ import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authFormSchema, type TAuthFormSchema } from './validation.schema';
-import { ROLE } from '../../../src/constans';
-import { Button, ErrorMessage, H2, Input } from '../../components';
-import { selectUserError, selectUserRole } from '../../../src/selectors';
+import { ROLE } from '../../../src/constants';
+import { Button, ErrorMessage, H2, Input, Loader } from '../../components';
 import { useAppDispatch, useResetForm } from '../../../src/hooks';
-import { addlogin, setUserError } from '../../../src/actions/user';
+import {
+	addlogin,
+	selectUserError,
+	selectUserIsLoading,
+	selectUserRole,
+	setUserError,
+} from '../../../src/modules/user';
 import styles from './authorization.module.css';
 
 export const Authorization = () => {
@@ -15,6 +20,7 @@ export const Authorization = () => {
 
 	const roleId = useSelector(selectUserRole);
 	const serverError = useSelector(selectUserError);
+	const isLoading = useSelector(selectUserIsLoading);
 
 	const {
 		register,
@@ -41,6 +47,10 @@ export const Authorization = () => {
 
 	if (roleId !== ROLE.GUEST) {
 		return <Navigate to="/" />;
+	}
+
+	if (isLoading) {
+		return <Loader />;
 	}
 
 	return (

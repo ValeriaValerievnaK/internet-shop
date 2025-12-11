@@ -5,6 +5,7 @@ const {
   updateCartItem,
   deleteCartItem,
   deleteCart,
+  createOrder,
 } = require("../controllers/cart");
 const authenticated = require("../middlewares/authenticated");
 const mapCart = require("../helpers/mapCart");
@@ -16,7 +17,7 @@ router.get("/", authenticated, async (req, res) => {
     const cartItems = await getCart(req.user._id);
     res.send({ data: cartItems.map((product) => mapCart(product)) });
   } catch (error) {
-    res.send({ error: error.message });
+    res.status(500).send({ error: error.message });
   }
 });
 
@@ -24,7 +25,7 @@ router.post("/", authenticated, async (req, res) => {
   try {
     const newCartItem = await addProductToCart({
       product_id: req.body.productId,
-      user_id: req.body.userId,
+      user_id: req.user._id,
       image: req.body.imageUrl,
       title: req.body.title,
       price: req.body.price,
@@ -32,29 +33,33 @@ router.post("/", authenticated, async (req, res) => {
 
     res.send({ data: newCartItem });
   } catch (error) {
-    res.send({ error: error.message });
+    res.status(400).send({ error: error.message });
   }
 });
 
-router.delete("/", authenticated, async (req, res) => {
+router.post("/order", authenticated, async (req, res) => {
   try {
-    await deleteCart(req.user._id);
+    await createOrder(req.user._id);
     res.send({ error: null });
   } catch (error) {
-    res.send({ error: error.message });
+    res.status(400).send({ error: error.message });
   }
 });
 
 router.patch("/:id", authenticated, async (req, res) => {
   try {
-    const updatedCartItem = await updateCartItem(req.params.id, {
-      count: req.body.newCount,
-      price: req.body.newPrice,
-    });
+    const updatedCartItem = await updateCartItem(
+      req.params.id,
+      {
+        count: req.body.newCount,
+        price: req.body.newPrice,
+      },
+      req.user._id
+    );
 
     res.send({ data: mapCart(updatedCartItem) });
   } catch (error) {
-    res.send({ error: error.message });
+    res.status(400).send({ error: error.message });
   }
 });
 
@@ -63,7 +68,7 @@ router.delete("/:id", authenticated, async (req, res) => {
     await deleteCartItem(req.params.id);
     res.send({ error: null });
   } catch (error) {
-    res.send({ error: error.message });
+    res.status(500).send({ error: error.message });
   }
 });
 

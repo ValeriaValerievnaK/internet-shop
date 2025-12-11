@@ -8,7 +8,7 @@ interface IProps {
 	setPage: (i: number) => void;
 }
 
-export const Pagination: FC<IProps> = ({ page, lastPage, setPage }) => (
+export const Pagination: FC<IProps> = ({ page = 1, lastPage, setPage }) => (
 	<div className={styles.paginationBox}>
 		<Button disabled={page === 1} onClick={() => setPage(1)}>
 			В начало

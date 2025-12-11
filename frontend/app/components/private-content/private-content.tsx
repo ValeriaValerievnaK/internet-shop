@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
-import { ERROR } from '../../../src/constans';
-import { selectUserRole } from '../../../src/selectors';
+import { ERROR } from '../../../src/constants';
 import { Error } from '../error/error';
 import { checkAccess } from '../../../src/utils';
+import { selectUserRole } from '../../../src/modules/user';
 
 interface IProps {
 	children: ReactNode;

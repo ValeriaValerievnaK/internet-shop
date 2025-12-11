@@ -1,11 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { loadProductAsync, updateIsLoadingStart } from '../../../src/actions';
-import { selectProduct, selectProductIsLoading } from '../../../src/selectors';
 import { ProductContent, Comments } from './components';
 import { Loader } from '../../components';
 import { useAppDispatch } from '../../../src/hooks';
+import {
+	loadProductAsync,
+	selectProduct,
+	selectProductIsLoading,
+} from '../../../src/modules/product';
+import { updateIsLoadingStart } from '../../../src/modules/app';
 import styles from './products.module.css';
 
 export const Products = () => {

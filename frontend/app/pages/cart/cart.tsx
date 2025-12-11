@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ActionBox, CartRow } from './components';
-import {
-	selectCartData,
-	selectCartError,
-	selectCartIsLoading,
-	selectUserRole,
-} from '../../../src/selectors';
-import { loadCartAsync } from '../../../src/actions';
 import { Loader, PrivateContent } from '../../components';
-import { ROLE } from '../../../src/constans';
+import { ROLE } from '../../../src/constants';
 import { checkAccess } from '../../../src/utils';
 import { useAppDispatch } from '../../../src/hooks';
 import styles from './cart.module.css';
+import {
+	loadCartAsync,
+	selectCartData,
+	selectCartError,
+	selectCartIsLoading,
+} from '../../../src/modules/cart';
+import { selectUserRole } from '../../../src/modules/user';
 
 export const Cart = () => {
 	const navigate = useNavigate();

@@ -6,7 +6,10 @@ import {
 	type AnyAction,
 } from 'redux';
 import { thunk, type ThunkAction, type ThunkDispatch } from 'redux-thunk';
-import { userReducer, appReducer, productReducer, cartReducer } from './reducers';
+import { appReducer } from './modules/app';
+import { cartReducer } from './modules/cart';
+import { userReducer } from './modules/user';
+import { productReducer } from './modules/product';
 
 const reducer = combineReducers({
 	app: appReducer,

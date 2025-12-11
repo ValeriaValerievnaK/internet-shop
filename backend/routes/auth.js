@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
       .cookie("token", token, { httpOnly: true })
       .send({ error: null, user: mapUser(user) });
   } catch (e) {
-    res.send({ error: e.message || "Unknown error" });
+    res.status(400).send({ error: e.message || "Unknown error" });
   }
 });
 
@@ -24,7 +24,7 @@ router.post("/login", async (req, res) => {
       .cookie("token", token, { httpOnly: true })
       .send({ error: null, user: mapUser(user) });
   } catch (e) {
-    res.send({ error: e.message || "Unknown error" });
+    res.status(400).send({ error: e.message || "Unknown error" });
   }
 });
 

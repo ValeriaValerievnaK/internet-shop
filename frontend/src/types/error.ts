@@ -1,3 +1,4 @@
 export type TApiError = {
-	error: string | null;
+	status: number;
+	message: string | null;
 };
